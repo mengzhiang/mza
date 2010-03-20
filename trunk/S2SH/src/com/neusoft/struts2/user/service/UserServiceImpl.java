@@ -1,19 +1,23 @@
 package com.neusoft.struts2.user.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.neusoft.struts2.user.dao.UserDao;
+import com.neusoft.struts2.user.model.User;
 
+@Service
 public class UserServiceImpl implements UserService {
+	//要把userDao注入进来必须加上@Resource
+	@Resource
 	private UserDao userDao;
-
-	public UserDao getUserDao() {
-		return userDao;
-	}
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
 	public void addUser(User user){
-		userDao
+		userDao.addUser(user);
 	}
 }

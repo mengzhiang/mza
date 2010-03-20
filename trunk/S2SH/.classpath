@@ -3,11 +3,24 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate3"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring2.5.6"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Struts2"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/struts2+spring"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/slf4j"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.5.11.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-nop-1.5.11.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-simple-1.5.11.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/freemarker-2.3.15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-core-2.1.8.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xwork-core-2.1.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-spring-plugin-2.1.8.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
