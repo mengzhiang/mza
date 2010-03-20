@@ -1,23 +1,25 @@
 package com.neusoft.struts2.user.dao;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import com.neusoft.struts2.user.model.User;
 
+@Repository
 public class UserDaoImpl implements UserDao {
-	private SessionFactory factory ;
-
-	public SessionFactory getFactory() {
-		return factory;
-	}
-
-	public void setFactory(SessionFactory factory) {
-		this.factory = factory;
-	}
+	@Resource
+	private SessionFactory sessionFactory ;
 	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	public void addUser(User user){
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.save(user);
+		session.close();
 	}
 }
