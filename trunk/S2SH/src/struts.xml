@@ -10,8 +10,8 @@
     <constant name="struts.devMode" value="true" />
      <include file="struts-default.xml" />  
     <package name="default" extends="struts-default">
-        <action name="user" class="userAction">
-            <result name="success">success.jsp</result>
+        <action name="*_*" class="{1}Action" method="{2}">
+            <result name="success">{1}_{2}.jsp</result>
             <result name="error">error.jsp</result>
         </action>
     </package>

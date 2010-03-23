@@ -1,7 +1,10 @@
 package com.neusoft.struts2.user.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -21,5 +24,13 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		session.save(user);
 		session.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> list(){
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(User.class);
+		List<User> users = criteria.list();
+		return users;
 	}
 }
