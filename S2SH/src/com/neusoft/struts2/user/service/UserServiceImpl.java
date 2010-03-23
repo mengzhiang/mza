@@ -1,5 +1,7 @@
 package com.neusoft.struts2.user.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -19,5 +21,9 @@ public class UserServiceImpl implements UserService {
 	
 	public void addUser(User user){
 		userDao.addUser(user);
+	}
+	
+	public List<User> list(){
+		return userDao.list();
 	}
 }
