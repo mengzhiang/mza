@@ -13,9 +13,12 @@ function test(){
 	}
 }
 
-function edit(){
-	window.location = "user_edit";
+function edit(id){
+	window.location = "user_edit?sid="+id;
 }
-function del(){
-	window.location = "user_del";
+function del(id){
+	window.location = "user_del?sid="+id;
+}
+function add(){
+	window.location = "user_add";
 }

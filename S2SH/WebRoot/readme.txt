@@ -16,3 +16,5 @@ hibernate 3.3.2
 6：试试jfreechart来完成报表的尝试
 7：尝试下工作流jbpm
 8：尝试自己解析grid来拼table
+
+9:分页

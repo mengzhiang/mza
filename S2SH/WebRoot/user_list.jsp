@@ -23,6 +23,7 @@
   </head>
   <body>
   userlist;
+  新增<img src="imgs/new.png" style="cursor:pointer" onclick="add()"/>
   <s:debug></s:debug>
   <table>
 	  <tr>
@@ -41,8 +42,8 @@
 			<td><s:property value="id"/></td>
 			<td><s:property value="name"/></td>
 			<td><s:property value="pwd"/></td>
-			<td><img src="imgs/edit.png" style="cursor:pointer" onclick="edit()"/></td>
-			<td><img src="imgs/del.png" style="cursor:pointer" onclick="del()"/></td>
+			<td><img src="imgs/edit.png" style="cursor:pointer" onclick="edit(<s:property value="id"/>)"/></td>
+			<td><img src="imgs/del.png" style="cursor:pointer" onclick="del(<s:property value="id"/>)"/></td>
     	</tr>
     </s:iterator>
      </table>
