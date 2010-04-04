@@ -19,11 +19,16 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 	
-	public void addUser(User user){
-		userDao.addUser(user);
+	public void save(User user){
+		userDao.save(user);
 	}
 	
 	public List<User> list(){
 		return userDao.list();
+	}
+	//通过ID查询user
+	public User getUserById(long id) {
+		return userDao.getUserById(id);
+		
 	}
 }
