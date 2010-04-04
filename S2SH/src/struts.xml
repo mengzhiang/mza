@@ -5,14 +5,17 @@
 
 <!-- 如果前台采用ajax框架来做，全是弹出页面，这样就不需要这些页面的跳转
 	，只要弹出页面就可以了
+	
+	<result name="success">{1}_{2}.jsp</result>
+            <result name="error">error.jsp</result>
  -->
 <struts>
     <constant name="struts.devMode" value="true" />
      <include file="struts-default.xml" />  
-    <package name="default" extends="struts-default">
+    <package name="default" extends="json-default">
         <action name="*_*" class="{1}Action" method="{2}">
-            <result name="success">{1}_{2}.jsp</result>
-            <result name="error">error.jsp</result>
+            <result name="success" type="json">s2sh/{1}_{2}.jsp</result>
+            <result name="error">s2sh/error.jsp</result>
         </action>
     </package>
 

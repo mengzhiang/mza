@@ -18,3 +18,10 @@ hibernate 3.3.2
 8：尝试自己解析grid来拼table
 
 9:分页
+
+
+2010，4.4 加入struts2-json-plugin-2.1.8.1.jar
+          更改struts2配置文件，extends="json-default"
+          把jsp文件都放在s2sh文件夹下
+          现在访问列表返回的是一个json串，需要解析，下一步做
+			
