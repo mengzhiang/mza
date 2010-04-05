@@ -14,8 +14,9 @@
      <include file="struts-default.xml" />  
     <package name="default" extends="json-default">
         <action name="*_*" class="{1}Action" method="{2}">
-            <result name="success" type="json">s2sh/{1}_{2}.jsp</result>
-            <result name="error">s2sh/error.jsp</result>
+            <result type="json"></result>
+            <!--  s2sh/{1}_{2}.jsp 
+            result name="error">s2sh/error.jsp</result> -->
         </action>
     </package>
 
