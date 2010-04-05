@@ -2,9 +2,11 @@
 
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="default.css">
+  	<script type="text/javascript" src="index.js"></script>
   </head>
   <body>
     index.jsp <br>
-    <a href="user_list">列表</a>
+    <div id="mytable"></div>
   </body>
 </html>
