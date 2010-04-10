@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<script type="text/javascript" src="dojo/dojo/dojo.js" djConfig="parseOnLoad:true"></script>
+		<style type="text/css" >
+			@import "dojo/dijit/themes/tundra/tundra.css";
+		</style>
+		<script type="text/javascript">
+			dojo.require("dojo.parser");
+			dojo.require("dijit.form.TextBox");
+			dojo.require("dijit.form.Button");
+			function init(){
+				dojo.connect(dijit.byId("button").domNode,"onclick","login");
+			}
+			function login(){
+				var name = dijit.byId("name").getValue();
+				var pwd = dijit.byId("pwd").getValue();
+				if(name =="name"&&pwd=="1"){
+					alert("µÇÂ½³É¹¦£¡");
+				}else{
+					alert("µÇÂ½Ê§°Ü£¡");
+				}
+			}
+			dojo.addOnLoad(init);
+		</script>
+	</head>
+	<body class="tundra">
+		username:<input id="name" type="text"     dojoType="dijit.form.TextBox" required="true">
+		password:<input id ="pwd" type="password" dojoType="dijit.form.TextBox">
+		<div id ="button" dojoType="dijit.form.Button">Submit<div>
+	</body>
+</html>
