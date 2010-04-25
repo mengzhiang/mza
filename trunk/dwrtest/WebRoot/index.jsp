@@ -27,8 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <script type="text/javascript">
     	function test(){
-    	 var cl = JTest.hello(); 	
-    	 tttt=setTimeout('alert()',1000);
+    	 JTest.hello(callback); 	
+    	 }
+    	 function callback(str){
+    	 	alert(str);
     	 }
     	 test();	
     </script>
