@@ -18,7 +18,7 @@ hibernate 3.3.2
 8：尝试自己解析grid来拼table
 
 9:分页
-
+10:按字段查询，把前台查询条件拼到线程变量里，传给后台。
 
 2010，4.4 加入struts2-json-plugin-2.1.8.1.jar
           更改struts2配置文件，extends="json-default"
