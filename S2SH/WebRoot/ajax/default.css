@@ -1,14 +1,21 @@
-table{
+.table{
 	border:1px solid;
 	border-collapse:collapse;
 }
-td{
+.tr{
+	
+}
+.td{
 	border:1px solid #429fff;
 }
-th{
+.th{
 	border:1px solid #429fff;
 	background-color:#f0f7ff;
 }
 .altrow{
 	background-color:#c4e4ff;	/* ¶¯Ì¬±äÉ« */
+}
+.modeltitle
+{
+	background-color:#c4e4ff;	
 }

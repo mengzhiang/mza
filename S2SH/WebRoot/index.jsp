@@ -2,11 +2,9 @@
 
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="default.css">
-  	<script type="text/javascript" src="index.js"></script>
   </head>
-  <body>
-    index.jsp <br>
-    <div id="mytable"></div>
+  <body >
+		<a href="ajax/list.jsp">手动写的js版本</a>
+		<a href="user_list">Struts2标签版本</a>
   </body>
 </html>
