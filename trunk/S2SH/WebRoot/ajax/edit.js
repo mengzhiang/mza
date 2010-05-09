@@ -32,6 +32,6 @@ function save(){
 	}
 }
 function closeDialog(){
-	parent.closeDialog();
+	parent.MZA.closeDialog();
 }
 MZA.addOnLoad(getById);

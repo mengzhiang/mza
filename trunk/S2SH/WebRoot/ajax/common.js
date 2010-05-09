@@ -150,6 +150,10 @@ function MZA(){
 		if(data.title){
 			title = data.title;
 		}
+		var url="";
+		if(data.url){
+			url = data.url;
+		}
 		var arrWinSize = MZA.getWindowSize();
 		var pageWidth = arrWinSize[0];
 		var pageHeight = arrWinSize[1];
@@ -174,10 +178,22 @@ function MZA(){
 		popObj.style.zIndex = 99;
 		popwidth= data.width;
 		popheight =data.height;
-		popObj.style.width = popwidth;
-		popObj.style.height = popheight;
-		popObj.style.top =(winHeight-popheight)/2+"px";
-		popObj.style.left = (winWidth-popwidth)/2+"px";
+		popObj.style.width = popwidth +"px";
+		popObj.style.height = popheight +"px";
+		var top = "0px";
+		if(winHeight-popheight>0){
+			top = (winHeight-popheight)/2+"px";
+		}else{
+			top = (popheight-winHeight)/2+"px";
+		}
+		var left = "0px";
+		if(winWidth-popwidth>0){
+			left =(winWidth-popwidth)/2+"px";
+		}else{
+			left =(popwidth-winWidth)/2+"px";
+		}
+		popObj.style.top =top;
+		popObj.style.left = left;
 		//创建弹出页面
 		var contentNode = document.createElement("div");
 		contentNode.setAttribute("id","contain");
@@ -198,8 +214,9 @@ function MZA(){
 				tnameNode.appendChild(tnameSpanNode);
 				var tbutNode = document.createElement("div");
 				tbutNode.setAttribute("id","dlgtbut");
-				tbutNode.setAttribute("onMouseover","this.style.backgroundPosition = '0 -19px';")
-				tbutNode.setAttribute("onMouseout","this.style.backgroundPosition = '0 0px';")
+				tbutNode.setAttribute("onMouseover","this.style.backgroundPosition = '0 -19px';");
+				tbutNode.setAttribute("onMouseout","this.style.backgroundPosition = '0 0px';");
+				tbutNode.setAttribute("onClick","MZA.closeDialog();");
 			titleNode.appendChild(tlNode);
 			titleNode.appendChild(tnameNode);
 			titleNode.appendChild(trNode);
@@ -207,10 +224,27 @@ function MZA(){
 			var innerNode = document.createElement("div");
 			innerNode.setAttribute("class","dlginner");
 			innerNode.setAttribute("id","dlginner");
+				var iframeNode = document.createElement("iframe");
+				iframeNode.setAttribute("src",url);
+				iframeNode.setAttribute("frameborder","0");
+				innerNode.appendChild(iframeNode);
+			innerNode.style.height = popheight-31 +"px";
 			contentNode.appendChild(titleNode);
 			contentNode.appendChild(innerNode);
 		popObj.appendChild(contentNode);
 		bodyNode[0].appendChild(popObj);
+	}
+	//关闭模态窗口
+	this.closeDialog = function(){
+		this.removeElement(document.getElementById("bodypop"));
+		this.removeElement(document.getElementById("bodybg"));
+	}
+	//删除某个节点
+	this.removeElement = function(_element){
+		 var _parentElement = _element.parentNode;
+         if(_parentElement){
+                _parentElement.removeChild(_element);  
+         }
 	}
 }
 
