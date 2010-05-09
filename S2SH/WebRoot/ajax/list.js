@@ -127,7 +127,7 @@ function UserList(){
 		var data ={
 			title:"编辑23423423423",
 			width:300,
-			height:200,
+			height:300,
 			url:"edit.jsp?id="+id
 		}
 		MZA.openDialog(data);
@@ -145,33 +145,6 @@ function UserList(){
 	this.init = function(){
 		//document.getElementById("add").onclick = add;
 	}
-}
-//打开模态窗口
-function showDialog(data){
-	//1:设置一个div宽度，高度和窗口一样
-	//2：点击时显示出来，但是要在原来的窗口上面，不能挤下去，所以要设置position:absoulte
-	//3: 但是要显示那一层在上面所以要设置z-index越大越在上
-	//4:但是还要看到下面一层的东西所以要设置半透明
-	//document.write("<div id='id1 style='display:'';position:absolute;background-color:red;z-index:3;opacity:0.5;filter:alpha(opacity=50)'></div>");
-//	var div1 = document.getElementById("id1");
-//	div1c
-//	div1.style.height=window.screen.height+"px";
-//	div1.style.display="";
-//	var div2 = document.getElementById("id2");
-//	var url =data.url;
-//	var width ="300px";
-//	var height ="200px";
-//	width= data.width;
-//	height =data.height;
-//	document.getElementById("dialog").setAttribute("src",url);
-//	div2.style.width=width;
-//	div2.style.height=height;
-//	div2.style.display="";
-}
-//关闭模态窗口
-function closeDialog(){
-	document.getElementById("id1").style.display="none";
-	document.getElementById("id2").style.display="none";
 }
 
 function formatEdit(colId){

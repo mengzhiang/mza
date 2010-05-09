@@ -103,4 +103,11 @@ body
 	background-repeat: no-repeat;
 	background-position: 0 0;
 }
+.dlginner
+{
+	background-color: #eff5fc;
+	border-left: 1px solid #005195;
+	border-right: 1px solid #005195;
+	border-bottom: 1px solid #005195;
+}
 
