@@ -1,3 +1,23 @@
+html, body
+{
+	background-color: transparent;/*表示透明无颜色 */
+	margin: 0;
+	padding: 0;
+	font: 11px Verdana, Arial, sans-serif;
+}
+
+body
+{
+	overflow: auto;/*表示溢出部分隐藏 
+	visible	默认值。内容不会被修剪，会呈现在元素框之外。
+	hidden	内容会被修剪，并且其余内容是不可见的。
+	scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+	auto	如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。*/
+    width: 100%;
+	height: 100%;
+	background-color: transparent;
+}
+
 .table{
 	border:1px solid;
 	border-collapse:collapse;
@@ -15,7 +35,72 @@
 .altrow{
 	background-color:#c4e4ff;	/* 动态变色 */
 }
-.modeltitle
+.dlgtitle
 {
-	background-color:#c4e4ff;	
+	height:30px;
 }
+.contain
+{
+    position: absolute;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	overflow: hidden;
+}
+#dlgtr,#dlgtl,#dlgtname
+{
+	float:left;
+	background-image: url(../images/d_bg.gif);
+	height:100%;
+}
+#dlgtr,#dlgtl
+{
+	width:5px;
+	background-repeat: no-repeat;
+}
+#dlgtl
+{
+	left: 0;
+	background-position: 0 0;
+}
+#dlgtr
+{
+	
+	left: 0;
+	background-position: 0 -60;
+}
+#dlgtname
+{
+	overflow: hidden;
+	left:5px;
+	right:5px;
+	background-repeat: repeat-x;
+	background-position: 0 -30;
+}
+#dlgtname span
+{
+    position: absolute;
+	/*利用!important，我们可以针对IE和非IE浏览器设置不同的样式，只要在非IE浏览器样式的后面加上!important。*/
+    top: 7px !important;
+	top: 9px;
+    left: 10px;
+	color: #fff;
+	font-size: 13px;
+	font-weight: bold;
+}
+#dlgtbut
+{
+	position: absolute;
+	float:left;
+	top: 0px;
+	right: 15px;
+	width: 43px;
+	height: 19px;
+	background-image: url(../images/cbtn.gif);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
