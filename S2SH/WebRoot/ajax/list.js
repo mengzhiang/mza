@@ -125,16 +125,18 @@ function UserList(){
 	//弹出编辑页面
 	this.edit = function(id){
 		var data ={
-			width:"300px",
-			height:"200px",
+			title:"编辑23423423423",
+			width:300,
+			height:200,
 			url:"edit.jsp?id="+id
 		}
-		showDialog(data);
+		MZA.openDialog(data);
 	}
 	this.add = function(){
-		showDialog({
-			width:"300px",
-			height:"200px",
+		MZA.openDialog({
+			title:"新增",
+			width:300,
+			height:200,
 			url:"add.jsp",
 			onclosed:list
 		});
@@ -150,21 +152,6 @@ function showDialog(data){
 	//2：点击时显示出来，但是要在原来的窗口上面，不能挤下去，所以要设置position:absoulte
 	//3: 但是要显示那一层在上面所以要设置z-index越大越在上
 	//4:但是还要看到下面一层的东西所以要设置半透明
-	var bodyBack = document.createElement("div");
-	bodyBack.setAttribute("id","bodybg");
-	bodyBack.style.position = "absolute";
-	alert(window.innerWidth);
-	bodyBack.style.width = window.innerWidth;
-	bodyBack.style.height = window.innerHeight;
-	bodyBack.style.top = 0;
-	bodyBack.style.left = 0;
-	bodyBack.style.zIndex = 98;
-	bodyBack.style.filter = "alpha(opacity=50)";//IE的透明
-	bodyBack.style.opacity = 0.5;//css标准透明
-	bodyBack.style.background = "#ddf";
-	var bodyNode = document.getElementsByTagName("body");
-	bodyNode[0].appendChild(bodyBack);
-	
 	//document.write("<div id='id1 style='display:'';position:absolute;background-color:red;z-index:3;opacity:0.5;filter:alpha(opacity=50)'></div>");
 //	var div1 = document.getElementById("id1");
 //	div1c
