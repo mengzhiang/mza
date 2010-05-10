@@ -15,6 +15,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype") 
 public class UserAction extends ActionSupport {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5133585599464228486L;
 	private User user;
 	private List<User> users;
 	private long sid;
