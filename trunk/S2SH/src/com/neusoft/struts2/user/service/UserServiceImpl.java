@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.struts2.user.dao.UserDao;
@@ -29,6 +30,11 @@ public class UserServiceImpl implements UserService {
 	//通过ID查询user
 	public User getUserById(long id) {
 		return userDao.getUserById(id);
-		
+	}
+	/**
+	 * 通过ID删除USER对象
+	 */
+	public String delUserById(long id) {
+		return userDao.delUserById(id);
 	}
 }

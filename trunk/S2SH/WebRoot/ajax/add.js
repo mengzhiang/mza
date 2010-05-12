@@ -25,6 +25,7 @@ function UserAdd(){
 }
 function closeDialog(){
 	parent.MZA.closeDialog();
+	parent.MZA.refreshPage();
 }
 var userAdd = new UserAdd();
 MZA.addOnLoad(userAdd.init);

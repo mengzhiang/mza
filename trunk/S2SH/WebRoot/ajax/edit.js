@@ -32,6 +32,7 @@ function save(){
 	}
 }
 function closeDialog(){
+	parent.MZA.refreshPage();
 	parent.MZA.closeDialog();
 }
 MZA.addOnLoad(getById);
