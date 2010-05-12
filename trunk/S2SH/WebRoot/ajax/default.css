@@ -55,6 +55,7 @@ body
 	float:left;
 	background-image: url(../images/d_bg.gif);
 	height:100%;
+	cursor:move;
 }
 #dlgtr,#dlgtl
 {

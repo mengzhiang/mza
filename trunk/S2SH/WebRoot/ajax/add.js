@@ -10,10 +10,10 @@ function UserAdd(){
 		}
 		var object = MZA.ajax(data);
 		if(object.user!=null){
-			alert("修改成功！");
+			alert("新增成功！");
 			closeDialog();
 		}else{
-			alert("修改失败！");
+			alert("新增失败！");
 		}
 		
 	}
@@ -24,8 +24,8 @@ function UserAdd(){
 
 }
 function closeDialog(){
-	parent.MZA.closeDialog();
 	parent.MZA.refreshPage();
+	parent.MZA.closeDialog();
 }
 var userAdd = new UserAdd();
 MZA.addOnLoad(userAdd.init);
