@@ -75,8 +75,8 @@ function UserList(){
 						{header:"序号",dataIndex:"id"},
 						{header:"姓名",dataIndex:"name"},
 						{header:"密码",dataIndex:"pwd"},
-						{header:"修改",dataIndex:"id",format:formatEdit}
-						];
+						{header:"修改",dataIndex:"id",format:formatEdit},
+						{header:"删除",dataIndex:"id",format:formatDel}];
 		genT(usersObj,colModel);
 	}
 	//设置自定义列
@@ -91,6 +91,7 @@ function UserList(){
 		}
 		MZA.openDialog(data);
 	}
+	//新增
 	this.add = function(){
 		MZA.openDialog({
 			title:"新增",
@@ -98,6 +99,21 @@ function UserList(){
 			height:200,
 			url:"add.jsp"
 		});
+	}
+	//删除信息
+	this.del = function(id){
+		var data ={
+			sync:false,
+			url:"user_del?sid="+id
+		}
+		var object = MZA.ajax(data);
+		if(object.sid!=null){
+			alert("删除成功！");
+			//重新刷新页面
+			MZA.refreshPage();
+		}else{
+			alert("删除失败！");
+		}
 	}
 
 	this.init = function(){
@@ -107,6 +123,9 @@ function UserList(){
 
 function formatEdit(colId){
 	return "<a href='#' onclick='userList.edit("+colId+")'>修改</a>"
+}
+function formatDel(colId){
+	return "<a  href='#' onclick='userList.del("+colId+")'>删除</a>"
 }
 
 var userList = new UserList();

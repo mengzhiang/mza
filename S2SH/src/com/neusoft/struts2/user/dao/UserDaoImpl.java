@@ -49,4 +49,17 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		return (User)session.get(User.class, id);
 	}
+	/**
+	 * 通过ID删除USER对象
+	 */
+	@Transactional	
+	public String delUserById(long id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		User user =  (User)session.get(User.class, id);
+		session.delete(user);
+		tx.commit();
+		session.close();
+		return "success";
+	}
 }

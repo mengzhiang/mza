@@ -64,6 +64,13 @@ public class UserAction extends ActionSupport {
 		userService.save(user);
 		return SUCCESS;
 	}
+	/**
+	 * 删除
+	 */
+	public String del(){
+		userService.delUserById(sid);
+		return SUCCESS;
+	}
 	
 	/**
 	 * 新增

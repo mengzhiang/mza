@@ -8,4 +8,5 @@ public interface UserService {
 	public void save(User user);
 	public List<User> list();
 	public User getUserById(long id);
+	public String delUserById(long id);
 }

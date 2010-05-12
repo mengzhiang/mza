@@ -239,6 +239,9 @@ function MZA(){
 		this.removeElement(document.getElementById("bodypop"));
 		this.removeElement(document.getElementById("bodybg"));
 	}
+	this.refreshPage = function(){
+		window.location.reload();
+	}
 	//删除某个节点
 	this.removeElement = function(_element){
 		 var _parentElement = _element.parentNode;
