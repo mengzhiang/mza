@@ -197,10 +197,15 @@ function MZA(){
 		//创建弹出页面
 		var contentNode = document.createElement("div");
 		contentNode.setAttribute("id","contain");
+		contentNode.style.width = popwidth +"px";
 		contentNode.setAttribute("class","contain");
 			var titleNode = document.createElement("div");
 			titleNode.setAttribute("class","dlgtitle");
 			titleNode.setAttribute("id","dlgtitle");
+			titleNode.setAttribute("onMousedown","MZA.startDrag(event,this)");
+			titleNode.setAttribute("onMouseup","MZA.stopDrag(this)");
+			titleNode.setAttribute("onMousemove","MZA.Drag(event,this)");
+			titleNode.style.width = popwidth +"px";
 				var tlNode = document.createElement("div");
 				tlNode.setAttribute("id","dlgtl");
 				var trNode = document.createElement("div");
@@ -234,20 +239,74 @@ function MZA(){
 		popObj.appendChild(contentNode);
 		bodyNode[0].appendChild(popObj);
 	}
-	//关闭模态窗口
+	/**
+	 * 关闭模态窗口
+	 */
 	this.closeDialog = function(){
 		this.removeElement(document.getElementById("bodypop"));
 		this.removeElement(document.getElementById("bodybg"));
 	}
+	/**
+	 * 刷新页面
+	 */
 	this.refreshPage = function(){
 		window.location.reload();
 	}
-	//删除某个节点
+	/**
+	 * 删除某个节点
+	 * @param {} _element
+	 */
 	this.removeElement = function(_element){
 		 var _parentElement = _element.parentNode;
          if(_parentElement){
                 _parentElement.removeChild(_element);  
          }
+	}
+	
+	var isIE = document.all?true:false;//如果是IE是true否则是false
+	var move = false;
+	var oldcolor;
+	var _X,_Y;
+	/**
+	 * 开始拖拽
+	 */
+	this.startDrag = function(e,obj){
+		var e = e ? e : event;//如果是e则是e否则是event
+		if(isIE){
+			obj.setCapture();//鼠标跟踪当前对象
+		}else{
+			window.captureEvents(obj.MOUSEMOVE);
+		}
+		oldcolor=obj.style.backgroundColor;
+		//获取拖拽的对象
+		var dragObject = document.getElementById("contain");
+		//记录拖动对象的开始位置
+		_X = dragObject.offsetLeft - e.clientX;
+		_Y = dragObject.offsetTop - e.clientY;
+		move = true;
+	}
+	/**
+	 * 结束拖拽
+	 */
+	this.Drag = function(e,obj){
+		var e = e ? e : event;//如果是e则是e否则是event
+		if(move){
+			var dragObject = document.getElementById("contain");
+			dragObject.style.left = e.clientX + _X +"px";
+			dragObject.style.top = e.clientY + _Y +"px";
+		}
+	}
+	/**
+	 * 拖拽中
+	 */
+	this.stopDrag = function(obj){
+		obj.style.background=oldcolor;
+		if(isIE){
+			obj.releaseCapture();//鼠标跟踪当前对象
+		}else{
+			window.releaseEvents(obj.MOUSEMOVE);
+		}
+		move = false;
 	}
 }
 

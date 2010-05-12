@@ -11,7 +11,7 @@ function getById(){
 	document.getElementById("pwd").value=user.pwd;
 	
 	document.getElementById("bt1").onclick = save;
-	document.getElementById("bt2").onclick = parent.closeDialog;//调用父窗口中的方法。
+	document.getElementById("bt2").onclick = closeDialog;//调用父窗口中的方法。
 }
 
 function save(){
