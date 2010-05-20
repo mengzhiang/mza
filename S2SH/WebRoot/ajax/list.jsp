@@ -9,6 +9,5 @@
   </head>
   <body>
   <input type="button" id="add" value="新增">
-    <div id="mytable" ></div>
   </body>
 </html>

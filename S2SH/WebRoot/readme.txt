@@ -33,6 +33,8 @@ hibernate 3.3.2
 想法：自己写个标签，写上属性，来个表格
 
 1：明天加上拖动
+2:明天加上分页
+http://www.blogjava.net/wujun/archive/2009/06/12/65890.html
           
           
           

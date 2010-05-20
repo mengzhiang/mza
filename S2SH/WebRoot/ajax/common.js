@@ -308,6 +308,85 @@ function MZA(){
 		}
 		move = false;
 	}
+		/**
+	 *1:前台MVC分离，
+	 *Model是指json串即数据
+	 *view是指HTML和css分离显示
+	 *Control是指javascript 控制动作 
+	 *动态生成的table样式是不能通过外部引用来改变的
+	 * @type 
+	 */
+	this.showGrid =function(store,colModel){
+		var tablediv = document.createElement("div");
+		tablediv.setAttribute("id","tablediv");
+		var table = document.createElement("table");
+		table.setAttribute("class","table");
+		var tbody = document.createElement("tbody");
+		//生成表头
+		var modellength = colModel.length;
+		var tr = document.createElement("tr");
+		tr.setAttribute("class","tr");
+		for(var i=0;i<modellength;i++){
+			var td = document.createElement("th");
+			td.setAttribute("class","th");
+			td.innerHTML =colModel[i].header;
+			tr.appendChild(td);
+		}
+		tbody.appendChild(tr);
+		//生成表里的数据
+		var storelength = store.length;
+		for(var i=0;i<storelength;i++){
+			var tr = document.createElement("tr");
+			tr.setAttribute("class","tr");
+			for(var j=0;j<modellength;j++){
+				var td = document.createElement("td");
+				td.setAttribute("class","td");
+				var data = store[i];
+				var colId = colModel[j].dataIndex;
+				var colformat = colModel[j].format;
+				if(typeof(colformat)=="function"){
+					td.innerHTML = colformat(data[colId]);
+				}else
+				if(colId!=null){
+					td.innerHTML =data[colId];
+				}
+				tr.appendChild(td);
+			}
+			tbody.appendChild(tr);
+		}
+		table.appendChild(tbody);
+		tablediv.appendChild(table);
+		
+		var pagediv = document.createElement("div");
+		var pagestr = 
+				  "<div>"+
+					  	"<span>第<span id='curPageIndex'>1</span>页</span>&nbsp;"+
+					  	"<span>共<span id='pageCount'>5</span>页</span>&nbsp;"+
+					  	"<span>共<span id='pageCount'>5</span>页</span>&nbsp;"+
+					  	"<a href='#'>首页</a>&nbsp;"+
+					  	"<a href='#'>上一页</a>&nbsp;"+
+					  	"<a href='#'>下一页</a>&nbsp;"+
+					  	"<a href='#'>尾页</a>&nbsp;"+
+  					"</div>";
+		pagediv.innerHTML = pagestr;
+		tablediv.appendChild(pagediv);
+		document.getElementsByTagName("body")[0].appendChild(tablediv);
+		this.addBlur();
+	}
+	//增加鼠标悬停变色
+	this.addBlur = function(){
+		var rows = document.getElementsByTagName('tr');
+		for (var i=0;i<rows.length;i++){
+			if(rows[i].className=="tr"){
+				rows[i].onmouseover = function(){		//鼠标在行上面的时候
+					this.className = 'altrow';
+				}
+				rows[i].onmouseout = function(){		//鼠标离开时
+					this.className = this.className.replace('altrow','');
+				}
+			}
+		}
+	}
 }
 
 
