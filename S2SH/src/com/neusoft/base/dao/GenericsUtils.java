@@ -44,7 +44,7 @@ public class GenericsUtils {
 	 */
 
 	public static Class getSuperClassGenricType(Class clazz) {
-
+		//得到父类的类型。比如UserDaoImpl的父类就是BaseDao的类型
 		return getSuperClassGenricType(clazz, 0);
 
 	}
@@ -70,7 +70,7 @@ public class GenericsUtils {
 	 */
 
 	public static Class getSuperClassGenricType(Class clazz, int index) {
-
+		//得到clazz父类的类型。
 		Type genType = clazz.getGenericSuperclass();
 
 		if (!(genType instanceof ParameterizedType)) {

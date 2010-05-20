@@ -24,7 +24,8 @@ public class BaseDao<T,PK extends Serializable>{
 	
 	@SuppressWarnings("unchecked")
 	public BaseDao() {
-	  this.entityClass = GenericsUtils.getSuperClassGenricType(getClass());
+		//得到
+	  this.entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());
 	}
 	
     public BaseDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
@@ -66,7 +67,6 @@ public class BaseDao<T,PK extends Serializable>{
 	        for (Criterion c : criterions) {
 	            criteria.add(c);
 	        }
-	        tx.commit();
 	        return criteria;
 	    }
 }
