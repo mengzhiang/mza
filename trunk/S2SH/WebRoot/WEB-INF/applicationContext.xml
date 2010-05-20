@@ -35,6 +35,8 @@
 					org.hibernate.dialect.MySQLDialect
 				</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<!-- 可以使用getCurrentSession方法来做 -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
 			</props>
 		</property>
 		
@@ -66,8 +68,8 @@
         <property name="dataSource" ref="dataSource" />  
     </bean>  
     <tx:annotation-driven transaction-manager="transactionManager"   mode="proxy" /> 
-	<!-- 
-	<bean id="userDao" class="com.neusoft.struts2.user.dao.UserDaoImpl">
+	 <!--
+	<bean id="baseDao" class="com.neusoft.base.dao.BaseDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	

@@ -37,40 +37,40 @@ public class UserAction extends ActionSupport {
 		this.userService = userService;
 	}
 
-	@Override
-	public String execute(){
-		userService.save(user);
-		return SUCCESS;
-	}
+//	@Override
+//	public String execute(){
+//		userService.save(user);
+//		return SUCCESS;
+//	}
 	
 	/**
 	 * 列表方法
 	 * @return
 	 */
 	public String list(){
-		users = userService.list();
+		users = userService.list(user);
 		return SUCCESS;
 	}
 	
-	public String edit(){
-		user = userService.getUserById(sid);
-		return SUCCESS;
-	}
+//	public String edit(){
+//		user = userService.getUserById(sid);
+//		return SUCCESS;
+//	}
 	/**
 	 * 保存一个User对象
 	 * @return
 	 */
-	public String save(){
-		userService.save(user);
-		return SUCCESS;
-	}
-	/**
-	 * 删除
-	 */
-	public String del(){
-		userService.delUserById(sid);
-		return SUCCESS;
-	}
+//	public String save(){
+//		userService.save(user);
+//		return SUCCESS;
+//	}
+//	/**
+//	 * 删除
+//	 */
+//	public String del(){
+//		userService.delUserById(sid);
+//		return SUCCESS;
+//	}
 	
 	/**
 	 * 新增

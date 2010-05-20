@@ -20,21 +20,21 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 	
-	public void save(User user){
-		userDao.save(user);
-	}
+//	public void save(User user){
+//		userDao.save(user);
+//	}
 	
-	public List<User> list(){
-		return userDao.list();
-	}
-	//通过ID查询user
-	public User getUserById(long id) {
-		return userDao.getUserById(id);
-	}
-	/**
-	 * 通过ID删除USER对象
-	 */
-	public String delUserById(long id) {
-		return userDao.delUserById(id);
-	}
+	public List<User> list(User user){
+		return userDao.list(user);
+		}
+//	//通过ID查询user
+//	public User getUserById(long id) {
+//		return userDao.getUserById(id);
+//	}
+//	/**
+//	 * 通过ID删除USER对象
+//	 */
+//	public String delUserById(long id) {
+//		return userDao.delUserById(id);
+//	}
 }

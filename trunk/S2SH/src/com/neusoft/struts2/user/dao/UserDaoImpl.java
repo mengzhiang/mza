@@ -2,15 +2,9 @@ package com.neusoft.struts2.user.dao;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.base.dao.BaseDao;
 import com.neusoft.struts2.user.model.User;
 
 /**
@@ -18,48 +12,50 @@ import com.neusoft.struts2.user.model.User;
  * @author Administrator
  *
  */
+@SuppressWarnings("unchecked")
 @Repository
-public class UserDaoImpl implements UserDao {
-	@Resource
-	private SessionFactory sessionFactory ;
+public class UserDaoImpl extends BaseDao implements UserDao {
 	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	@Transactional	
+
+	@SuppressWarnings("unchecked")
 	public void save(User user){
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(user);
-		tx.commit();
-		session.close();
+		super.save(user);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<User> list(){
-		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(User.class);
-		List<User> users = criteria.list();
-		return users;
+	public List<User> list(User user){
+		return (List<User>)super.find();
 	}
-	/**
-	 * 通过ID查询USER对象
-	 */
-	public User getUserById(long id) {
-		Session session = sessionFactory.openSession();
-		return (User)session.get(User.class, id);
-	}
-	/**
-	 * 通过ID删除USER对象
-	 */
-	@Transactional	
-	public String delUserById(long id) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		User user =  (User)session.get(User.class, id);
-		session.delete(user);
-		tx.commit();
-		session.close();
-		return "success";
-	}
+//	/**
+//	 * 通过ID查询USER对象
+//	 */
+//	public User getUserById(long id) {
+//		Session session = sessionFactory.openSession();
+//		return (User)session.get(User.class, id);
+//	}
+//	/**
+//	 * 通过ID删除USER对象
+//	 */
+//	@Transactional	
+//	public String delUserById(long id) {
+//		Session session = sessionFactory.openSession();
+//		Transaction tx = session.beginTransaction();
+//		User user =  (User)session.get(User.class, id);
+//		session.delete(user);
+//		tx.commit();
+//		session.close();
+//		return "success";
+//	}
+//	/**
+//	 * 分页查询
+//	 * @return
+//	 */
+//	@SuppressWarnings("unchecked")
+//	public List<User> listWithPage(){
+//		Session session = sessionFactory.openSession();
+//		Query query = session.createQuery("from User");
+//		query.setFirstResult(0);
+//		query.setMaxResults(10);
+//		return query.list();
+//	}
 }
