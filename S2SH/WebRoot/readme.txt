@@ -35,6 +35,8 @@ hibernate 3.3.2
 1：明天加上拖动
 2:明天加上分页
 http://www.blogjava.net/wujun/archive/2009/06/12/65890.html
+
+http://tech.ddvip.com/2009-01/1232558101106757.html
           
           
           

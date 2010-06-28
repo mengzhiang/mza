@@ -7,13 +7,13 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.base.action.BaseAction;
 import com.neusoft.struts2.user.model.User;
 import com.neusoft.struts2.user.service.UserService;
-import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
 @Scope("prototype") 
-public class UserAction extends ActionSupport {
+public class UserAction extends BaseAction {
 	
 	/**
 	 * 
