@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -56,7 +57,7 @@ public class BaseDao<T,PK extends Serializable>{
 	   
 	/**
 	 * 创建Criterion对象
-	 * Criterion...是1.5以后的新特性
+	 * 不定参数是1.5以后的新特性
 	 * @param criterions
 	 * @return
 	 */
@@ -67,6 +68,30 @@ public class BaseDao<T,PK extends Serializable>{
 	        for (Criterion c : criterions) {
 	            criteria.add(c);
 	        }
+	       /// tx.commit();
 	        return criteria;
 	    }
+	/**
+	 * 获取所有的记录数
+	 * @param hql
+	 */
+	public void getAllRowCount(String hql){
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery(hql);
+		query.list().size();
+		tx.commit();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> queryForPage(final String hql,final int offset,final int length){
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery(hql);
+		query.setFirstResult(offset);
+		query.setMaxResults(length);
+		List<T> list = query.list();
+		tx.commit();
+		return list;
+	}
 }
