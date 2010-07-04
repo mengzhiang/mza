@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.base.dao.Page;
 import com.neusoft.struts2.user.dao.UserDao;
 import com.neusoft.struts2.user.model.User;
 
@@ -37,4 +38,12 @@ public class UserServiceImpl implements UserService {
 //	public String delUserById(long id) {
 //		return userDao.delUserById(id);
 //	}
+
+	public List<User> listpage(Page p) {
+		return userDao.list(p);
+	}
+	
+	public int getTotal(){
+		return userDao.getTotal();
+	}
 }

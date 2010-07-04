@@ -11,6 +11,7 @@ public class Page<T> {
     public static final String ASC = "asc";
     public static final String DESC = "desc";
 
+    protected int start = 0;
     //-- 分页参数 --//
     protected int pageNo = 1;
     protected int pageSize = 1;
@@ -290,5 +291,13 @@ public class Page<T> {
             return pageNo;
         }
     }
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
 }
 

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
+import com.neusoft.base.dao.Page;
 import com.neusoft.struts2.user.model.User;
 import com.neusoft.struts2.user.service.UserService;
 
@@ -22,6 +23,7 @@ public class UserAction extends BaseAction {
 	private User user;
 	private List<User> users;
 	private long sid;
+	private int totalcount;
 	@Resource
 	private UserService userService;
 
@@ -50,6 +52,21 @@ public class UserAction extends BaseAction {
 	public String list(){
 		users = userService.list(user);
 		return SUCCESS;
+	}
+	
+	/**
+	 * 列表方法
+	 * @return
+	 */
+	public String listpage(){
+		this.setTotalcount(getTotal());
+		Page p = super.makePager();
+		users = userService.listpage(p);
+		return SUCCESS;
+	}
+	
+	public int getTotal(){
+		return userService.getTotal();
 	}
 	
 //	public String edit(){
@@ -97,4 +114,11 @@ public class UserAction extends BaseAction {
 		this.sid = sid;
 	}
 
+	public int getTotalcount() {
+		return totalcount;
+	}
+
+	public void setTotalcount(int totalcount) {
+		this.totalcount = totalcount;
+	}
 }
