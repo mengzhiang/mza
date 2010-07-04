@@ -75,12 +75,13 @@ public class BaseDao<T,PK extends Serializable>{
 	 * 获取所有的记录数
 	 * @param hql
 	 */
-	public void getAllRowCount(String hql){
+	public int getAllRowCount(String hql){
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery(hql);
-		query.list().size();
+		int count = query.list().size();
 		tx.commit();
+		return count;
 	}
 	
 	@SuppressWarnings("unchecked")

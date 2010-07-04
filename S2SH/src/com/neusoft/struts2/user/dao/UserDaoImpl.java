@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.neusoft.base.dao.BaseDao;
+import com.neusoft.base.dao.Page;
 import com.neusoft.struts2.user.model.User;
 
 /**
@@ -58,4 +59,14 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 //		query.setMaxResults(10);
 //		return query.list();
 //	}
+
+	public List<User> list(Page p) {
+		String hql = "from User where 1=1";
+		return	(List<User>)super.queryForPage(hql, p.getStart(), p.getPageSize());
+	}
+
+	public int getTotal() {
+		String hql = "from User where 1=1";
+		return super.getAllRowCount(hql);
+	}
 }

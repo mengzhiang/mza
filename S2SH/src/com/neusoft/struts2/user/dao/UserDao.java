@@ -2,6 +2,7 @@ package com.neusoft.struts2.user.dao;
 
 import java.util.List;
 
+import com.neusoft.base.dao.Page;
 import com.neusoft.struts2.user.model.User;
 
 public interface UserDao {
@@ -14,4 +15,8 @@ public interface UserDao {
 //	 * @return
 //	 */
 //	public List<User> listWithPage();
+
+	public List<User> list(Page p);
+	
+	public int getTotal();
 }
