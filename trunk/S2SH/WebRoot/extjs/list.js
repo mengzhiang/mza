@@ -30,10 +30,77 @@ Ext.onReady(function(){
         });
     //创建grid
     var grid = new Ext.grid.GridPanel({
-        autoHeight: true,
-        renderTo: 'grid',
+    	title: 'grid',
+    	region :'center',
+        autoHeight:true,
         store: store,
         cm: cm,
+        closable :true,//tab 可关闭
+        tbar :new Ext.Toolbar(['添加','修改','删除']),
         bbar :pagtolbar
     });
+    
+    // 树形配置开始
+    var tree = new Ext.tree.TreePanel({
+        loader: new Ext.tree.TreeLoader({dataUrl: '../jslib/ext-3.2.0/examples/08.layout/10-05.tree.txt'}),
+        title: 'west',
+        region: 'west',
+        split: true,
+        border: true,
+        collapsible: true,
+        width: 120,
+        minSize: 80,
+        maxSize: 200
+    });
+
+    var root = new Ext.tree.AsyncTreeNode({text:'偶是根'});
+    tree.setRootNode(root);
+    root.expand();
+    //tab 配置
+    var tabs = new Ext.TabPanel({
+ 		region: 'center',        
+ 		width:450,
+        activeTab: 0,
+        enableTabScroll:true,
+        resizeTabs:true,
+        frame:true,
+        defaults:{autoHeight: true},
+        items:[
+            grid,
+            {contentEl:'markup', title: 'Long Text',closable:true}
+        ],
+        plugins: new Ext.ux.TabCloseMenu()
+    });
+   
+    // 布局开始
+    var viewport = new Ext.Viewport({
+        layout:'border',
+        items:[{
+            region: 'north',
+            contentEl: 'north-div',
+            height: 80,
+            bodyStyle: 'background-color:#BBCCEE;'
+        },{
+            region: 'south',
+            contentEl: 'south-div',
+            height: 20,
+            bodyStyle: 'background-color:#BBCCEE;'
+        },tree,tabs]
+    });
+    /**
+     * {
+            region: 'center',
+            split: true,
+            border: true,
+            layout: 'border',
+            items: [grid]
+        }
+     */
+//    var win = new Ext.Window({
+//    	width:400,
+//    	height:300,
+//    	layout:'fit',
+//    	items :[grid]
+//    });
+//    win.show();
 });
