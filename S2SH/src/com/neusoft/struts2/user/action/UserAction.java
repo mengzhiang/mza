@@ -1,5 +1,6 @@
 package com.neusoft.struts2.user.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
 import com.neusoft.base.dao.Page;
+import com.neusoft.struts2.user.model.TreeModel;
 import com.neusoft.struts2.user.model.User;
 import com.neusoft.struts2.user.service.UserService;
 
@@ -22,6 +24,7 @@ public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 5133585599464228486L;
 	private User user;
 	private List<User> users;
+	private List<TreeModel> tree;
 	private long sid;
 	private int totalcount;
 	@Resource
@@ -65,10 +68,39 @@ public class UserAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 获取所有user的数量
+	 * @return
+	 */
 	public int getTotal(){
 		return userService.getTotal();
 	}
 	
+	/**
+	 * 返回tree
+	 * @return
+	 */
+	public String querytree(){
+		tree =  new ArrayList<TreeModel>();
+		TreeModel n1 = new TreeModel();
+		n1.setId(1);
+		n1.setLeaf(false);
+		n1.setText("not leaf");
+		TreeModel n1c1 = new TreeModel();
+		n1c1.setId(11);
+		n1c1.setLeaf(true);
+		n1c1.setText("子节点1");
+		List<TreeModel> n1list = new ArrayList<TreeModel>();
+		n1list.add(n1c1);
+		n1.setChildren(n1list);
+		TreeModel n2 = new TreeModel();
+		n2.setId(2);
+		n2.setLeaf(true);
+		n2.setText("is leaf");
+		tree.add(n1);
+		tree.add(n2);
+		return SUCCESS;
+	}
 //	public String edit(){
 //		user = userService.getUserById(sid);
 //		return SUCCESS;
@@ -120,5 +152,13 @@ public class UserAction extends BaseAction {
 
 	public void setTotalcount(int totalcount) {
 		this.totalcount = totalcount;
+	}
+
+	public List<TreeModel> getTree() {
+		return tree;
+	}
+
+	public void setTree(List<TreeModel> tree) {
+		this.tree = tree;
 	}
 }
