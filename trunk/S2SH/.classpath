@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/pushlet.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/pushletclient.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/annotations-api.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

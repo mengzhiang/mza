@@ -39,10 +39,32 @@ Ext.onReady(function(){
         tbar :new Ext.Toolbar(['添加','修改','删除']),
         bbar :pagtolbar
     });
-    
-    // 树形配置开始
+     // 树形配置开始
+    var loader = new Ext.tree.TreeLoader({dataUrl: 'user_querytree'});
+    loader.processResponse = function(response, node, callback){
+        var json = response.responseText;
+        try {
+            var json = eval("("+json+")");
+            node.beginUpdate();
+            var o = json["tree"];
+
+            for(var i = 0, len = o.length; i < len; i++){
+                var n = this.createNode(o[i]);
+                if(n){
+                    node.appendChild(n);
+                }
+            }
+            node.endUpdate();
+            if(typeof callback == "function"){
+                callback(this, node);
+            }
+        }catch(e){
+            this.handleFailure(response);
+        }
+    };
+   //创建树panel
     var tree = new Ext.tree.TreePanel({
-        loader: new Ext.tree.TreeLoader({dataUrl: '../jslib/ext-3.2.0/examples/08.layout/10-05.tree.txt'}),
+        loader: loader,
         title: 'west',
         region: 'west',
         split: true,
@@ -52,10 +74,30 @@ Ext.onReady(function(){
         minSize: 80,
         maxSize: 200
     });
-
+    
+    //给树添加事件
+    tree.on("click",function(node){
+    	if(!node.leaf){
+					return;
+				}
+           		var tab = tabs.getComponent(node.text);
+           		if(tab){
+           			tabs.setActiveTab(tab);
+           			return;
+           		}
+           		tab = tabs.add({
+           			id:node.text,
+           			title:node.text,
+           			html:"234234234",
+           			closable:true
+           		});
+           		tabs.setActiveTab(tab);
+    });
+    //创建跟节点
     var root = new Ext.tree.AsyncTreeNode({text:'偶是根'});
     tree.setRootNode(root);
     root.expand();
+    
     //tab 配置
     var tabs = new Ext.TabPanel({
  		region: 'center',        

@@ -37,7 +37,14 @@ hibernate 3.3.2
 http://www.blogjava.net/wujun/archive/2009/06/12/65890.html
 
 http://tech.ddvip.com/2009-01/1232558101106757.html
+
+
+给这个系统加上一个登陆页面，实现登陆功能，转到主页面，然后加个登出按钮。
+
+翻页的封装可以用线程变量 然后创建一个上下文，直接再封装一层就直接分页了，unieap如此实现的。
           
+          动态树。
+          http://yahaitt.javaeye.com/blog/207696
           
           
 
