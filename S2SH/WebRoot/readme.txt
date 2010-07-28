@@ -44,7 +44,7 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
 翻页的封装可以用线程变量 然后创建一个上下文，直接再封装一层就直接分页了，unieap如此实现的。
           
           动态树。
-          http://yahaitt.javaeye.com/blog/207696
+          http://yahaitt.javaeye.com/blog/207696    
           
           
 
