@@ -1,6 +1,6 @@
 function getById(){
 	var data ={
-		url:"user_edit?sid="+id,
+		url:"user_getUserById?sid="+id,
 		sync:false//同步加载
 	}
 	var jsonObj = MZA.ajax(data);

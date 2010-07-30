@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.springframework.util.Assert;
 
 public class BaseDao<T,PK extends Serializable>{
 	
@@ -42,8 +43,18 @@ public class BaseDao<T,PK extends Serializable>{
 		return sessionFactory.getCurrentSession();
 	}
 	
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[保存方法]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param entity
+	 */
 	public void save(final T entity) {
-		getSession().saveOrUpdate(entity);
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 	/**
 	 * 通过Criterion查询
@@ -71,9 +82,14 @@ public class BaseDao<T,PK extends Serializable>{
 	       /// tx.commit();
 	        return criteria;
 	    }
+
 	/**
-	 * 获取所有的记录数
+	 *  Created on 2010-7-29 
+	 * <p>Description:[获取所有记录数]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @param hql
+	 * @return
 	 */
 	public int getAllRowCount(String hql){
 		Session session = getSession();
@@ -84,6 +100,16 @@ public class BaseDao<T,PK extends Serializable>{
 		return count;
 	}
 	
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[公共分页查询方法]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param hql
+	 * @param offset
+	 * @param length
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> queryForPage(final String hql,final int offset,final int length){
 		Session session = getSession();
@@ -95,4 +121,22 @@ public class BaseDao<T,PK extends Serializable>{
 		tx.commit();
 		return list;
 	}
+	
+    /**
+     *  Created on 2010-7-29 
+     * <p>Description:[通过ID获取entity]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param id
+     * @return
+     */
+    public T get(final PK id) {
+        Assert.notNull(id, "id不能为空");
+        Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		T t = (T)session.load(entityClass, id);
+		tx.commit();
+        return  t;
+       
+    }
 }

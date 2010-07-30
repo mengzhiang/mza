@@ -21,17 +21,24 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 	
-//	public void save(User user){
-//		userDao.save(user);
-//	}
+	public void save(User user){
+		userDao.save(user);
+	}
 	
 	public List<User> list(User user){
 		return userDao.list(user);
 		}
-//	//通过ID查询user
-//	public User getUserById(long id) {
-//		return userDao.getUserById(id);
-//	}
+	/**
+	 *  Created on 2010-7-29
+	 * <p>Description:[通过ID查询user]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public User getUserById(long id) {
+		return userDao.getUserById(id);
+	}
+	
 //	/**
 //	 * 通过ID删除USER对象
 //	 */
