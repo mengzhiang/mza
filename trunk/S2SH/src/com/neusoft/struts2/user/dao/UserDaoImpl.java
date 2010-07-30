@@ -18,7 +18,6 @@ import com.neusoft.struts2.user.model.User;
 public class UserDaoImpl extends BaseDao implements UserDao {
 	
 
-	@SuppressWarnings("unchecked")
 	public void save(User user){
 		super.save(user);
 	}
@@ -27,13 +26,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public List<User> list(User user){
 		return (List<User>)super.find();
 	}
-//	/**
-//	 * 通过ID查询USER对象
-//	 */
-//	public User getUserById(long id) {
-//		Session session = sessionFactory.openSession();
-//		return (User)session.get(User.class, id);
-//	}
+	/**
+	 * 通过ID查询USER对象
+	 */
+	public User getUserById(long id) {
+		return (User)super.get(id);
+	}
 //	/**
 //	 * 通过ID删除USER对象
 //	 */

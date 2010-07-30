@@ -101,18 +101,26 @@ public class UserAction extends BaseAction {
 		tree.add(n2);
 		return SUCCESS;
 	}
-//	public String edit(){
-//		user = userService.getUserById(sid);
-//		return SUCCESS;
-//	}
+
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[通过id取得user]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String getUserById(){
+		user = userService.getUserById(sid);
+		return SUCCESS;
+	}
 	/**
 	 * 保存一个User对象
 	 * @return
 	 */
-//	public String save(){
-//		userService.save(user);
-//		return SUCCESS;
-//	}
+	public String save(){
+		userService.save(user);
+		return SUCCESS;
+	}
 //	/**
 //	 * 删除
 //	 */
