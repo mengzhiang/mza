@@ -72,7 +72,7 @@ public class GenericsUtils {
 	public static Class getSuperClassGenricType(Class clazz, int index) {
 		//得到clazz父类的类型。
 		Type genType = clazz.getGenericSuperclass();
-
+		//如果父类有参数。
 		if (!(genType instanceof ParameterizedType)) {
 
 			log.warn(clazz.getSimpleName()
@@ -81,7 +81,7 @@ public class GenericsUtils {
 			return Object.class;
 
 		}
-
+		//返回父类的第一个参数
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
 		if (index >= params.length || index < 0) {

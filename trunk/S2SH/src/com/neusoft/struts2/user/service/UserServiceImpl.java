@@ -39,12 +39,17 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserById(id);
 	}
 	
-//	/**
-//	 * 通过ID删除USER对象
-//	 */
-//	public String delUserById(long id) {
-//		return userDao.delUserById(id);
-//	}
+	/**
+	 *  Created on 2010-7-30 
+	 * <p>Description:[通过ID删除USER对象]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param id
+	 * @return
+	 */
+	public String delUserById(long id) {
+		return userDao.delUserById(id);
+	}
 
 	public List<User> listpage(Page p) {
 		return userDao.list(p);

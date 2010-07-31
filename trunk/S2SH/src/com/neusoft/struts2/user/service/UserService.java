@@ -9,7 +9,7 @@ public interface UserService {
 	public void save(User user);
 	public List<User> list(User user);
 	public User getUserById(long id);
-//	public String delUserById(long id);
+	public String delUserById(long id);
 
 	public List<User> listpage(Page p);
 	public int getTotal();

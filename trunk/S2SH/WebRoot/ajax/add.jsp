@@ -8,9 +8,9 @@
   </head>
   <body>
   	<table>
-  		<tr>
+  		<tr style="display:none">
   			<td>id: </td>
-  			<td><input type="text" id="id" style="display:none"></td>
+  			<td><input type="text" id="id" ></td>
   		</tr>
   		<tr>
   			<td>name: </td>

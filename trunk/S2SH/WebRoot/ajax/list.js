@@ -38,17 +38,19 @@ function UserList(){
 	}
 	//删除信息
 	this.del = function(id){
-		var data ={
-			sync:false,
-			url:"user_del?sid="+id
-		}
-		var object = MZA.ajax(data);
-		if(object.sid!=null){
-			alert("删除成功！");
-			//重新刷新页面
-			MZA.refreshPage();
-		}else{
-			alert("删除失败！");
+		if(confirm("确定要删除该条数据吗？")){
+			var data ={
+				sync:false,
+				url:"user_del?sid="+id
+			}
+			var object = MZA.ajax(data);
+			if(object.sid!=null){
+				alert("删除成功！");
+				//重新刷新页面
+				MZA.refreshPage();
+			}else{
+				alert("删除失败！");
+			}
 		}
 	}
 

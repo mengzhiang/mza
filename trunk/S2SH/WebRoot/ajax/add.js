@@ -3,7 +3,7 @@ function UserAdd(){
 		var id = document.getElementById("id").value;
 		var name = document.getElementById("name").value;
 		var pwd = document.getElementById("pwd").value;
-		var paras = "user.id="+id+"&user.name="+name+"&user.pwd="+pwd;
+		var paras = "user.name="+name+"&user.pwd="+pwd;
 		var data ={
 			sync:false,
 			url:"user_save?"+paras
