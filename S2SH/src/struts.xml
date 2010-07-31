@@ -10,6 +10,7 @@
             <result name="error">error.jsp</result>
  -->
 <struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
     <constant name="struts.devMode" value="true" />
      <include file="struts-default.xml" />  
     <package name="default" extends="json-default">

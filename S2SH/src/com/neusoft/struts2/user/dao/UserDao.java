@@ -9,7 +9,7 @@ public interface UserDao {
 	public void save(User user);
 	public List<User> list(User user);
 	public User getUserById(long id);
-//	public String delUserById(long id);
+	public String delUserById(long id);
 //	/**
 //	 * 分页查询
 //	 * @return

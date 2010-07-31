@@ -109,7 +109,7 @@ public class UserAction extends BaseAction {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @return
 	 */
-	public String getUserById(){
+	public String load(){
 		user = userService.getUserById(sid);
 		return SUCCESS;
 	}
@@ -121,13 +121,13 @@ public class UserAction extends BaseAction {
 		userService.save(user);
 		return SUCCESS;
 	}
-//	/**
-//	 * 删除
-//	 */
-//	public String del(){
-//		userService.delUserById(sid);
-//		return SUCCESS;
-//	}
+	/**
+	 * 删除
+	 */
+	public String del(){
+		userService.delUserById(sid);
+		return SUCCESS;
+	}
 	
 	/**
 	 * 新增

@@ -11,8 +11,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
-import org.springframework.util.Assert;
 
+import com.neusoft.struts2.user.model.User;
+
+/**
+ * Created on 2010-7-30
+ * <p>名称: S2SH工程-用户模块--基础Dao</p>
+ * <p>描述: [描述该类概要功能介绍]</p>
+ * <p>版本: Copyright (c) 2010</p>
+ * @author: 孟志昂
+ * 这里使用泛型Dao,当baseDao被实例化的时候就
+ * 通过他的父类的参数类型来决定了这个Dao的entityClass是谁？
+ * @email:  mengzhiang@gmail.com
+ * @version:$Revision$
+*/
 public class BaseDao<T,PK extends Serializable>{
 	
 	@Resource
@@ -79,7 +91,7 @@ public class BaseDao<T,PK extends Serializable>{
 	        for (Criterion c : criterions) {
 	            criteria.add(c);
 	        }
-	       /// tx.commit();
+	       // tx.commit();
 	        return criteria;
 	    }
 
@@ -131,12 +143,23 @@ public class BaseDao<T,PK extends Serializable>{
      * @return
      */
     public T get(final PK id) {
-        Assert.notNull(id, "id不能为空");
         Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		T t = (T)session.load(entityClass, id);
-		tx.commit();
-        return  t;
-       
+		//tx.commit();
+        return  t;      
+    }
+    /**
+     *  Created on 2010-7-30 
+     * <p>Description:[删除对象]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entity
+     */
+    public void del(final T entity){
+    	Session session = getSession();
+    	Transaction tx = session.beginTransaction();
+    	session.delete(entity);
+    	tx.commit();
     }
 }

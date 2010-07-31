@@ -15,14 +15,13 @@ import com.neusoft.struts2.user.model.User;
  */
 @SuppressWarnings("unchecked")
 @Repository
-public class UserDaoImpl extends BaseDao implements UserDao {
+public class UserDaoImpl extends BaseDao<User,Long> implements UserDao {
 	
 
 	public void save(User user){
 		super.save(user);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<User> list(User user){
 		return (List<User>)super.find();
 	}
@@ -32,31 +31,13 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public User getUserById(long id) {
 		return (User)super.get(id);
 	}
-//	/**
-//	 * 通过ID删除USER对象
-//	 */
-//	@Transactional	
-//	public String delUserById(long id) {
-//		Session session = sessionFactory.openSession();
-//		Transaction tx = session.beginTransaction();
-//		User user =  (User)session.get(User.class, id);
-//		session.delete(user);
-//		tx.commit();
-//		session.close();
-//		return "success";
-//	}
-//	/**
-//	 * 分页查询
-//	 * @return
-//	 */
-//	@SuppressWarnings("unchecked")
-//	public List<User> listWithPage(){
-//		Session session = sessionFactory.openSession();
-//		Query query = session.createQuery("from User");
-//		query.setFirstResult(0);
-//		query.setMaxResults(10);
-//		return query.list();
-//	}
+	/**
+	 * 通过ID删除USER对象
+	 */
+	public String delUserById(long id) {
+		super.del(super.get(id));
+		return "success";
+	}
 
 	public List<User> list(Page p) {
 		String hql = "from User where 1=1";
