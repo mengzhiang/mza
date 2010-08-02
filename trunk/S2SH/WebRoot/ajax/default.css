@@ -111,4 +111,25 @@ body
 	border-right: 1px solid #005195;
 	border-bottom: 1px solid #005195;
 }
-
+div > a{
+	text-decoration:none;
+	font-size: 15px;
+	/*font-weight:bold;**/
+	border: 1px solid #429fff; 
+	padding:2px 8px;
+}
+div > a:hover{
+	background-color:#c4e4ff
+}
+.curP{
+	font-color: black;
+	cursor :default;
+	border: none; 
+}
+.pagebar{
+	margin-top: 10px; 
+	margin-left: 10px; 
+}
+.hidden{
+	display:none;
+}
