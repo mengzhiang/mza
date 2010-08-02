@@ -1,9 +1,14 @@
 //列表显示数据
 function UserList(){
+	
 	this.list = function(){
 		var data ={
 			sync:false,
-			url :"user_list"
+			url :"user_listpage",
+			page:{
+				start:0,
+				limit:10
+			}
 		}
 		var object = MZA.ajax(data);
 		var usersObj = object.users;
@@ -11,8 +16,8 @@ function UserList(){
 						{header:"序号",dataIndex:"id"},
 						{header:"姓名",dataIndex:"name"},
 						{header:"密码",dataIndex:"pwd"},
-						{header:"修改",dataIndex:"id",format:formatEdit},
-						{header:"删除",dataIndex:"id",format:formatDel}];
+						{header:"修改",dataIndex:"id",format:userList.formatEdit},
+						{header:"删除",dataIndex:"id",format:userList.formatDel}];
 		MZA.showGrid(usersObj,colModel);
 	}
 	//设置自定义列
@@ -56,14 +61,41 @@ function UserList(){
 
 	this.init = function(){
 		document.getElementById("add").setAttribute("onClick","userList.add()");
+		MZA.setPageMethod(userList.queryData);
 	}
-}
-
-function formatEdit(colId){
-	return "<a href='#' onclick='userList.edit("+colId+")'>修改</a>"
-}
-function formatDel(colId){
-	return "<a  href='#' onclick='userList.del("+colId+")'>删除</a>"
+	//修改
+	this.formatEdit = function(colId){
+		return "<a href='#' onclick='userList.edit("+colId+")'>修改</a>"
+	}
+	//删除
+	this.formatDel = function(colId){
+		return "<a  href='#' onclick='userList.del("+colId+")'>删除</a>"
+	}
+	/**
+	 * 翻页方法
+	 * @param {} start
+	 * @param {} limit
+	 */
+	this.queryData = function(start,limit){
+		var data ={
+			sync:false,
+			url :"user_listpage",
+			page:{
+				start:start,
+				limit:limit
+			}
+		}
+		var object = MZA.ajax(data);
+		var usersObj = object.users;
+		var colModel = [
+						{header:"序号",dataIndex:"id"},
+						{header:"姓名",dataIndex:"name"},
+						{header:"密码",dataIndex:"pwd"},
+						{header:"修改",dataIndex:"id",format:userList.formatEdit},
+						{header:"删除",dataIndex:"id",format:userList.formatDel}];
+		MZA.showGrid(usersObj,colModel);
+	}
+	
 }
 
 var userList = new UserList();

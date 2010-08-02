@@ -15,6 +15,10 @@ function MZA(){
 		if(data.url){
 			url= data.url;
 		}
+		if(data.page){
+			url+="?start="+data.page.start+"&limit="+data.page.limit;
+		}
+		
 		if(typeof(data.sync) != "undefined"){
 			sync = data.sync;
 		}
@@ -22,7 +26,7 @@ function MZA(){
 			type = data.type;
 			paras = data.paras;
 		}
-		//ajax请求可以指定是否同步。档同步时firefox的onreadyState就不好用了。
+		//ajax请求可以指定是否同步。当同步时firefox的onreadyState就不好用了。
 		request.open(type,url,sync);
 		if(sync)
 		{
@@ -30,6 +34,11 @@ function MZA(){
 					if(request.readyState == 4){
 						var str = request.responseText;
 						var object = eval('('+str+')');
+						//设置分页。
+						if(data.page){
+							MZA.TOTAL = object.totalcount;
+							MZA.PAGECOUNT = Math.ceil(object.totalcount/data.page.limit);
+						}
 						return object;
 					}
 				};
@@ -38,6 +47,11 @@ function MZA(){
 		if(!sync){
 			var str = request.responseText;
 			var object = eval('('+str+')');
+			//设置分页
+			if(data.page){
+					MZA.TOTAL = object.totalcount;
+					MZA.PAGECOUNT = Math.ceil(object.totalcount/data.page.limit);
+				}
 			return object;
 		}
 	}
@@ -256,7 +270,7 @@ function MZA(){
 	 * 删除某个节点
 	 * @param {} _element
 	 */
-	this.removeElement = function(_element){
+	this.removeElement = function(_element){	
 		 var _parentElement = _element.parentNode;
          if(_parentElement){
                 _parentElement.removeChild(_element);  
@@ -308,6 +322,23 @@ function MZA(){
 		}
 		move = false;
 	}
+	/**
+	 * 定义分页常量
+	 */
+	this.START = 0;
+	this.LIMIT = 10;
+	this.TOTAL = 0;
+	this.PAGECOUNT = 0;
+	this.PAGENO = 1;
+	this.setStart = function(start){
+		MZA.START = start;
+	}
+	this.setLimit = function(limit){
+		MZA.LIMIT = limit;
+	}
+	this.setTotal = function(total){
+		MZA.TOTAL = total;
+	}
 		/**
 	 *1:前台MVC分离，
 	 *Model是指json串即数据
@@ -358,20 +389,31 @@ function MZA(){
 		tablediv.appendChild(table);
 		
 		var pagediv = document.createElement("div");
+		pagediv.setAttribute("id","pagebar");
+		pagediv.setAttribute("class","pagebar");
+//		var pagestr = 
+//				  "<div>"+
+//					  	"<span>第<span id='curPageIndex'>"+MZA.PAGENO+"</span>页</span>&nbsp;"+
+//					  	"<span>共<span id='rowCount'>"+MZA.TOTAL+"</span>条</span>&nbsp;"+
+//					  	"<span>共<span id='pageCount'>"+MZA.PAGECOUNT+"</span>页</span>&nbsp;"+
+//					  	"<a href='#' id='first' onClick='MZA.first();'>首页</a>&nbsp;"+
+//					  	"<a href='#' id='pre'   onClick='MZA.pre();'>上一页</a>&nbsp;"+
+//					  	"<a href='#' id='next'  onClick='MZA.next();'>下一页</a>&nbsp;"+
+//					  	"<a href='#' id='last'  onClick='MZA.last();'>尾页</a>&nbsp;"+
+//  					"</div>";
 		var pagestr = 
-				  "<div>"+
-					  	"<span>第<span id='curPageIndex'>1</span>页</span>&nbsp;"+
-					  	"<span>共<span id='pageCount'>5</span>页</span>&nbsp;"+
-					  	"<span>共<span id='pageCount'>5</span>页</span>&nbsp;"+
-					  	"<a href='#'>首页</a>&nbsp;"+
-					  	"<a href='#'>上一页</a>&nbsp;"+
-					  	"<a href='#'>下一页</a>&nbsp;"+
-					  	"<a href='#'>尾页</a>&nbsp;"+
-  					"</div>";
+			  "<div>"+
+			  		"<a href='#' id='pre' onClick='MZA.pre();' class='page'>&lt;</a>&nbsp;";
+				  	
+		for(var i=1;i<=MZA.PAGECOUNT;i++){
+			pagestr += "<a href='#' id='page"+i+"' onClick='MZA.goPage("+(i-1)+")'>"+i+"</a>&nbsp;"
+		}	
+		pagestr += "<a href='#' id='first' onClick='MZA.next();'>&gt;</a>&nbsp;</div>";
 		pagediv.innerHTML = pagestr;
 		tablediv.appendChild(pagediv);
 		document.getElementsByTagName("body")[0].appendChild(tablediv);
 		this.addBlur();
+		this.checkPage();
 	}
 	//增加鼠标悬停变色
 	this.addBlur = function(){
@@ -387,7 +429,58 @@ function MZA(){
 			}
 		}
 	}
+	
+	this.queryData = function(){};
+	this.setPageMethod = function(method){
+		MZA.queryData = method;
+	}
+	
+	this.next = function(){
+		MZA.removeElement(document.getElementById("tablediv"));
+		this.queryData(MZA.PAGENO*MZA.LIMIT,MZA.LIMIT);
+		MZA.PAGENO+=1;
+		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	}
+		
+	this.pre = function(){
+		MZA.removeElement(document.getElementById("tablediv"));
+		this.queryData((MZA.PAGENO-2)*MZA.LIMIT,MZA.LIMIT);
+		MZA.PAGENO-=1;
+		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	}
+	/**
+	 * 首页
+	 */
+	this.first = function(){
+		MZA.removeElement(document.getElementById("tablediv"));
+		this.queryData(0,MZA.LIMIT);
+		MZA.PAGENO=1;
+		document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	}
+	/**
+	 * 尾页
+	 */
+	this.last = function(){
+		MZA.removeElement(document.getElementById("tablediv"));
+		this.queryData((MZA.PAGECOUNT-1)*MZA.LIMIT,MZA.LIMIT);
+		MZA.PAGENO=MZA.PAGECOUNT;
+		document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	}
+	
+	this.checkPage = function(){
+		if(MZA.PAGENO==1){
+			document.getElementById("page1").setAttribute("class","curP")
+			document.getElementById("pre").setAttribute("class","hidden");
+		}
+	}
+	/**
+	 * 定位到那一页
+	 */
+	this.goPage = function(pageindex){
+		MZA.removeElement(document.getElementById("tablediv"));
+		this.queryData(pageindex*MZA.LIMIT,MZA.LIMIT);
+		MZA.PAGENO=pageindex;
+		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	}
 }
-
-
 var MZA = new MZA();

@@ -10,3 +10,12 @@ pwd varchar(50)
 );
 
 insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
+insert into t_user(name,pwd) values("孟志昂","123");
