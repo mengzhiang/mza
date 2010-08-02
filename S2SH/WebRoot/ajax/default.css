@@ -130,6 +130,10 @@ div > a:hover{
 	margin-top: 10px; 
 	margin-left: 10px; 
 }
+#pages > span {
+	padding:2px 8px;
+	font-size: 15px;
+}
 .hidden{
 	display:none;
 }

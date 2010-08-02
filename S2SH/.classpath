@@ -28,5 +28,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/pushlet.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/pushletclient.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-sitemesh-plugin-2.1.8.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sitemesh-2.4.2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

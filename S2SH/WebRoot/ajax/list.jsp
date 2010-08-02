@@ -9,5 +9,6 @@
   </head>
   <body>
   <input type="button" id="add" value="新增">
+  <div id="grid"></div>
   </body>
 </html>
