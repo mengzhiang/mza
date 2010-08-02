@@ -402,16 +402,16 @@ function MZA(){
 //					  	"<a href='#' id='last'  onClick='MZA.last();'>尾页</a>&nbsp;"+
 //  					"</div>";
 		var pagestr = 
-			  "<div>"+
+			  "<div id='pages'>"+
 			  		"<a href='#' id='pre' onClick='MZA.pre();' class='page'>&lt;</a>&nbsp;";
 				  	
 		for(var i=1;i<=MZA.PAGECOUNT;i++){
-			pagestr += "<a href='#' id='page"+i+"' onClick='MZA.goPage("+(i-1)+")'>"+i+"</a>&nbsp;"
+			pagestr += "<a href='#' id='page"+i+"' onClick='MZA.goPage("+(i)+")'>"+i+"</a>&nbsp;"
 		}	
-		pagestr += "<a href='#' id='first' onClick='MZA.next();'>&gt;</a>&nbsp;</div>";
+		pagestr += "<a href='#' id='next' onClick='MZA.next();'>&gt;</a>&nbsp;</div>";
 		pagediv.innerHTML = pagestr;
 		tablediv.appendChild(pagediv);
-		document.getElementsByTagName("body")[0].appendChild(tablediv);
+		document.getElementById("grid").appendChild(tablediv);
 		this.addBlur();
 		this.checkPage();
 	}
@@ -429,24 +429,28 @@ function MZA(){
 			}
 		}
 	}
-	
+	/**
+	 * 设置分页方法
+	 */
 	this.queryData = function(){};
 	this.setPageMethod = function(method){
 		MZA.queryData = method;
 	}
-	
+	/**
+	 * 下一页
+	 */
 	this.next = function(){
 		MZA.removeElement(document.getElementById("tablediv"));
-		this.queryData(MZA.PAGENO*MZA.LIMIT,MZA.LIMIT);
 		MZA.PAGENO+=1;
-		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+		this.queryData((MZA.PAGENO-1)*MZA.LIMIT,MZA.LIMIT);
 	}
-		
+	/**
+	 * 上一页
+	 */	
 	this.pre = function(){
 		MZA.removeElement(document.getElementById("tablediv"));
-		this.queryData((MZA.PAGENO-2)*MZA.LIMIT,MZA.LIMIT);
 		MZA.PAGENO-=1;
-		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+		this.queryData((MZA.PAGENO-1)*MZA.LIMIT,MZA.LIMIT);
 	}
 	/**
 	 * 首页
@@ -466,11 +470,32 @@ function MZA(){
 		MZA.PAGENO=MZA.PAGECOUNT;
 		document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
 	}
-	
+	/**
+	 * 更改页码样式
+	 */
 	this.checkPage = function(){
-		if(MZA.PAGENO==1){
-			document.getElementById("page1").setAttribute("class","curP")
-			document.getElementById("pre").setAttribute("class","hidden");
+		for(var j=1;j<=MZA.PAGENO;j++){
+			if(MZA.PAGENO == j){
+				var sp = document.createElement("span");
+				sp.setAttribute("id","page"+j);
+				sp.innerHTML = j;
+				var oldnode = document.getElementById("page"+j);
+				oldnode.parentNode.replaceChild(sp,oldnode);
+			}
+			if(MZA.PAGENO ==1){
+				var sp = document.createElement("span");
+				sp.setAttribute("id","pre");
+				sp.innerHTML = "&lt;";
+				var oldnode = document.getElementById("pre");
+				oldnode.parentNode.replaceChild(sp,oldnode);
+			}
+			if(MZA.PAGENO ==MZA.PAGECOUNT){
+				var sp = document.createElement("span");
+				sp.setAttribute("id","next");
+				sp.innerHTML = "&gt;";
+				var oldnode = document.getElementById("next");
+				oldnode.parentNode.replaceChild(sp,oldnode);
+			}
 		}
 	}
 	/**
@@ -478,9 +503,9 @@ function MZA(){
 	 */
 	this.goPage = function(pageindex){
 		MZA.removeElement(document.getElementById("tablediv"));
-		this.queryData(pageindex*MZA.LIMIT,MZA.LIMIT);
 		MZA.PAGENO=pageindex;
-		//document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+		this.queryData((pageindex-1)*MZA.LIMIT,MZA.LIMIT);
+		this.checkPage();
 	}
 }
 var MZA = new MZA();
