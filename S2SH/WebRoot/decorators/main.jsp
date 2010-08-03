@@ -7,8 +7,8 @@
      <decorator:head/>  
      </head>        
  <body>  
-       Hello World fuck <hr/>  
+       Hello World <hr/>  
        <decorator:body/>  
-       Hello World fuck <hr/>   
+       Hello World <hr/>   
  </body>   
 </html> 
