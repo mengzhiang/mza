@@ -46,6 +46,13 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
           动态树。
           http://yahaitt.javaeye.com/blog/207696    
           
+          引入jfreechart  jar包
+          
+          三个 一个是struts2插件jar包还有jfreechart包还有jcommon包
+          
+          http://localhost:8080/S2SH/jfreechart/test.jsp
+          数据暂时保存在application中 重启服务就没了。
+          
           
 
 			
