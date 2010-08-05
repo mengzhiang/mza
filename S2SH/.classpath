@@ -33,5 +33,21 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-jfreechart-plugin-2.1.8.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/jasper-jdt.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -1,14 +1,24 @@
 package com.neusoft.struts2.user.action;
 
 import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartRenderingInfo;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
@@ -43,6 +53,24 @@ public class SelectAction extends ActionSupport {
 		ValueAxis valueAxis = plot.getRangeAxis();
 		valueAxis.setLabelFont(new Font("宋体", Font.ITALIC, 14));
 		valueAxis.setTickLabelFont(new Font("宋体", Font.ITALIC, 14));
+		
+		ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection()); 
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		String path = this.getClass().getClassLoader().getResource("").getPath();
+		//保存文件在webroot的temp路径下文件
+		path = path.substring(1, path.length()-16)+ "\\temp\\sport.jpg"; 
+		File file = new File(path);  
+		try {
+			FileOutputStream fos_jpg = null;  
+			  fos_jpg = new FileOutputStream(path);  
+			   
+			  ChartUtilities.writeChartAsJPEG(fos_jpg, 0.9f, chart, 500, 300, null);  
+			request.setAttribute("fileName",path);
+			fos_jpg.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return chart;
 	}
 
@@ -60,6 +88,7 @@ public class SelectAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		this.getChart();
 		return SUCCESS;
 	}
 
@@ -91,4 +120,6 @@ public class SelectAction extends ActionSupport {
 
 		return dataset;
 	}
+	
+	
 }
