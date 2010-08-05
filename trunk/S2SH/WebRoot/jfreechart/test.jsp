@@ -22,7 +22,7 @@
 	         </s:checkbox>
   		<input type="submit" value="Ìá½»"/>
      </form>      
-
+	<img alt="" src=""/>
         
 </body>
 </html>
