@@ -35,4 +35,12 @@
 	          </result>
 	    </action>
 	</package>
+	
+	<package name="jap" namespace="/jap" extends="jfreechart-default">
+	   <action name="select" class="com.neusoft.tools.jasper.JsperAction" >
+	          <result name="success">
+	          	   /jfreechart/jsper.jsp
+	          </result>
+	    </action>
+	</package>
 </struts>

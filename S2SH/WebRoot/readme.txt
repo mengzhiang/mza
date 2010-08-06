@@ -53,6 +53,11 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
           http://localhost:8080/S2SH/jfreechart/test.jsp
           数据暂时保存在application中 重启服务就没了。
           
-          
+   我把你给我的iTextAsian.jar放到了LIB下，然后设置
+    Font        name:    宋体 
+    PDF font name:   STSong-Light 
+    PDF  Encoding:  UniGB-UCS2-H(Chinese Siplified)
+    PDF   Embeded: √
+    
 
 			
