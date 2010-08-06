@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.base.dao.Page;
@@ -21,10 +20,24 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 	
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[保存User]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
 	public void save(User user){
 		userDao.save(user);
 	}
 	
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[列出User]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
 	public List<User> list(User user){
 		return userDao.list(user);
 		}
@@ -51,10 +64,25 @@ public class UserServiceImpl implements UserService {
 		return userDao.delUserById(id);
 	}
 
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[翻页查询方法]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	@SuppressWarnings("unchecked")
 	public List<User> listpage(Page p) {
 		return userDao.list(p);
 	}
 	
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[得到数据总数]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
 	public int getTotal(){
 		return userDao.getTotal();
 	}

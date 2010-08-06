@@ -12,8 +12,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 
-import com.neusoft.struts2.user.model.User;
-
 /**
  * Created on 2010-7-30
  * <p>名称: S2SH工程-用户模块--基础Dao</p>
