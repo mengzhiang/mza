@@ -24,11 +24,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("serial")
+@Controller
+@Scope("prototype") 
 public class SelectAction extends ActionSupport {
 
 	private JFreeChart chart;// 必须提供该属性，提供getter方法，且名字要为chart

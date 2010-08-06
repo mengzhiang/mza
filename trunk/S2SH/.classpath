@@ -49,5 +49,12 @@
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-es.jar"/>
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-fr.jar"/>
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-3.7.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/groovy-all-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/iText-2.1.7.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/iTextAsian.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
