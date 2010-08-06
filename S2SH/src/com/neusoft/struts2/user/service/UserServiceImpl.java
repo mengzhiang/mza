@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public List<User> list(User user){
+		System.out.println("list 方法中");
 		return userDao.list(user);
 		}
 	/**
@@ -73,6 +74,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<User> listpage(Page p) {
+		System.out.println("listpage 方法中");
 		return userDao.list(p);
 	}
 	
@@ -84,6 +86,7 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public int getTotal(){
+		System.out.println("getTotal 方法中");
 		return userDao.getTotal();
 	}
 }
