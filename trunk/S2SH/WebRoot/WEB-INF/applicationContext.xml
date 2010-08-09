@@ -42,7 +42,7 @@
 			</props>
 		</property>
 		
-		<property name="packagesToScan" value="com.neusoft.struts2.*.model"/>
+		<property name="packagesToScan" value="com.neusoft.*.*.model"/>
 		 <!--
 		 value只能中间写*最后不能写.*
 		 <property name="packagesToScan" value="com.neusoft.struts2.*.model"/>
