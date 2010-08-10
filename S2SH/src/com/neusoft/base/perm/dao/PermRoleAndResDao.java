@@ -2,7 +2,7 @@ package com.neusoft.base.perm.dao;
 
 import java.util.List;
 
-import com.neusoft.base.perm.model.PermResource;
+import com.neusoft.base.perm.model.PermRoleAndRes;
 
 /**
  * Created on 2010-8-9
@@ -13,7 +13,7 @@ import com.neusoft.base.perm.model.PermResource;
  * @email:  mengzhiang@gmail.com
  * @version:$Revision$
 */
-public interface PermDao {
+public interface PermRoleAndResDao {
 	/**
 	 *  Created on 2010-8-9
 	 * <p>Description:[得到所有的资源]</p>
@@ -21,6 +21,13 @@ public interface PermDao {
 	 * @email: mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
-	public List<PermResource> list(PermResource res);
+	public List<PermRoleAndRes> list(PermRoleAndRes res);
+	/**
+	 *  Created on 2010-8-10 
+	 * <p>Description:[获得总数]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
 	public int getTotal();
 }

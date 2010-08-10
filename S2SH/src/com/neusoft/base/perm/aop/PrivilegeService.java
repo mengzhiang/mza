@@ -16,8 +16,8 @@ import com.neusoft.base.perm.model.PermResource;
 import com.neusoft.base.perm.service.PermService;
 import com.neusoft.struts2.user.model.User;
 
-@Component
-@Aspect
+//@Component
+//@Aspect
 public class PrivilegeService {
 
 	@Resource
@@ -37,7 +37,7 @@ public class PrivilegeService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @throws Throwable
 	 */
-	@Before("execution(* com.neusoft.struts2.user.service.UserService.* (..))")
+	//@Before("execution(* com.neusoft.struts2.user.service.UserService.* (..))")
 	public void test(JoinPoint jp) throws Throwable {
 		// 取得改方法的信息。
 		// 代理的类
@@ -66,6 +66,7 @@ public class PrivilegeService {
 		User user = new User();
 		user.setId(2);
 		// 模拟用户的权限信息，通过userID取得权限list。
+		// 模拟一个角色，取得该角色对应的资源list
 		List<PermResource> reslist = permService.list(new PermResource());
 		// 循环拼成字符串发到map里
 		Map<Long, String> map = new HashMap<Long, String>();

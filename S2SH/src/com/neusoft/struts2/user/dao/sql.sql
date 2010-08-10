@@ -26,6 +26,7 @@ id int(3) auto_increment not null primary key,
 name varchar(50) , 
 pwd varchar(50)
 );
+
 --资源表
 CREATE TABLE t_perm_resources (
   id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
@@ -37,34 +38,47 @@ CREATE TABLE t_perm_resources (
   method_name VARCHAR(20) DEFAULT NULL COMMENT '方法名',
   parametertype_names VARCHAR(300) DEFAULT NULL COMMENT '参数'
 )COMMENT'权限资源表';
---角色表
+INSERT INTO `t_perm_resources` (`id`, `name`, `code`, `reslx`, `url`, `classtype_name`, `method_name`, `parametertype_names`) VALUES 
+  (1, '用户查询记录数', 'user_getTotal', 1, NULL, 'com.neusoft.struts2.user.service.UserServiceImpl', 'getTotal', NULL),
+  (2, '用户翻页查询', 'user_listpage', 1, NULL, 'com.neusoft.struts2.user.service.UserServiceImpl', 'listpage', 'com.neusoft.base.dao.Page');
+
+  
+  --角色表
 CREATE TABLE t_perm_role (
   id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
   name VARCHAR(20) NOT NULL COMMENT '角色名称',
   code VARCHAR(20) NOT NULL UNIQUE KEY COMMENT '角色编码',
   detail VARCHAR(300) DEFAULT NULL COMMENT '角色说明'
 )COMMENT'权限角色表';
+INSERT INTO `t_perm_role` (`id`, `name`, `code`, `detail`) VALUES 
+  (1, '管理员', 'admin', '管理员'),
+  (2, '普通用户', 'user', '普通用户');
+  
 --角色资源关联表
 CREATE TABLE t_perm_role_and_resources (
-  id INTEGER(11) auto_increment NOT NULL primary key,
-  roleid INTEGER(11) NOT NULL,
-  resid INTEGER(11) NOT NULL ,
-  detail VARCHAR(300) DEFAULT NULL
-);
+  id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
+  rolecode VARCHAR(20) NOT NULL COMMENT '角色编码',
+  rescode VARCHAR(20) NOT NULL  COMMENT '资源编码',
+  detail VARCHAR(300) DEFAULT NULL COMMENT '说明'
+)COMMENT'角色资源对应表';
+INSERT INTO `t_perm_role_and_resources` (`id`, `rolecode`, `rescode`, `detail`) VALUES 
+  (1, 'admin', 'user_getTotal', '管理员可以查询用户数量'),
+  (2, 'user', 'user_listpage', '普通用户可以查询用户信息');
+
 --用户角色关联表
 CREATE TABLE t_perm_user_and_role (
-  id INTEGER(11) auto_increment NOT NULL primary key,
-  userid INTEGER(11) NOT NULL,
-  roleid INTEGER(11) NOT NULL ,
-  detail VARCHAR(300) DEFAULT NULL
-);
---角色表
-CREATE TABLE t_perm_role (
-  id INTEGER(11) auto_increment NOT NULL primary key,
-  name VARCHAR(20) NOT NULL,
-  code VARCHAR(20) NOT NULL UNIQUE KEY ,
-  detail VARCHAR(300) DEFAULT NULL
-);
+  id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
+  username INTEGER(11) NOT NULL COMMENT '用户ID',
+  rolecode INTEGER(11) NOT NULL  COMMENT '角色ID',
+  detail VARCHAR(300) DEFAULT NULL COMMENT '说明'
+)COMMENT'用户角色关联表';
+--用户表
+CREATE TABLE t_perm_user (
+  id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
+  username VARCHAR(20) NOT NULL UNIQUE KEY COMMENT '用户名',
+  password VARCHAR(20) NOT NULL  COMMENT '密码',
+  detail VARCHAR(300) DEFAULT NULL COMMENT '说明'
+)COMMENT'用户表';
 
 //显示所有字段
 show full columns from t_perm_role;
