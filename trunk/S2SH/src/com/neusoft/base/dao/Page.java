@@ -10,6 +10,7 @@ public class Page<T> {
     //-- 公共变量 --//
     public static final String ASC = "asc";
     public static final String DESC = "desc";
+    public static final int   PAGE_SIZE = 10;
 
     protected int start = 0;
     //-- 分页参数 --//

@@ -37,8 +37,8 @@
 					org.hibernate.dialect.MySQLDialect
 				</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!-- 可以使用getCurrentSession方法来做 -->
-				<prop key="hibernate.current_session_context_class">thread</prop>
+				<!-- 可以使用getCurrentSession方法来做 
+				<prop key="hibernate.current_session_context_class">thread</prop>-->
 			</props>
 		</property>
 		
@@ -65,6 +65,12 @@
 		</property>
 		 --> 
 	</bean>
+	<!--使用HibernateTemlate来做持久层的工作-->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
 	<bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  

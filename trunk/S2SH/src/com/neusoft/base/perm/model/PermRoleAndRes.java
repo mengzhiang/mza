@@ -12,22 +12,22 @@ import javax.persistence.Table;
 /**
  * Created on 2010-8-9
  * <p>名称: S2SH工程-权限模块</p>
- * <p>描述: [角色Entity]</p>
+ * <p>描述: [权限Entity]</p>
  * <p>版本: Copyright (c) 2010</p>
  * @author: 孟志昂
  * @email:  mengzhiang@gmail.com
  * @version:$Revision$
 */
 @Entity
-@Table(name="t_perm_role")
-public class PermRole {
+@Table(name="t_perm_role_and_resources")
+public class PermRoleAndRes {
 	//id
 	private long id;
-	//角色名称
-	private String name;
 	//角色编码
-	private String code;
-	//角色说明
+	private String rolecode;
+	//资源编码
+	private String rescode;
+	//说明
 	private String detail;
 
 	@Id
@@ -40,18 +40,18 @@ public class PermRole {
 		this.id = id;
 	}
 	@Column
-	public String getName() {
-		return name;
+	public String getRolecode() {
+		return rolecode;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRolecode(String rolecode) {
+		this.rolecode = rolecode;
 	}
 	@Column
-	public String getCode() {
-		return code;
+	public String getRescode() {
+		return rescode;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setRescode(String rescode) {
+		this.rescode = rescode;
 	}
 	@Column
 	public String getDetail() {

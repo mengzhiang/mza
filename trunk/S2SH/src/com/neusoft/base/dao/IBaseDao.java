@@ -1,0 +1,110 @@
+package com.neusoft.base.dao;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+
+public interface IBaseDao<T,PK extends Serializable> {
+
+	// -------------------- 基本检索、增加、修改、删除操作 --------------------
+	/**
+	 * 获取全部实体
+	 * @param criterions
+	 * @return
+	 */
+	public List<T> loadAll();
+	
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[保存实体]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param entity
+	 */
+	public void save(final T entity);
+	
+    /**
+     *  Created on 2010-8-10 
+     * <p>Description:[更新实体]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entity
+     */
+    public void update(T entity);
+    /**
+     *  Created on 2010-8-10 
+     * <p>Description:[增加或更新实体]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entity
+     */
+    public void saveOrUpdate(T entity);
+    /**
+     *  Created on 2010-8-10 
+     * <p>Description:[增加或更新集合中的全部实体]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entities
+     */
+    public void saveOrUpdateAll(Collection<T> entities);
+    /**
+     *  Created on 2010-7-29 
+     * <p>Description:[通过ID获取entity]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param id
+     * @return
+     */
+	public T get(final PK id);
+    /**
+     *  Created on 2010-7-30 
+     * <p>Description:[删除指定的实体]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entity
+     */
+    public void delete(T entity);
+    
+    /**
+     *  Created on 2010-8-10 
+     * <p>Description:[删除集合中的全部实体]</p>
+     * @author 孟志昂 mengzhiang@gmail.com
+     * @update:[日期YYYY-MM-DD] [更改人姓名]
+     * @param entities
+     */
+    public void deleteAll(Collection<T> entities);
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[获取所有记录数]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param hql
+	 * @return
+	 */
+	public int getAllRowCount(String hql);
+
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[公共分页查询方法（一个参数，开始索引）]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param hql
+	 * @param offset
+	 * @param length
+	 * @return
+	 */
+	public List<T> findPageByCriteria(int start);
+	/**
+	 *  Created on 2010-7-29 
+	 * <p>Description:[公共分页查询方法（两个参数，开始索引和显示条数）]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param hql
+	 * @param offset
+	 * @param length
+	 * @return
+	 */
+	public List<T> findPageByCriteria(int start,int limit);
+}

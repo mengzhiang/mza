@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public void save(User user){
-		userDao.save(user);
+		userDao.saveOrUpdate(user);
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public List<User> list(User user){
-		return userDao.list(user);
+		return userDao.loadAll();
 		}
 	/**
 	 *  Created on 2010-7-29
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public User getUserById(long id) {
-		return userDao.getUserById(id);
+		return userDao.get(id);
 	}
 	
 	/**
@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	public String delUserById(long id) {
-		return userDao.delUserById(id);
+		userDao.delete(userDao.get(id));
+		return "success";
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<User> listpage(Page p) {
-		return userDao.list(p);
+		return userDao.findPageByCriteria(p.getStart(), p.getPageSize());
 	}
 	
 	/**
@@ -84,6 +85,6 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public int getTotal(){
-		return userDao.getTotal();
+		return userDao.loadAll().size();
 	}
 }
