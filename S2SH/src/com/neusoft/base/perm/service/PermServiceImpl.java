@@ -94,28 +94,28 @@ public class PermServiceImpl implements PermService {
 	 */
 	public List<PermResource> getPermResourceByPermRole(PermRole permrole) {
 		
-		PermRole role = new PermRole();
-		role.setName("role1");
-		role.setCode("role1");
-		
-		PermResource pers = new PermResource();
-		pers.setName("pers2");
-		pers.setCode("pers2");
-		Set<PermResource> resset = new HashSet<PermResource>();
-		resset.add(pers);
-		
-		PermUser user = new PermUser();
-		user.setPassword("user1");
-		user.setUsername("user1");
-		Set<PermUser> userset = new HashSet<PermUser>();
-		userset.add(user);
-		
-		role.setPermResources(resset);
-		role.setPermUser(userset);
-		
-		permUserDao.save(user);
-		permResourceDao.save(pers);
-		permRoleDao.save(role);
+//		PermRole role = new PermRole();
+//		role.setName("role1");
+//		role.setCode("role1");
+//		
+//		PermResource pers = new PermResource();
+//		pers.setName("pers2");
+//		pers.setCode("pers2");
+//		Set<PermResource> resset = new HashSet<PermResource>();
+//		resset.add(pers);
+//		
+//		PermUser user = new PermUser();
+//		user.setPassword("user1");
+//		user.setUsername("user1");
+//		Set<PermUser> userset = new HashSet<PermUser>();
+//		userset.add(user);
+//		
+//		role.setPermResources(resset);
+//		role.setPermUser(userset);
+//		
+//		permUserDao.save(user);
+//		permResourceDao.save(pers);
+//		permRoleDao.save(role);
 		
 		
 		DetachedCriteria dc = DetachedCriteria.forClass(PermResource.class);

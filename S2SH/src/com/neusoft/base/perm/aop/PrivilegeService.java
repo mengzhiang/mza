@@ -95,7 +95,7 @@ public class PrivilegeService {
 		if (map.containsValue(resource)) {
 			System.out.println("有权限");
 		} else {
-			throw new PrivilegeNotEnoughException("Not hava enough privilege!");
+			//throw new PrivilegeNotEnoughException("Not hava enough privilege!");
 		}
 
 	}

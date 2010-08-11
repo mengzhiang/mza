@@ -81,23 +81,27 @@ public class UserAction extends BaseAction {
 	 */
 	public String querytree(){
 		tree =  new ArrayList<TreeModel>();
+		
 		TreeModel n1 = new TreeModel();
 		n1.setId(1);
 		n1.setLeaf(false);
 		n1.setText("not leaf");
-		TreeModel n1c1 = new TreeModel();
-		n1c1.setId(11);
-		n1c1.setLeaf(true);
-		n1c1.setText("子节点1");
-		List<TreeModel> n1list = new ArrayList<TreeModel>();
-		n1list.add(n1c1);
+			TreeModel n1c1 = new TreeModel();
+			n1c1.setId(11);
+			n1c1.setLeaf(true);
+			n1c1.setText("子节点1");
+			List<TreeModel> n1list = new ArrayList<TreeModel>();
+			n1list.add(n1c1);
 		n1.setChildren(n1list);
+		
 		TreeModel n2 = new TreeModel();
 		n2.setId(2);
 		n2.setLeaf(true);
 		n2.setText("is leaf");
+		
 		tree.add(n1);
 		tree.add(n2);
+		
 		return SUCCESS;
 	}
 
