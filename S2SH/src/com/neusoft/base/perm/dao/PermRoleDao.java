@@ -1,7 +1,6 @@
 package com.neusoft.base.perm.dao;
 
-import java.util.List;
-
+import com.neusoft.base.dao.IBaseDao;
 import com.neusoft.base.perm.model.PermRole;
 
 /**
@@ -13,14 +12,5 @@ import com.neusoft.base.perm.model.PermRole;
  * @email:  mengzhiang@gmail.com
  * @version:$Revision$
 */
-public interface PermRoleDao {
-	/**
-	 *  Created on 2010-8-9
-	 * <p>Description:[得到所有的资源]</p>
-	 * @author:孟志昂
-	 * @email: mengzhiang@gmail.com
-	 * @update:[日期YYYY-MM-DD] [更改人姓名]
-	 */
-	public List<PermRole> list(PermRole res);
-	public int getTotal();
+public interface PermRoleDao extends IBaseDao<PermRole,Long>{
 }

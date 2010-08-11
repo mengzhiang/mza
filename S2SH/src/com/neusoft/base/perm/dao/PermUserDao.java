@@ -1,7 +1,7 @@
 package com.neusoft.base.perm.dao;
 
 import com.neusoft.base.dao.IBaseDao;
-import com.neusoft.base.perm.model.PermResource;
+import com.neusoft.base.perm.model.PermUser;
 
 /**
  * Created on 2010-8-9
@@ -12,6 +12,5 @@ import com.neusoft.base.perm.model.PermResource;
  * @email:  mengzhiang@gmail.com
  * @version:$Revision$
 */
-public interface PermResourceDao extends IBaseDao<PermResource,Long> {
-
+public interface PermUserDao extends IBaseDao<PermUser,Long>{
 }

@@ -107,4 +107,13 @@ public interface IBaseDao<T,PK extends Serializable> {
 	 * @return
 	 */
 	public List<T> findPageByCriteria(int start,int limit);
+	/**
+	 *  Created on 2010-8-11 
+	 * <p>Description:[条件查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param detachedCriteria
+	 * @return
+	 */
+	public List<T> findPageByCriteria(final DetachedCriteria detachedCriteria);
 }

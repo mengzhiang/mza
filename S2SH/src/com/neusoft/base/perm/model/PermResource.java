@@ -1,10 +1,17 @@
 package com.neusoft.base.perm.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -38,9 +45,12 @@ public class PermResource {
 	//参数
 	private String parametertype_names;
 	
+	//角色
+    private Set<PermRole> roles; 
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
 	public long getId() {
 		return id;
 	}
@@ -95,6 +105,18 @@ public class PermResource {
 	}
 	public void setParametertype_names(String parametertypeNames) {
 		parametertype_names = parametertypeNames;
+	}
+
+	@ManyToMany(
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE }, 
+			mappedBy="permResources",//主控方交给role，由role来维护中间表。
+			targetEntity=com.neusoft.base.perm.model.PermRole.class
+				) 
+	public Set<PermRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<PermRole> roles) {
+		this.roles = roles;
 	}
 	
 }

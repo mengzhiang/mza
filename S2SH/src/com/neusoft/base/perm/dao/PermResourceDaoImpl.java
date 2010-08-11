@@ -1,7 +1,5 @@
 package com.neusoft.base.perm.dao;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.neusoft.base.dao.BaseDao;
@@ -18,24 +16,5 @@ import com.neusoft.base.perm.model.PermResource;
 */
 @Repository
 public class PermResourceDaoImpl extends BaseDao<PermResource,Long> implements PermResourceDao {
-//	/**
-//	 *  Created on 2010-8-9
-//	 * <p>Description:[得到所有的资源]</p>
-//	 * @author:孟志昂
-//	 * @email: mengzhiang@gmail.com
-//	 * @update:[日期YYYY-MM-DD] [更改人姓名]
-//	 */
-//	public List<PermResource> list(PermResource res){
-//		return (List<PermResource>)super.find();
-//	};
-//	/**
-//	 *  Created on 2010-8-6
-//	 * <p>Description:[得到数据总数]</p>
-//	 * @author:孟志昂
-//	 * @email: mengzhiang@gmail.com
-//	 * @update:[日期YYYY-MM-DD] [更改人姓名]
-//	 */
-//	public int getTotal(){
-//		return super.getAllRowCount("from PermResource where 1=1");
-//	}
+
 }
