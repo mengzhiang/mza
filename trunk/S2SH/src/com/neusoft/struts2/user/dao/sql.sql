@@ -82,3 +82,13 @@ CREATE TABLE t_perm_user (
 
 //显示所有字段
 show full columns from t_perm_role;
+
+--用户表
+CREATE TABLE t_test_tree (
+  id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
+  parentid INTEGER(11) NOT NULL  COMMENT '父节点ID',
+  title VARCHAR(100) NOT NULL  COMMENT '标题',
+  number INTEGER(11) DEFAULT NULL COMMENT 'number',
+  leaf INTEGER(4) DEFAULT NULL COMMENT 'leaf',
+  url VARCHAR(500) DEFAULT NULL COMMENT 'url'
+)COMMENT'测试树表';

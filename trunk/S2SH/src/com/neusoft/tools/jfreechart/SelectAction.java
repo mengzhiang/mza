@@ -1,4 +1,4 @@
-package com.neusoft.struts2.user.action;
+package com.neusoft.tools.jfreechart;
 
 import java.awt.Font;
 import java.io.File;

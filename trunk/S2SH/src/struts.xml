@@ -23,7 +23,7 @@
     </package>
 
 	<package name="jfc" namespace="/jfc" extends="jfreechart-default">
-	   <action name="select" class="com.neusoft.struts2.user.action.SelectAction">
+	   <action name="select" class="com.neusoft.tools.jfreechart.SelectAction">
 	   	<!--
 	          <result name="success" type="chart">
 	           		<param name="height">400</param>
