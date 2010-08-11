@@ -57,8 +57,8 @@ INSERT INTO `t_perm_role` (`id`, `name`, `code`, `detail`) VALUES
 --角色资源关联表
 CREATE TABLE t_perm_role_and_resources (
   id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
-  rolecode VARCHAR(20) NOT NULL COMMENT '角色编码',
-  rescode VARCHAR(20) NOT NULL  COMMENT '资源编码',
+  roleid INTEGER(11) NOT NULL COMMENT '角色ID',
+  resid INTEGER(11) NOT NULL  COMMENT '资源ID',
   detail VARCHAR(300) DEFAULT NULL COMMENT '说明'
 )COMMENT'角色资源对应表';
 INSERT INTO `t_perm_role_and_resources` (`id`, `rolecode`, `rescode`, `detail`) VALUES 

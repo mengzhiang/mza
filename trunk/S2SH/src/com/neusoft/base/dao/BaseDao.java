@@ -6,7 +6,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -175,5 +179,25 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK>{
 		DetachedCriteria dc = DetachedCriteria.forClass(entityClass); 
 		List<T> list = hibernateTemplate.findByCriteria(dc, start, limit);
 		return list;
+	}
+	
+	/**
+	 *  Created on 2010-8-11 
+	 * <p>Description:[条件查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param detachedCriteria
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> findPageByCriteria(final DetachedCriteria detachedCriteria){
+		return (List<T>) hibernateTemplate.executeWithNativeSession(new HibernateCallback(){   
+            public Object doInHibernate(Session session) throws HibernateException{   
+                Criteria criteria = detachedCriteria.getExecutableCriteria(session);   
+                List list = criteria.list();    
+                return list;
+            }   
+        });  
+		
 	}
 }

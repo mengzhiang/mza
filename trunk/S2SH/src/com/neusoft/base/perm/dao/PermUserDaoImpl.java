@@ -3,7 +3,7 @@ package com.neusoft.base.perm.dao;
 import org.springframework.stereotype.Repository;
 
 import com.neusoft.base.dao.BaseDao;
-import com.neusoft.base.perm.model.PermRole;
+import com.neusoft.base.perm.model.PermUser;
 
 /**
  * Created on 2010-8-9
@@ -15,5 +15,5 @@ import com.neusoft.base.perm.model.PermRole;
  * @version:$Revision$
 */
 @Repository
-public class PermRoleDaoImpl extends BaseDao<PermRole,Long> implements PermRoleDao {
+public class PermUserDaoImpl extends BaseDao<PermUser,Long> implements PermUserDao {
 }

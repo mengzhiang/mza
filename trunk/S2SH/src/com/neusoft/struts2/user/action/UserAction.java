@@ -42,11 +42,10 @@ public class UserAction extends BaseAction {
 		this.userService = userService;
 	}
 
-//	@Override
-//	public String execute(){
-//		userService.save(user);
-//		return SUCCESS;
-//	}
+	@Override
+	public String execute(){
+		return SUCCESS;
+	}
 	
 	/**
 	 * 列表方法
