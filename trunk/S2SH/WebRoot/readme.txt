@@ -59,5 +59,9 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
     PDF  Encoding:  UniGB-UCS2-H(Chinese Siplified)
     PDF   Embeded: √
     
+    
+  下一步工作
+  hibernate查询如何完成用DetchedCritial来做 
+    
 
 			

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TreeModel {
 	
-	private int id;
+	private long id;
 	
 	private String text;
 	
@@ -12,10 +12,10 @@ public class TreeModel {
 	
 	private List<TreeModel> children;
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getText() {
@@ -36,5 +36,4 @@ public class TreeModel {
 	public void setChildren(List<TreeModel> children) {
 		this.children = children;
 	}
-	
 }

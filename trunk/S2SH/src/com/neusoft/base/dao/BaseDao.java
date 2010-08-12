@@ -10,6 +10,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -200,4 +201,30 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK>{
         });  
 		
 	}
+	
+	/**
+	 *  Created on 2010-8-12 
+	 * <p>Description:[根据单个属性查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param propertyname
+	 * @param flag
+	 * @param value
+	 * @return
+	 */
+	public List<T> findByProperty(String propertyname,String flag,Object value){
+		DetachedCriteria dc = DetachedCriteria.forClass(entityClass);
+		if("EQ".equals(flag)){
+			dc.add(Restrictions.eq(propertyname,value));
+		}
+		return findPageByCriteria(dc);
+	}
+    /** *//**  
+     * 根据某个具体属性进行查找  
+     */  
+    public List<T> findByProperty(String propertyName, Object value){   
+       String queryString = "from " + entityClass.getName() + " as model where model."    
+                               + propertyName + "= ?";   
+       return (List<T>)hibernateTemplate.find(queryString, value);   
+    }   
 }
