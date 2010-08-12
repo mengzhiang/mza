@@ -47,7 +47,6 @@ Ext.onReady(function(){
             var json = eval("("+json+")");
             node.beginUpdate();
             var o = json["tree"];
-
             for(var i = 0, len = o.length; i < len; i++){
                 var n = this.createNode(o[i]);
                 if(n){
@@ -65,12 +64,12 @@ Ext.onReady(function(){
    //创建树panel
     var tree = new Ext.tree.TreePanel({
         loader: loader,
-        title: 'west',
+        title: '菜单',
         region: 'west',
         split: true,
         border: true,
         collapsible: true,
-        width: 120,
+        width: 200,
         minSize: 80,
         maxSize: 200
     });
@@ -81,6 +80,7 @@ Ext.onReady(function(){
 					return;
 				}
            		var tab = tabs.getComponent(node.text);
+           		
            		if(tab){
            			tabs.setActiveTab(tab);
            			return;
@@ -88,13 +88,13 @@ Ext.onReady(function(){
            		tab = tabs.add({
            			id:node.text,
            			title:node.text,
-           			html:"234234234",
+           			html:"<iframe src='/S2SH"+node.attributes.url+"' scrolling='no' frameborder='0' width='100%' height='100%'></iframe>",
            			closable:true
            		});
            		tabs.setActiveTab(tab);
     });
     //创建跟节点
-    var root = new Ext.tree.AsyncTreeNode({text:'偶是根'});
+    var root = new Ext.tree.AsyncTreeNode({text:'基础信息'});
     tree.setRootNode(root);
     root.expand(true,true);
     
@@ -108,8 +108,9 @@ Ext.onReady(function(){
         frame:true,
         defaults:{autoHeight: true},
         items:[
-            grid,
-            {contentEl:'markup', title: 'Long Text',closable:true}
+        	{contentEl:'welcome', title: '欢迎',closable:true}
+            //grid,
+            //{contentEl:'markup', title: 'Long Text',closable:true}
         ],
         plugins: new Ext.ux.TabCloseMenu()
     });
@@ -120,8 +121,8 @@ Ext.onReady(function(){
         items:[{
             region: 'north',
             contentEl: 'north-div',
-            height: 80,
-            bodyStyle: 'background-color:#BBCCEE;'
+            height: 95,
+            bodyStyle: 'background-image:url(../images/bkjw1_01.png);'
         },{
             region: 'south',
             contentEl: 'south-div',
@@ -129,20 +130,9 @@ Ext.onReady(function(){
             bodyStyle: 'background-color:#BBCCEE;'
         },tree,tabs]
     });
-    /**
-     * {
-            region: 'center',
-            split: true,
-            border: true,
-            layout: 'border',
-            items: [grid]
-        }
-     */
-//    var win = new Ext.Window({
-//    	width:400,
-//    	height:300,
-//    	layout:'fit',
-//    	items :[grid]
-//    });
-//    win.show();
 });
+//屏蔽右键菜单
+//document.oncontextmenu = function()
+//{
+//	//return false;
+//}

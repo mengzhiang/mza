@@ -128,6 +128,7 @@ public class UserServiceImpl implements UserService {
 			TreeModel tm = new TreeModel();
 			tm.setId(tree.getId());
 			tm.setText(tree.getTitle());
+			tm.setUrl(tree.getUrl());
 			//0非叶子节点1是叶子节点
 			if(tree.getLeaf()==0){
 				tm.setLeaf(false);
