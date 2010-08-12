@@ -8,6 +8,8 @@ public class TreeModel {
 	
 	private String text;
 	
+	private String url;
+	
 	private boolean leaf;
 	
 	private List<TreeModel> children;
@@ -35,5 +37,11 @@ public class TreeModel {
 	}
 	public void setChildren(List<TreeModel> children) {
 		this.children = children;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }
