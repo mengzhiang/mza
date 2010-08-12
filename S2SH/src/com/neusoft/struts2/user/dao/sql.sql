@@ -88,7 +88,14 @@ CREATE TABLE t_test_tree (
   id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
   parentid INTEGER(11) NOT NULL  COMMENT '父节点ID',
   title VARCHAR(100) NOT NULL  COMMENT '标题',
-  number INTEGER(11) DEFAULT NULL COMMENT 'number',
-  leaf INTEGER(4) DEFAULT NULL COMMENT 'leaf',
+  number INTEGER(11)  COMMENT 'number',
+  leaf INTEGER(4)  COMMENT 'leaf',
   url VARCHAR(500) DEFAULT NULL COMMENT 'url'
 )COMMENT'测试树表';
+
+INSERT INTO `t_test_tree` (`id`, `parentid`, `title`,`number`, `leaf`) VALUES 
+  (1, '0', 'n1',0, '0'),
+  (2, '1', 'n1l1',0,'1'),
+  (3, '0', 'n2',0, '1');
+  
+  

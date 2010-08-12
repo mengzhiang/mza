@@ -116,4 +116,19 @@ public interface IBaseDao<T,PK extends Serializable> {
 	 * @return
 	 */
 	public List<T> findPageByCriteria(final DetachedCriteria detachedCriteria);
+	/**
+	 *  Created on 2010-8-12 
+	 * <p>Description:[根据单个属性查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param propertyname
+	 * @param flag
+	 * @param value
+	 * @return
+	 */
+	public List<T> findByProperty(String propertyname,String flag,Object value);
+    /** *//**  
+     * 根据某个具体属性进行查找  
+     */  
+    public List<T> findByProperty(String propertyName, Object value);
 }

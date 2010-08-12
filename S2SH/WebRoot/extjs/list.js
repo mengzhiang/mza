@@ -96,7 +96,7 @@ Ext.onReady(function(){
     //创建跟节点
     var root = new Ext.tree.AsyncTreeNode({text:'偶是根'});
     tree.setRootNode(root);
-    root.expand();
+    root.expand(true,true);
     
     //tab 配置
     var tabs = new Ext.TabPanel({
