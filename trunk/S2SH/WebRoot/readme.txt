@@ -62,6 +62,10 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
     
   下一步工作
   hibernate查询如何完成用DetchedCritial来做 
+  
+  还有工作
+  登陆完成了，
+  等处需要做。
     
 
 			
