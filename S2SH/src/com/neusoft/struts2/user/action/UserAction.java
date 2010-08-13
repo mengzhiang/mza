@@ -1,6 +1,5 @@
 package com.neusoft.struts2.user.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;

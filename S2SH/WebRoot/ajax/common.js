@@ -507,5 +507,9 @@ function MZA(){
 		this.queryData((pageindex-1)*MZA.LIMIT,MZA.LIMIT);
 		this.checkPage();
 	}
+	//添加事件
+	this.connect = function(elementid,eventname,functionname){
+		document.getElementById(elementid).setAttribute(eventname,functionname);
+	}
 }
 var MZA = new MZA();
