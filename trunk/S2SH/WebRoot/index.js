@@ -1,6 +1,7 @@
 function Login() {
+	this.yzmcode = "";
 	this.submit = function() {
-		if (!this.checkInput()) {
+		if ((!this.checkInput()) || (!this.checkYzm())) {
 			return;
 		};
 		var name = document.getElementById("username").value;
@@ -38,7 +39,7 @@ function Login() {
 	// 校验
 	this.checkInput = function() {
 		var erronodes = document.getElementsByName("blankerror");
-		if(erronodes.length>0){
+		if (erronodes.length > 0) {
 			MZA.removeAllElement(erronodes);
 		}
 		var flag = true;
@@ -56,6 +57,21 @@ function Login() {
 		}
 		return flag;
 	}
+	// 判断验证码输入
+	this.checkYzm = function() {
+		var yzminput = document.getElementById("yzm");
+		var yzmvalue = yzminput.value;
+		if (this.yzmcode == yzmvalue) {
+			return true;
+		} else {
+			var node = document.createElement("span");
+			node.setAttribute("id", "yzmerror");
+			node.setAttribute("class", "errormsg");
+			node.innerHTML = "验证码错误";
+			yzminput.parentNode.appendChild(node);
+			return false;
+		}
+	}
 	// 更换背景图片
 	this.swapImage = function(url) {
 		document.getElementById("button").setAttribute("src", url);
@@ -72,22 +88,30 @@ function Login() {
 			MZA.removeElement(document.getElementById("passerror"));
 		}
 	}
+	// 去除提示信息
+	this.onyzmfocus = function() {
+		if (document.getElementById("yzmerror")) {
+			MZA.removeElement(document.getElementById("yzmerror"));
+		}
+	}
+	// 按Enter键登陆
 	this.enterToSubmit = function(event) {
-		var e = event?event:window.event 
+		var e = event ? event : window.event
 		if (event.keyCode == 13) {
 			this.submit();
 		}
 	}
-	this.inityzm = function(){
-		var test = Math.random(0,1);
-		var data ={
-			sync:false,//同步非异步
-			url :"login_geneImg?test="+test
+	// 初始化验证码
+	this.inityzm = function() {
+		var test = Math.random(0, 1);
+		var data = {
+			sync : false,// 同步非异步
+			url : "login_geneImg?test=" + test
 		}
 		var object = MZA.ajax(data);
-		console.log(object.yzm);
-		console.log(object.yzmjpgName);
-		setTimeout("document.getElementById('yzmpic').setAttribute('src','/S2SH/temp/"+object.yzmjpgName+".jpg');",0);   
+		this.yzmcode = object.yzm;
+		document.getElementById('yzmpic').setAttribute('src',
+				'/S2SH/temp/yzm/' + object.yzmjpgName + '.jpg');
 	}
 	// 初始化方法
 	this.init = function() {
@@ -99,8 +123,11 @@ function Login() {
 		MZA.connect("button", "onclick", "login.submit()");
 		MZA.connect("username", "onfocus", "login.onnamefocus()");
 		MZA.connect("password", "onfocus", "login.onpassfocus()");
-		MZA.connect("password", "onkeydown", "login.enterToSubmit(event)");
+		MZA.connect("yzm", "onfocus", "login.onyzmfocus()");
+		MZA.connect("yzm", "onkeydown", "login.enterToSubmit(event)");
+		MZA.connect("yzmpic", "onclick", "login.inityzm()");
 	}
+
 }
 var login = new Login();
 MZA.addOnLoad(login.init);

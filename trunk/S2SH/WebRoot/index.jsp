@@ -16,64 +16,86 @@
 	background-repeat: no-repeat;
 	height: 315px;
 	width: 545px;
-	margin:0 auto 0 auto;
-	position:absolute;  
-	left:50%;  
-	top:50%;  
-	margin-left:-272px;  
-	margin-top:-157px;  
+	margin: 0 auto 0 auto;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -272px;
+	margin-top: -157px;
 }
+
 .login_table {
-	width:500px;
-	height:120px;
-	position:absolute;  
-	margin-left:50px;  
-	margin-top:120px;  
+	width: 480px;
+	height: 120px;
+	position: absolute;
+	margin-left: 50px;
+	margin-top: 120px;
 }
-.login_td{
-	text-align:left;
-	font-family:Verdana, Arial, Helvetica, sans-serif, "宋体"; HEIGHT: 28px;
-	font-size:12px;
-	width:55px;
+
+.login_td {
+	text-align: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
+	HEIGHT: 28px;
+	font-size: 12px;
+	width: 55px;
+	vertical-align: middle;
 }
-.input_bg{
-	width:180px;
-	font-family:Verdana, Arial, Helvetica, sans-serif, "宋体"; HEIGHT: 18px;
+
+.input_bg {
+	width: 180px;
+	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
+	HEIGHT: 22px;
 }
-.errormsg{
-	margin-left:15px;
-	font-size:12px;
-	color:red;
+
+.errormsg {
+	margin-left: 15px;
+	font-size: 12px;
+	color: red;
+}
+
+.input_yzm {
+	width: 106px;
+	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
+	HEIGHT: 22px;
+	font-size: 12px;
+}
+
+input,img {
+	vertical-align: middle;
+}
+
+.yzmimg {
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript" src="ajax/common.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </head>
 <body class="body_bg">
-	<div  class="login_bg">
-			<table class="login_table">
-				<tr>
-					<td class="login_td">用户名：</td>
-					<td><input id="username" type="text" name="username" class="input_bg" ></input></td>
-				</tr>
-				<tr>
-					<td class="login_td">密&nbsp;&nbsp;码：</td>
-					<td><input id="password" type="password" name="password" class="input_bg" ></input></td>
-				</tr>
-				<tr>
-					<td class="login_td">验证码：</td>
-					<td><input id="yzm" type="text" name="yzm" class="input_bg" ></input>
-						<img id="yzmpic" width="68" height="22" src="">
-					</td>
-				</tr>
-				<tr>
-					<td ></td>
-					<td >
-						<img id="button"  src="images/images/button.gif"/>
-					</td>
-				</tr>
-				
-			</table>
-	</div>
+<div class="login_bg">
+<table class="login_table">
+	<tr>
+		<td class="login_td">用户名：</td>
+		<td><input id="username" type="text" name="username"
+			class="input_bg"></input></td>
+	</tr>
+	<tr>
+		<td class="login_td">密&nbsp;&nbsp;&nbsp;码：</td>
+		<td><input id="password" type="password" name="password"
+			class="input_bg"></input></td>
+	</tr>
+	<tr>
+		<td class="login_td">验证码：</td>
+		<td><input id="yzm" type="text" name="yzm" class="input_yzm"></input>
+		<img id="yzmpic" width="68" height="22" src="" title="点击更换"
+			class="yzmimg" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><img id="button" src="images/images/button.gif" /></td>
+	</tr>
+
+</table>
+</div>
 </body>
 </html>
