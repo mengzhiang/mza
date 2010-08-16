@@ -1,8 +1,6 @@
 package com.neusoft.base.perm.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -121,5 +119,30 @@ public class PermServiceImpl implements PermService {
 		DetachedCriteria dc = DetachedCriteria.forClass(PermResource.class);
 		dc.add(Restrictions.eq("id", permrole.getId()));
 		return permResourceDao.findPageByCriteria(dc);
+	}
+	/**
+	 *  Created on 2010-8-13 
+	 * <p>Description:[判断该是否存在该用户]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param pu
+	 * @return
+	 */
+	public String checkUserAccount(PermUser pu){
+		String info = "";
+		List<PermUser> list = permUserDao.findByProperty("username", pu.getUsername());
+		if(list.size()==1){
+			if(pu.getPassword().equals(list.get(0).getPassword())){
+				info = "true";
+			}else{
+				info = "密码错误";
+			}
+		}if(list.size()==0){
+			System.out.println("用户不存在！");
+				info = "该用户不存在";
+		}else{
+			System.out.println("登陆错误");
+		}
+		return info;
 	}
 }

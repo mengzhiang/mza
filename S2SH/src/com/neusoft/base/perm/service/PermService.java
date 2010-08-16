@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.neusoft.base.perm.model.PermResource;
 import com.neusoft.base.perm.model.PermRole;
+import com.neusoft.base.perm.model.PermUser;
 
 /**
  * Created on 2010-8-9
@@ -40,4 +41,13 @@ public interface PermService {
 	 * @return
 	 */
 	public List<PermResource> getPermResourceByPermRole(PermRole permrole);
+	/**
+	 *  Created on 2010-8-13 
+	 * <p>Description:[判断该是否存在该用户]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param pu
+	 * @return
+	 */
+	public String checkUserAccount(PermUser pu);
 }

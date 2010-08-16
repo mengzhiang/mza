@@ -24,7 +24,7 @@
 	margin-top:-157px;  
 }
 .login_table {
-	width:300px;
+	width:500px;
 	height:120px;
 	position:absolute;  
 	margin-left:50px;  
@@ -40,6 +40,11 @@
 	width:180px;
 	font-family:Verdana, Arial, Helvetica, sans-serif, "宋体"; HEIGHT: 18px;
 }
+.errormsg{
+	margin-left:15px;
+	font-size:12px;
+	color:red;
+}
 </style>
 <script type="text/javascript" src="ajax/common.js"></script>
 <script type="text/javascript" src="index.js"></script>
@@ -49,11 +54,17 @@
 			<table class="login_table">
 				<tr>
 					<td class="login_td">用户名：</td>
-					<td><input id="username" type="text" name="username" class="input_bg"></input></td>
+					<td><input id="username" type="text" name="username" class="input_bg" ></input></td>
 				</tr>
 				<tr>
 					<td class="login_td">密&nbsp;&nbsp;码：</td>
-					<td><input id="password" type="password" name="password" class="input_bg"></input></td>
+					<td><input id="password" type="password" name="password" class="input_bg" ></input></td>
+				</tr>
+				<tr>
+					<td class="login_td">验证码：</td>
+					<td><input id="yzm" type="text" name="yzm" class="input_bg" ></input>
+						<img id="yzmpic" width="68" height="22" src="">
+					</td>
 				</tr>
 				<tr>
 					<td ></td>
