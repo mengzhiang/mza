@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-    "http://struts.apache.org/dtds/struts-2.0.dtd">
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <!-- 如果前台采用ajax框架来做，全是弹出页面，这样就不需要这些页面的跳转
-	，只要弹出页面就可以了
-	
-	<result name="success">{1}_{2}.jsp</result>
-            <result name="error">error.jsp</result>
- -->
+		，只要弹出页面就可以了
+
+		<result name="success">{1}_{2}.jsp</result>
+				<result name="error">error.jsp</result>
+	 -->
 <struts>
 	<constant name="struts.i18n.encoding" value="UTF-8"/>
-    <constant name="struts.devMode" value="true" />
-     <include file="struts-default.xml" />
+	<constant name="struts.devMode" value="true" />
+	<include file="struts-default.xml" />
       
-    <package name="default" extends="json-default">
-        <action name="*_*" class="{1}Action" method="{2}">
-            <result type="json"></result>
-            <!--  s2sh/{1}_{2}.jsp 
-            result name="error">s2sh/error.jsp</result> -->
-        </action>
-    </package>
+	<package name="default" extends="json-default">
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result type="json">
+				<!--设置关联父类的属性一起转化成json-->
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
 
 	<package name="jfc" namespace="/jfc" extends="jfreechart-default">
-	   <action name="select" class="com.neusoft.tools.jfreechart.SelectAction">
-	   	<!--
-	          <result name="success" type="chart">
-	           		<param name="height">400</param>
-	         		<param name="width">600</param>
-	          </result>
-	          -->
-	          <result name="success">
+		<action name="select" class="com.neusoft.tools.jfreechart.SelectAction">
+			<!--
+				  <result name="success" type="chart">
+						   <param name="height">400</param>
+						 <param name="width">600</param>
+				  </result>
+				  -->
+			<result name="success">
 	          	   /jfreechart/show.jsp
-	          </result>
-	    </action>
+			</result>
+		</action>
 	</package>
 	
 	<package name="jap" namespace="/jap" extends="jfreechart-default">
-	   <action name="select" class="com.neusoft.tools.jasper.JsperAction" >
-	          <result name="success">
+		<action name="select" class="com.neusoft.tools.jasper.JsperAction" >
+			<result name="success">
 	          	   /jfreechart/jsper.jsp
-	          </result>
-	    </action>
+			</result>
+		</action>
 	</package>
 </struts>

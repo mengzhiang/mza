@@ -11,6 +11,15 @@ public interface UserService  {
 	public List<User> list(User user);
 	public User getUserById(long id);
 	public String delUserById(long id);
+	/**
+	 *  Created on 2010-7-30 
+	 * <p>Description:[批量删除User]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param id
+	 * @return
+	 */
+	public String delAllUser(List<User> userlist);
 
 	public List<User> listpage(Page p);
 	public int getTotal();

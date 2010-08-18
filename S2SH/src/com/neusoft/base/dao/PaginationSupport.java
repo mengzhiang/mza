@@ -15,28 +15,32 @@ public class PaginationSupport {
 	private int[] indexes = new int[0];
 
 	private int startIndex = 0;
-	//两参数构造方法
+
+	// 两参数构造方法
 	public PaginationSupport(List items, int totalCount) {
 		setPageSize(PAGESIZE);
-                setTotalCount(totalCount);
-		setItems(items);		
+		setTotalCount(totalCount);
+		setItems(items);
 		setStartIndex(0);
 	}
-	//三参数构造方法
+
+	// 三参数构造方法
 	public PaginationSupport(List items, int totalCount, int startIndex) {
-                setPageSize(PAGESIZE);
-		setTotalCount(totalCount);
-		setItems(items);		
-		setStartIndex(startIndex);
-	}
-	//四参数构造方法
-	public PaginationSupport(List items, int totalCount, int pageSize, int startIndex) {
-                setPageSize(pageSize);
+		setPageSize(PAGESIZE);
 		setTotalCount(totalCount);
 		setItems(items);
 		setStartIndex(startIndex);
 	}
-	
+
+	// 四参数构造方法
+	public PaginationSupport(List items, int totalCount, int pageSize,
+			int startIndex) {
+		setPageSize(pageSize);
+		setTotalCount(totalCount);
+		setItems(items);
+		setStartIndex(startIndex);
+	}
+
 	public List getItems() {
 		return items;
 	}
@@ -106,7 +110,7 @@ public class PaginationSupport {
 
 	public int getPreviousIndex() {
 		int previousIndex = getStartIndex() - pageSize;
-		if (previousIndex <0)
+		if (previousIndex < 0)
 			return 0;
 		else
 			return previousIndex;

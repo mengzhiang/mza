@@ -75,6 +75,18 @@ public class UserServiceImpl implements UserService {
 		userDao.delete(userDao.get(id));
 		return "success";
 	}
+	/**
+	 *  Created on 2010-7-30 
+	 * <p>Description:[批量删除User]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param id
+	 * @return
+	 */
+	public String delAllUser(List<User> userlist) {
+		userDao.deleteAll(userlist);
+		return "success";
+	}
 
 	/**
 	 *  Created on 2010-8-6
