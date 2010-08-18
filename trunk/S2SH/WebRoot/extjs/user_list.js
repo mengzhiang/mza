@@ -2,13 +2,13 @@ Ext.onReady(function() {
 	var sm = new Ext.grid.CheckboxSelectionModel();
 	var cm = new Ext.grid.ColumnModel([sm, {
 				header : '编号',
-				dataIndex : 'user.id'
+				dataIndex : 'id'
 			}, {
 				header : '姓名',
-				dataIndex : 'user.name'
+				dataIndex : 'name'
 			}, {
 				header : '密码',
-				dataIndex : 'user.pwd'
+				dataIndex : 'pwd'
 			}]);
 	var store = new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
@@ -18,20 +18,17 @@ Ext.onReady(function() {
 							totalProperty : "totalcount",
 							root : "users"
 						}, [{
-									name : 'user.id',
-									mapping : 'id'
+									name : 'id'
 								}, {
-									name : 'user.name',
-									mapping : 'name'
+									name : 'name'
 								}, {
-									name : 'user.pwd',
-									mapping : 'pwd'
+									name : 'pwd'
 								}])
 			});
 	store.load({
 				params : {
 					start : 0,
-					limit : 10
+					limit : 20
 				}
 			});
 	// 创建翻页对象
@@ -110,10 +107,10 @@ Ext.onReady(function() {
 				buttonAlign : 'center',
 				items : [{
 							fieldLabel : '姓名',
-							name : 'user.name'
+							name : 'name'
 						}, {
 							fieldLabel : '密码',
-							name : 'user.pwd',
+							name : 'pwd',
 							inputType : 'password'
 						}],
 				buttons : [btn_add_submit, btn_add_back]
@@ -127,13 +124,14 @@ Ext.onReady(function() {
 				buttonAlign : 'center',
 				items : [{
 							fieldLabel : 'id',
-							name : 'user.id'
+							name : 'id',
+							readOnly : true
 						}, {
 							fieldLabel : '姓名',
-							name : 'user.name'
+							name : 'name'
 						}, {
 							fieldLabel : '密码',
-							name : 'user.pwd'
+							name : 'pwd'
 						}],
 				buttons : [btn_edit_submit, btn_edit_back]
 			});
@@ -184,15 +182,23 @@ Ext.onReady(function() {
 	var btn_del = new Ext.Button({
 				text : '删除',
 				handler : function() {
-					var records = sm.getSelections();
-					console.log(records);
-					return;
 					Ext.MessageBox.confirm('请确认', '确定删除该用户？', function(btn) {
 								if (btn == 'yes') {
 									var records = sm.getSelections();
+									var rl = records.length;
+									var delRecords = new Array;
+									for (var i = 0; i < rl; i++) {
+										delRecords.push(records[i].data);
+									}
+									var data = {
+										users:delRecords
+									}
 									Ext.Ajax.request({
+												headers : {
+													contentType : "application/json"
+												},
 												method : 'POST',
-												url : 'user_del',
+												url : 'user_delAll',
 												success : function(request) {
 													Ext.Msg.alert('信息', '删除成功');
 													grid.store.reload();
@@ -202,7 +208,8 @@ Ext.onReady(function() {
 															"与后台联系的时候出现了问题");
 												},
 												params : {
-													sid : records[0].id
+													strJson : Ext
+															.encode(data)
 												}
 											});
 								} else {

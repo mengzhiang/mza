@@ -9,138 +9,129 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
 import com.neusoft.base.dao.Page;
+import com.neusoft.base.utils.JsonUtil;
 import com.neusoft.struts2.user.model.TreeModel;
 import com.neusoft.struts2.user.model.User;
 import com.neusoft.struts2.user.service.UserService;
+import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
-@Scope("prototype") 
-public class UserAction extends BaseAction {
-	
-	/**
-	 * 
-	 */
+@Scope("prototype")
+public class UserAction extends BaseAction implements ModelDriven<User> {
+
 	private static final long serialVersionUID = 5133585599464228486L;
-	private User user;
+	private User user = new User();// 这里要手动new一下
 	private List<User> users;
 	private List<TreeModel> tree;
 	private long sid;
-	private int totalcount;
 	@Resource
 	private UserService userService;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
 	@Override
-	public String execute(){
-		return SUCCESS;
-	}
-	
-	/**
-	 * 列表方法
-	 * @return
-	 */
-	public String list(){
-		users = userService.list(user);
-		return SUCCESS;
-	}
-	
-	/**
-	 * 列表方法
-	 * @return
-	 */
-	public String listpage(){
-		this.setTotalcount(getTotal());
-		Page p = super.makePager();
-		users = userService.listpage(p);
-		return SUCCESS;
-	}
-	
-	/**
-	 * 获取所有user的数量
-	 * @return
-	 */
-	public int getTotal(){
-		return userService.getTotal();
-	}
-	
-	/**
-	 * 返回tree
-	 * @return
-	 */
-	public String querytree(){
-		tree = userService.getTree();
-		  
-//		new ArrayList<TreeModel>();
-//		TreeModel n1 = new TreeModel();
-//		n1.setId(1);
-//		n1.setLeaf(false);
-//		n1.setText("not leaf");
-//			TreeModel n1c1 = new TreeModel();
-//			n1c1.setId(11);
-//			n1c1.setLeaf(true);
-//			n1c1.setText("子节点1");
-//			List<TreeModel> n1list = new ArrayList<TreeModel>();
-//			n1list.add(n1c1);
-//		n1.setChildren(n1list);
-//		
-//		TreeModel n2 = new TreeModel();
-//		n2.setId(2);
-//		n2.setLeaf(true);
-//		n2.setText("is leaf");
-//		
-//		tree.add(n1);
-//		tree.add(n2);
-		
+	public String execute() {
 		return SUCCESS;
 	}
 
 	/**
-	 *  Created on 2010-7-29 
-	 * <p>Description:[通过id取得user]</p>
+	 * 列表方法
+	 * 
+	 * @return
+	 */
+	public String list() {
+		users = userService.list(user);
+		return SUCCESS;
+	}
+
+	/**
+	 * 列表方法
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String listpage() {
+		this.setTotalcount(getTotal());
+		Page p = super.makePager();
+		users = userService.listpage(p);
+		this.setSuccess(true);
+		return SUCCESS;
+	}
+
+	/**
+	 * 获取所有user的数量
+	 * 
+	 * @return
+	 */
+	private int getTotal() {
+		return userService.getTotal();
+	}
+
+	/**
+	 * 返回tree
+	 * 
+	 * @return
+	 */
+	public String querytree() {
+		tree = userService.getTree();
+		return SUCCESS;
+	}
+
+	/**
+	 * Created on 2010-7-29
+	 * <p>
+	 * Description:[通过id取得user]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @return
 	 */
-	public String load(){
+	public String load() {
 		user = userService.getUserById(sid);
 		return SUCCESS;
 	}
+
 	/**
 	 * 保存一个User对象
+	 * 
 	 * @return
 	 */
-	public String save(){
+	public String save() {
 		userService.save(user);
-		return SUCCESS;
-	}
-	/**
-	 * 删除
-	 */
-	public String del(){
-		userService.delUserById(sid);
-		return SUCCESS;
-	}
-	
-	/**
-	 * 新增
-	 * @return
-	 */
-	public String add(){
+		this.setSuccess(true);
 		return SUCCESS;
 	}
 
-	
+	/**
+	 *  Created on 2010-8-18 
+	 * <p>Description:[方法功能中文描述]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String delAll() {
+		JsonUtil.jsonToObject(this.getStrJson(), this);
+		List<User> delUserlist = this.getUsers();
+		userService.delAllUser(delUserlist);
+		return SUCCESS;
+	}
+
+	/**
+	 *  Created on 2010-8-18 
+	 * <p>Description:[方法功能中文描述]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String delById() {
+		userService.delUserById(sid);
+		return SUCCESS;
+	}
+
+
 	public List<User> getUsers() {
 		return users;
 	}
@@ -157,19 +148,15 @@ public class UserAction extends BaseAction {
 		this.sid = sid;
 	}
 
-	public int getTotalcount() {
-		return totalcount;
-	}
-
-	public void setTotalcount(int totalcount) {
-		this.totalcount = totalcount;
-	}
-
 	public List<TreeModel> getTree() {
 		return tree;
 	}
 
 	public void setTree(List<TreeModel> tree) {
 		this.tree = tree;
+	}
+
+	public User getModel() {
+		return user;
 	}
 }
