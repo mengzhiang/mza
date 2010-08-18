@@ -22,18 +22,10 @@ public class BaseAction extends ActionSupport {
 
 	private int start;
 	private int limit;
-	public int getStart() {
-		return start;
-	}
-	public void setStart(int start) {
-		this.start = start;
-	}
-	public int getLimit() {
-		return limit;
-	}
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
+	private String strJson;
+	private boolean success;
+	private int totalcount;
+
 	/**
 	 * 设置分页。初始化分页对象
 	 * @param pageNumber
@@ -42,11 +34,11 @@ public class BaseAction extends ActionSupport {
 	 * @param ListStep
 	 * @return
 	 */
-	public Page<Object> makePager(String pageNumber, int total, int pageSize,
+	public Page<Object> makePager(String pageNumber, int totalcount, int pageSize,
 			int ListStep) {
 		Page<Object> Page = new Page<Object>();
 		// 设置总数
-		Page.setTotalCount(total);
+		Page.setTotalCount(totalcount);
 		// 设置每页显示多少数据
 		Page.setPageSize(limit);
 		Page.setStart(start);
@@ -66,4 +58,37 @@ public class BaseAction extends ActionSupport {
 		Page.setStart(start);
 		return Page;
 	}
+	
+	
+	public String getStrJson() {
+		return strJson;
+	}
+	public void setStrJson(String strJson) {
+		this.strJson = strJson;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+	public int getTotalcount() {
+		return totalcount;
+	}
+	public void setTotalcount(int totalcount) {
+		this.totalcount = totalcount;
+	}
+	
 }
