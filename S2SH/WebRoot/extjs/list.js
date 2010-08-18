@@ -1,44 +1,4 @@
 Ext.onReady(function(){
-	var cm = new Ext.grid.ColumnModel([
-        {header:'编号',dataIndex:'id'},
-        {header:'姓名',dataIndex:'name'},
-        {header:'密码',dataIndex:'pwd'}
-    ]);
-
-    var store = new Ext.data.Store({
-        proxy: new Ext.data.HttpProxy({url:'user_listpage'}),
-        reader: new Ext.data.JsonReader({
-        	totalProperty:"totalcount",
-        	root :"users"
-        }, [
-            {name: 'id'},
-            {name: 'name'},
-            {name: 'pwd'}
-        ])
-    });
-    store.load(
-    	{params:{start:0,
-    			limit:10}}
-    	);
-	//创建翻页对象
-    var pagtolbar = new Ext.PagingToolbar({
-        	pageSize :10,
-        	store:store,
-        	displayInfo:true,
-        	displayMsg:"显示第{0}到{1}条记录，一共{2}条",
-        	emptyMsg:"没有记录"
-        });
-    //创建grid
-    var grid = new Ext.grid.GridPanel({
-    	title: 'grid',
-    	region :'center',
-        autoHeight:true,
-        store: store,
-        cm: cm,
-        closable :true,//tab 可关闭
-        tbar :new Ext.Toolbar(['添加','修改','删除']),
-        bbar :pagtolbar
-    });
      // 树形配置开始
     var loader = new Ext.tree.TreeLoader({dataUrl: 'user_querytree'});
     loader.processResponse = function(response, node, callback){
@@ -109,8 +69,6 @@ Ext.onReady(function(){
         defaults:{autoHeight: true},
         items:[
         	{contentEl:'welcome', title: '欢迎',closable:true}
-            //grid,
-            //{contentEl:'markup', title: 'Long Text',closable:true}
         ],
         plugins: new Ext.ux.TabCloseMenu()
     });
