@@ -5,6 +5,7 @@
     	  <pattern>/index.jsp*</pattern>
           <pattern>/login/*</pattern>
           <pattern>/ajax/*</pattern>
+          <pattern>/jslib/*</pattern>
           <pattern>/ajax/*</pattern>
           <pattern>/extjs/*</pattern>
     </excludes>
