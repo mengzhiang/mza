@@ -3,7 +3,7 @@ package com.neusoft.base.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.base.dao.Page;
+import com.neusoft.base.dao.PaginationSupport;
 import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype") 
@@ -19,45 +19,13 @@ public class BaseAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 6819950691781984887L;
-
 	private int start;
 	private int limit;
 	private String strJson;
 	private boolean success;
-	private int totalcount;
+	private String strFilter;
+	private PaginationSupport paginationSupport;
 
-	/**
-	 * 设置分页。初始化分页对象
-	 * @param pageNumber
-	 * @param total
-	 * @param pageSize
-	 * @param ListStep
-	 * @return
-	 */
-	public Page<Object> makePager(String pageNumber, int totalcount, int pageSize,
-			int ListStep) {
-		Page<Object> Page = new Page<Object>();
-		// 设置总数
-		Page.setTotalCount(totalcount);
-		// 设置每页显示多少数据
-		Page.setPageSize(limit);
-		Page.setStart(start);
-		return Page;
-	}
-	/**
-	 * 设置分页。初始化分页对象
-	 * @param pageNumber
-	 * @param total
-	 * @param pageSize
-	 * @param ListStep
-	 * @return
-	 */
-	public Page<Object> makePager() {
-		Page<Object> Page = new Page<Object>();
-		Page.setPageSize(limit);
-		Page.setStart(start);
-		return Page;
-	}
 	
 	
 	public String getStrJson() {
@@ -65,6 +33,25 @@ public class BaseAction extends ActionSupport {
 	}
 	public void setStrJson(String strJson) {
 		this.strJson = strJson;
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+	public String getStrFilter() {
+		return strFilter;
+	}
+	public void setStrFilter(String strFilter) {
+		this.strFilter = strFilter;
+	}
+	public PaginationSupport getPaginationSupport() {
+		return paginationSupport;
+	}
+	public void setPaginationSupport(PaginationSupport paginationSupport) {
+		this.paginationSupport = paginationSupport;
 	}
 	public int getStart() {
 		return start;
@@ -78,17 +65,4 @@ public class BaseAction extends ActionSupport {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-	public boolean isSuccess() {
-		return success;
-	}
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-	public int getTotalcount() {
-		return totalcount;
-	}
-	public void setTotalcount(int totalcount) {
-		this.totalcount = totalcount;
-	}
-	
 }

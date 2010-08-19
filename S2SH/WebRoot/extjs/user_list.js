@@ -15,8 +15,8 @@ Ext.onReady(function() {
 							url : 'user_listpage'
 						}),
 				reader : new Ext.data.JsonReader({
-							totalProperty : "totalcount",
-							root : "users"
+							totalProperty : "paginationSupport.totalCount",
+							root : "paginationSupport.items"
 						}, [{
 									name : 'id'
 								}, {
@@ -28,7 +28,7 @@ Ext.onReady(function() {
 	store.load({
 				params : {
 					start : 0,
-					limit : 20
+					limit :10
 				}
 			});
 	// 创建翻页对象
@@ -191,7 +191,7 @@ Ext.onReady(function() {
 										delRecords.push(records[i].data);
 									}
 									var data = {
-										users:delRecords
+										users : delRecords
 									}
 									Ext.Ajax.request({
 												headers : {
@@ -208,8 +208,7 @@ Ext.onReady(function() {
 															"与后台联系的时候出现了问题");
 												},
 												params : {
-													strJson : Ext
-															.encode(data)
+													strJson : Ext.encode(data)
 												}
 											});
 								} else {
@@ -256,7 +255,29 @@ Ext.onReady(function() {
 							fieldLabel : '文本框'
 						}],
 				buttons : [{
-							text : '按钮'
+							text : '按钮',
+							handler : function() {
+								var filterArr = new Array;
+								var filterObj = {
+									name : 'filter1',
+									type : 'long',
+									property : 'id',
+									condition : '=',
+									value : 35
+								}
+								filterArr.push(filterObj);
+
+								var data = {
+									filters : filterArr
+								}
+								store.load({
+											params : {
+												start : 0,
+												limit : 20,
+												strFilter : Ext.encode(data)
+											}
+										});
+							}
 						}]
 			});
 	// 创建布局
