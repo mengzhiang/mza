@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
-import com.neusoft.base.dao.Page;
+import com.neusoft.base.dao.QueryFilter;
 import com.neusoft.base.utils.JsonUtil;
 import com.neusoft.struts2.user.model.TreeModel;
 import com.neusoft.struts2.user.model.User;
@@ -51,11 +51,12 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public String listpage() {
-		this.setTotalcount(getTotal());
-		Page p = super.makePager();
-		users = userService.listpage(p);
+		if(this.getStrFilter() !=null){
+			this.queryByFilter();
+		}else{
+			this.setPaginationSupport(userService.listpage(this.getStart(),this.getLimit()));
+		}
 		this.setSuccess(true);
 		return SUCCESS;
 	}
@@ -130,14 +131,24 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		userService.delUserById(sid);
 		return SUCCESS;
 	}
-
-
-	public List<User> getUsers() {
-		return users;
+	
+	/**
+	 *  Created on 2010-8-19 
+	 * <p>Description:[根据条件查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String queryByFilter(){
+		QueryFilter qf = new QueryFilter();
+		JsonUtil.jsonToObject(this.getStrFilter(), qf);
+		this.setPaginationSupport(userService.queryByFilter(qf.getFilters(),this.getStart(),this.getLimit()));
+		return SUCCESS;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+
+	private List<User> getUsers() {
+		return users;
 	}
 
 	public long getSid() {

@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.neusoft.base.dao.Page;
+import com.neusoft.base.dao.PaginationSupport;
+import com.neusoft.base.dao.Parameter;
 import com.neusoft.struts2.user.dao.TreeDao;
 import com.neusoft.struts2.user.dao.UserDao;
 import com.neusoft.struts2.user.model.Tree;
@@ -96,8 +97,8 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	@SuppressWarnings("unchecked")
-	public List<User> listpage(Page p) {
-		return userDao.findPageByCriteria(p.getStart(), p.getPageSize());
+	public PaginationSupport listpage(int startIndex,int pageSize) {
+		return userDao.findPageByCriteria(startIndex,pageSize);
 	}
 	
 	/**
@@ -110,7 +111,22 @@ public class UserServiceImpl implements UserService {
 	public int getTotal(){
 		return userDao.loadAll().size();
 	}
-	
+	/**
+	 * Created on 2010-8-12
+	 * <p>
+	 * Description:[根据属性list查询]
+	 * </p>
+	 * 
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param propertyname
+	 * @param flag
+	 * @param value
+	 * @return
+	 */
+	public PaginationSupport queryByFilter(List<Parameter> list,int startIndex,int pageSize){
+		return userDao.findByProperties(list,startIndex,pageSize);
+	}
 	/**
 	 *  Created on 2010-8-12 
 	 * <p>Description:[得到树]</p>

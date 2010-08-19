@@ -87,17 +87,6 @@ public interface IBaseDao<T,PK extends Serializable> {
 
 	/**
 	 *  Created on 2010-7-29 
-	 * <p>Description:[公共分页查询方法（一个参数，开始索引）]</p>
-	 * @author 孟志昂 mengzhiang@gmail.com
-	 * @update:[日期YYYY-MM-DD] [更改人姓名]
-	 * @param hql
-	 * @param offset
-	 * @param length
-	 * @return
-	 */
-	public List<T> findPageByCriteria(int start);
-	/**
-	 *  Created on 2010-7-29 
 	 * <p>Description:[公共分页查询方法（两个参数，开始索引和显示条数）]</p>
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
@@ -106,7 +95,7 @@ public interface IBaseDao<T,PK extends Serializable> {
 	 * @param length
 	 * @return
 	 */
-	public List<T> findPageByCriteria(int start,int limit);
+	public PaginationSupport findPageByCriteria(int start,int limit);
 	/**
 	 *  Created on 2010-8-11 
 	 * <p>Description:[条件查询]</p>
@@ -131,4 +120,18 @@ public interface IBaseDao<T,PK extends Serializable> {
      * 根据某个具体属性进行查找  
      */  
     public List<T> findByProperty(String propertyName, Object value);
+	/**
+	 * Created on 2010-8-12
+	 * <p>
+	 * Description:[根据属性list查询]
+	 * </p>
+	 * 
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param propertyname
+	 * @param flag
+	 * @param value
+	 * @return
+	 */
+	public PaginationSupport findByProperties(List<Parameter> list,int startIndex,int pageSize);
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PaginationSupport {
 
-	public final static int PAGESIZE = 30;
+	public final static int PAGESIZE = 20;
 
 	private int pageSize = PAGESIZE;
 
@@ -16,6 +16,13 @@ public class PaginationSupport {
 
 	private int startIndex = 0;
 
+	public PaginationSupport(){
+	}
+	
+	public PaginationSupport(int startIndex,int pageSize){
+		this.setStartIndex(startIndex);
+		this.setPageSize(pageSize);
+	}
 	// 两参数构造方法
 	public PaginationSupport(List items, int totalCount) {
 		setPageSize(PAGESIZE);
