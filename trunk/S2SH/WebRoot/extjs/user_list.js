@@ -28,12 +28,12 @@ Ext.onReady(function() {
 	store.load({
 				params : {
 					start : 0,
-					limit :10
+					limit : 15
 				}
 			});
 	// 创建翻页对象
 	var pagtolbar = new Ext.PagingToolbar({
-				pageSize : 10,
+				pageSize : 15,
 				store : store,
 				displayInfo : true,
 				displayMsg : "显示第{0}到{1}条记录，一共{2}条",
@@ -102,7 +102,9 @@ Ext.onReady(function() {
 	var form_add = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
+				height:117,
 				frame : true,
+				border :0,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
 				items : [{
@@ -120,6 +122,7 @@ Ext.onReady(function() {
 				labelAlign : 'right',
 				labelWidth : 50,
 				frame : true,
+				height:167,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
 				items : [{
@@ -139,8 +142,8 @@ Ext.onReady(function() {
 	var tb = new Ext.Toolbar();
 	var win = new Ext.Window({
 				title : "新增用户",
-				width : 500,
-				height : 300,
+				width : 300,
+				height : 150,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -149,8 +152,8 @@ Ext.onReady(function() {
 	// 修改窗口
 	var win_edit = new Ext.Window({
 				title : "修改用户",
-				width : 500,
-				height : 300,
+				width : 300,
+				height : 200,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -182,6 +185,10 @@ Ext.onReady(function() {
 	var btn_del = new Ext.Button({
 				text : '删除',
 				handler : function() {
+					if (sm.getCount() < 1) {
+						Ext.MessageBox.alert("提示", "请选择要删除的数据！");
+						return;
+					};
 					Ext.MessageBox.confirm('请确认', '确定删除该用户？', function(btn) {
 								if (btn == 'yes') {
 									var records = sm.getSelections();
@@ -243,41 +250,70 @@ Ext.onReady(function() {
 				viewConfig : {
 					forceFit : true
 				},
-				anchor : '100% 20%',
-				defaultType : 'textfield',
+				anchor : '100% 10%',
 				labelAlign : 'right',
 				labelWidth : 50,
 				buttonAlign : 'center',
 				frame : true,
-				width : 220,
-
+				width : 630,
+				layout : 'column',
 				items : [{
-							fieldLabel : '文本框'
-						}],
-				buttons : [{
-							text : '按钮',
-							handler : function() {
-								var filterArr = new Array;
-								var filterObj = {
-									name : 'filter1',
-									type : 'long',
-									property : 'id',
-									condition : '=',
-									value : 35
-								}
-								filterArr.push(filterObj);
+							columnWidth : .2,
+							layout : 'form',
+							items : [{
+										name : 'id',
+										xtype : 'textfield',
+										fieldLabel : 'id'
+									}]
+						}, {
+							columnWidth : .2,
+							layout : 'form',
+							items : [{
+										name : 'name',
+										xtype : 'textfield',
+										fieldLabel : '姓名'
+									}]
+						}, {
+							columnWidth : .2,
+							layout : 'form',
+							items : [{
+										name : 'pwd',
+										xtype : 'textfield',
+										fieldLabel : '密码'
+									}]
+						}, {
+							columnWidth : .4,
+							layout : 'form',
+							items : [{
+								name : 'button',
+								xtype : 'button',
+								text : '查&nbsp;&nbsp;&nbsp;&nbsp;询',
+								handler : function() {
+									console.log(form_query.getForm().getValues());
+									return;
+									var filterArr = new Array;
+									var filterObj = {
+										name : 'filter1',
+										type : 'String',
+										property : 'name',
+										condition : 'like',
+										value : '%t%'
+									}
+									filterArr.push(filterObj);
 
-								var data = {
-									filters : filterArr
+									var data = {
+										filters : filterArr
+									}
+									store.baseParams.strFilter = Ext
+											.encode(data);
+									store.load({
+												params : {
+													start : 0,
+													limit : 15
+												}
+											});
 								}
-								store.load({
-											params : {
-												start : 0,
-												limit : 20,
-												strFilter : Ext.encode(data)
-											}
-										});
-							}
+							}]
 						}]
 			});
 	// 创建布局

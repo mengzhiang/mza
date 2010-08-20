@@ -309,6 +309,19 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @return
 	 */
 	public PaginationSupport findByProperties(List<Parameter> list,int startIndex,int pageSize) {
+		DetachedCriteria dc = this.buildFilterCriterion(list);
+		return findPageByCriteria(dc,pageSize,startIndex);
+	}
+	
+	/**
+	 *  Created on 2010-8-19 
+	 * <p>Description:[通过list构建查询]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @param list
+	 * @return
+	 */
+	public DetachedCriteria buildFilterCriterion(List<Parameter> list){
 		DetachedCriteria dc = DetachedCriteria.forClass(entityClass);
 		for (Parameter par : list) {
 			Object value = new Object();
@@ -319,6 +332,8 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 				value = Long.parseLong(strValue);
 			} else if ("int".equals(type)) {
 				value = Integer.parseInt(strValue);
+			} else{
+				value = strValue;
 			}
 			if (Condition.MARK_EQUAL.equals(par.getCondition().trim())) {
 				dc.add(Restrictions.eq(property, value));
@@ -339,10 +354,8 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 
 			}
 		}
-
-		return findPageByCriteria(dc,pageSize,startIndex);
+		return dc;
 	}
-	
     /** *//**  
      * 将联合查询的结果内容从Map或者Object[]转换为实体类型，如果没有转换必要则直接返回  
      */  
