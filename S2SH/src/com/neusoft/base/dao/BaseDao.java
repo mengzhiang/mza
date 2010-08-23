@@ -18,6 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import com.neusoft.base.action.RequestContextFactory;
+
 /**
  * Created on 2010-7-30
  * <p>
@@ -191,10 +193,12 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 		return count;
 	}
 
-	
 	/**
-	 *  Created on 2010-8-19 
-	 * <p>Description:[根据DetachedCriteria加载分页，指定页大小和起始位置]</p>
+	 * Created on 2010-8-19
+	 * <p>
+	 * Description:[根据DetachedCriteria加载分页，指定页大小和起始位置]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @param detachedCriteria
@@ -202,20 +206,29 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param startIndex
 	 * @return
 	 */
-	public PaginationSupport findPageByCriteria(final DetachedCriteria detachedCriteria, final int pageSize, final int startIndex){      
-        return (PaginationSupport)hibernateTemplate.executeWithNativeSession(new HibernateCallback(){      
-            @SuppressWarnings("unchecked")
-			public Object doInHibernate(Session session) throws HibernateException{      
-                Criteria criteria = detachedCriteria.getExecutableCriteria(session);   
-                int totalCount = ((Integer) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();      
-                criteria.setProjection(null);   
-                List items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();   
-                items = transformResults(items);   
-                PaginationSupport ps = new PaginationSupport(items, totalCount, pageSize, startIndex);      
-                return ps;      
-            }   
-        });      
-    }
+	public PaginationSupport findPageByCriteria(
+			final DetachedCriteria detachedCriteria, final int pageSize,
+			final int startIndex) {
+		return (PaginationSupport) hibernateTemplate
+				.executeWithNativeSession(new HibernateCallback() {
+					@SuppressWarnings("unchecked")
+					public Object doInHibernate(Session session)
+							throws HibernateException {
+						Criteria criteria = detachedCriteria
+								.getExecutableCriteria(session);
+						int totalCount = ((Integer) criteria.setProjection(
+								Projections.rowCount()).uniqueResult())
+								.intValue();
+						criteria.setProjection(null);
+						List items = criteria.setFirstResult(startIndex)
+								.setMaxResults(pageSize).list();
+						items = transformResults(items);
+						PaginationSupport ps = new PaginationSupport(items,
+								totalCount, pageSize, startIndex);
+						return ps;
+					}
+				});
+	}
 
 	/**
 	 * Created on 2010-7-29
@@ -232,10 +245,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @return
 	 */
 	public PaginationSupport findPageByCriteria(int start, int limit) {
-		DetachedCriteria dc = DetachedCriteria.forClass(entityClass);
-		//如果线程变量里有过滤数据则加上，否则不加
-		
-		return this.findPageByCriteria(dc,limit,start);
+		// DetachedCriteria dc = DetachedCriteria.forClass(entityClass);
+		// 如果线程变量里有过滤数据则加上，否则不加
+		QueryFilter qf = RequestContextFactory.instance().getQueryFilter();
+		DetachedCriteria dc = buildFilterCriterion(qf.getFilters());
+		return this.findPageByCriteria(dc, limit, start);
 	}
 
 	/**
@@ -261,7 +275,6 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 						return list;
 					}
 				});
-
 	}
 
 	/**
@@ -308,83 +321,98 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param value
 	 * @return
 	 */
-	public PaginationSupport findByProperties(List<Parameter> list,int startIndex,int pageSize) {
+	public PaginationSupport findByProperties(List<Parameter> list,
+			int startIndex, int pageSize) {
 		DetachedCriteria dc = this.buildFilterCriterion(list);
-		return findPageByCriteria(dc,pageSize,startIndex);
+		return findPageByCriteria(dc, pageSize, startIndex);
 	}
-	
+
 	/**
-	 *  Created on 2010-8-19 
-	 * <p>Description:[通过list构建查询]</p>
+	 * Created on 2010-8-19
+	 * <p>
+	 * Description:[通过list构建查询]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @param list
 	 * @return
 	 */
-	public DetachedCriteria buildFilterCriterion(List<Parameter> list){
+	public DetachedCriteria buildFilterCriterion(List<Parameter> list) {
 		DetachedCriteria dc = DetachedCriteria.forClass(entityClass);
-		for (Parameter par : list) {
-			Object value = new Object();
-			String strValue = par.getValue();
-			String property = par.getProperty();
-			String type = par.getType();
-			if ("long".equals(type)) {
-				value = Long.parseLong(strValue);
-			} else if ("int".equals(type)) {
-				value = Integer.parseInt(strValue);
-			} else{
-				value = strValue;
-			}
-			if (Condition.MARK_EQUAL.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.eq(property, value));
-			} else if (Condition.MARK_LIKE.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.like(property, value));
-			} else if (Condition.MARK_LARGER.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.gt(property, value));
-			} else if (Condition.MARK_SMALLER.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.lt(property, value));
-			} else if (Condition.MARK_ELARGER.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.ge(property, value));
-			} else if (Condition.MARK_ESMALLER
-					.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.le(property, value));
-			} else if (Condition.MARK_IN.equals(par.getCondition().trim())) {
-				dc.add(Restrictions.in(property, par.getValue().split(",")));
-			} else {
+		if (list != null) {
+			for (Parameter par : list) {
+				Object value = new Object();
+				String strValue = par.getValue();
+				String property = par.getProperty();
+				String type = par.getType();
+				if ("long".equals(type)) {
+					value = Long.parseLong(strValue);
+				} else if ("int".equals(type)) {
+					value = Integer.parseInt(strValue);
+				} else {
+					value = strValue;
+				}
+				if (Condition.MARK_EQUAL.equals(par.getCondition().trim())) {
+					dc.add(Restrictions.eq(property, value));
+				} else if (Condition.MARK_LIKE
+						.equals(par.getCondition().trim())) {
+					dc.add(Restrictions.like(property, value));
+				} else if (Condition.MARK_LARGER.equals(par.getCondition()
+						.trim())) {
+					dc.add(Restrictions.gt(property, value));
+				} else if (Condition.MARK_SMALLER.equals(par.getCondition()
+						.trim())) {
+					dc.add(Restrictions.lt(property, value));
+				} else if (Condition.MARK_ELARGER.equals(par.getCondition()
+						.trim())) {
+					dc.add(Restrictions.ge(property, value));
+				} else if (Condition.MARK_ESMALLER.equals(par.getCondition()
+						.trim())) {
+					dc.add(Restrictions.le(property, value));
+				} else if (Condition.MARK_IN.equals(par.getCondition().trim())) {
+					dc
+							.add(Restrictions.in(property, par.getValue()
+									.split(",")));
+				} else {
 
+				}
 			}
 		}
+
 		return dc;
 	}
-    /** *//**  
-     * 将联合查询的结果内容从Map或者Object[]转换为实体类型，如果没有转换必要则直接返回  
-     */  
-    @SuppressWarnings("unchecked")
-	private List transformResults(List items){   
-        if (items.size() > 0){   
-            if (items.get(0) instanceof Map){   
-                ArrayList list = new ArrayList(items.size());   
-                for (int i = 0; i < items.size(); i++){   
-                    Map map = (Map)items.get(i);   
-                    list.add(map.get(CriteriaSpecification.ROOT_ALIAS));   
-                }   
-                return list;   
-            } else if (items.get(0) instanceof Object[]){   
-                ArrayList list = new ArrayList(items.size());   
-                int pos = 0;   
-                for (int i = 0; i < ((Object[])items.get(0)).length; i++){   
-                    if (((Object[])items.get(0))[i].getClass() == entityClass){   
-                        pos = i;   
-                        break;   
-                    }   
-                }   
-                for (int i = 0; i < items.size(); i++){   
-                    list.add(((Object[])items.get(i))[pos]);   
-                }   
-                return list;   
-            } else  
-                return items;   
-        } else  
-            return items;   
-    } 
+
+	/** */
+	/**
+	 * 将联合查询的结果内容从Map或者Object[]转换为实体类型，如果没有转换必要则直接返回
+	 */
+	@SuppressWarnings("unchecked")
+	private List transformResults(List items) {
+		if (items.size() > 0) {
+			if (items.get(0) instanceof Map) {
+				ArrayList list = new ArrayList(items.size());
+				for (int i = 0; i < items.size(); i++) {
+					Map map = (Map) items.get(i);
+					list.add(map.get(CriteriaSpecification.ROOT_ALIAS));
+				}
+				return list;
+			} else if (items.get(0) instanceof Object[]) {
+				ArrayList list = new ArrayList(items.size());
+				int pos = 0;
+				for (int i = 0; i < ((Object[]) items.get(0)).length; i++) {
+					if (((Object[]) items.get(0))[i].getClass() == entityClass) {
+						pos = i;
+						break;
+					}
+				}
+				for (int i = 0; i < items.size(); i++) {
+					list.add(((Object[]) items.get(i))[pos]);
+				}
+				return list;
+			} else
+				return items;
+		} else
+			return items;
+	}
 }

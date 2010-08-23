@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.json.annotations.JSON;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -52,13 +53,14 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	 * @return
 	 */
 	public String listpage() {
-		if(this.getStrFilter() !=null){
-			this.queryByFilter();
-		}else{
-			this.setPaginationSupport(userService.listpage(this.getStart(),this.getLimit()));
-		}
+		this.setPaginationSupport(userService.listpage(this.getStart(), this
+				.getLimit()));
 		this.setSuccess(true);
 		return SUCCESS;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	/**
@@ -107,8 +109,11 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	}
 
 	/**
-	 *  Created on 2010-8-18 
-	 * <p>Description:[方法功能中文描述]</p>
+	 * Created on 2010-8-18
+	 * <p>
+	 * Description:[方法功能中文描述]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @return
@@ -121,8 +126,11 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	}
 
 	/**
-	 *  Created on 2010-8-18 
-	 * <p>Description:[方法功能中文描述]</p>
+	 * Created on 2010-8-18
+	 * <p>
+	 * Description:[方法功能中文描述]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @return
@@ -131,23 +139,26 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		userService.delUserById(sid);
 		return SUCCESS;
 	}
-	
+
 	/**
-	 *  Created on 2010-8-19 
-	 * <p>Description:[根据条件查询]</p>
+	 * Created on 2010-8-19
+	 * <p>
+	 * Description:[根据条件查询]
+	 * </p>
+	 * 
 	 * @author 孟志昂 mengzhiang@gmail.com
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 * @return
 	 */
-	public String queryByFilter(){
-		QueryFilter qf = new QueryFilter();
-		JsonUtil.jsonToObject(this.getStrFilter(), qf);
-		this.setPaginationSupport(userService.queryByFilter(qf.getFilters(),this.getStart(),this.getLimit()));
+	public String queryByFilter() {
+		this.setPaginationSupport(userService.queryByFilter(this
+				.getQueryFilter().getFilters(), this.getStart(), this
+				.getLimit()));
 		return SUCCESS;
 	}
 
-
-	private List<User> getUsers() {
+	@JSON(deserialize = true)
+	public List<User> getUsers() {
 		return users;
 	}
 

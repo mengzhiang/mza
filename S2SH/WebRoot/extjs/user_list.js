@@ -198,7 +198,7 @@ Ext.onReady(function() {
 										delRecords.push(records[i].data);
 									}
 									var data = {
-										users : delRecords
+										list : delRecords
 									}
 									Ext.Ajax.request({
 												headers : {
