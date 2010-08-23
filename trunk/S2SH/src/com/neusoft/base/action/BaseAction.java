@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.dao.PaginationSupport;
+import com.neusoft.base.dao.QueryFilter;
 import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype") 
@@ -25,9 +26,8 @@ public class BaseAction extends ActionSupport {
 	private boolean success;
 	private String strFilter;
 	private PaginationSupport paginationSupport;
+	private QueryFilter queryFilter = new QueryFilter();
 
-	
-	
 	public String getStrJson() {
 		return strJson;
 	}
@@ -64,5 +64,11 @@ public class BaseAction extends ActionSupport {
 	}
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+	public QueryFilter getQueryFilter() {
+		return queryFilter;
+	}
+	public void setQueryFilter(QueryFilter queryFilter) {
+		this.queryFilter = queryFilter;
 	}
 }

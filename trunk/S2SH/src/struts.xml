@@ -15,11 +15,17 @@
 	<include file="struts-default.xml" />
       
 	<package name="default" extends="json-default">
+		<interceptors>  
+			<interceptor name="jsoninterceptor" class="com.neusoft.base.action.JsonIntercepter">  
+			</interceptor>  
+		</interceptors> 
 		<action name="*_*" class="{1}Action" method="{2}">
-			<result type="json">
+			<result type="json">				
 				<!--设置关联父类的属性一起转化成json-->
 				<param name="ignoreHierarchy">false</param>
 			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>  
+			<interceptor-ref name="jsoninterceptor"></interceptor-ref>  
 		</action>
 	</package>
 
