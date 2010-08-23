@@ -102,9 +102,9 @@ Ext.onReady(function() {
 	var form_add = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
-				height:117,
+				height : 117,
 				frame : true,
-				border :0,
+				border : 0,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
 				items : [{
@@ -122,7 +122,7 @@ Ext.onReady(function() {
 				labelAlign : 'right',
 				labelWidth : 50,
 				frame : true,
-				height:167,
+				height : 167,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
 				items : [{
@@ -289,18 +289,39 @@ Ext.onReady(function() {
 								xtype : 'button',
 								text : '查&nbsp;&nbsp;&nbsp;&nbsp;询',
 								handler : function() {
-									console.log(form_query.getForm().getValues());
-									return;
+									var object = form_query.getForm()
+											.getValues();
 									var filterArr = new Array;
-									var filterObj = {
-										name : 'filter1',
-										type : 'String',
-										property : 'name',
-										condition : 'like',
-										value : '%t%'
+									if (object.id != "") {
+										var idfilter = {
+											name : 'id',
+											type : 'long',
+											property : 'id',
+											condition : '=',
+											value : object.id
+										}
+										filterArr.push(idfilter);
 									}
-									filterArr.push(filterObj);
-
+									if (object.name != "") {
+										var namefilter = {
+											name : 'name',
+											type : 'String',
+											property : 'name',
+											condition : 'like',
+											value : "%"+object.name+"%"
+										}
+										filterArr.push(namefilter);
+									}
+									if (object.pwd != "") {
+										var pwdfilter = {
+											name : 'pwd',
+											type : 'String',
+											property : 'pwd',
+											condition : 'like',
+											value : "%"+object.pwd+"%"
+										}
+										filterArr.push(pwdfilter);
+									}
 									var data = {
 										filters : filterArr
 									}
