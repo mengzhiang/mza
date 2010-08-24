@@ -18,30 +18,42 @@
 			org.springframework.web.util.Log4jConfigListener
 		</listener-class>
 	</listener>
+	<!--解决hibernate懒加载问题-->
+	<filter>     
+		<filter-name>hibernateFilter</filter-name>     
+		<filter-class>     
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter      
+		</filter-class>     
+	</filter>      
+	<filter-mapping>     
+		<filter-name>hibernateFilter</filter-name>     
+		<url-pattern>/*</url-pattern>     
+	</filter-mapping>
+	
 	<!-- Struts2配置 -->
-	 <!-- Struts2Cleanup filter -->  
-	 <filter>  
-	     <filter-name>struts2CleanupFilter</filter-name>  
-	    <filter-class>  
+	<!-- Struts2Cleanup filter -->  
+	<filter>  
+		<filter-name>struts2CleanupFilter</filter-name>  
+		<filter-class>  
 	         org.apache.struts2.dispatcher.ActionContextCleanUp  
-	     </filter-class>  
-	 </filter>
-	 <filter-mapping>  
-         <filter-name>struts2CleanupFilter</filter-name>  
-         <url-pattern>/*</url-pattern>  
-     </filter-mapping>  
+		</filter-class>  
+	</filter>
+	<filter-mapping>  
+		<filter-name>struts2CleanupFilter</filter-name>  
+		<url-pattern>/*</url-pattern>  
+	</filter-mapping>  
    
-	 <!-- Sitemesh filter -->  
-	 <filter>  
-	     <filter-name>sitemesh</filter-name>  
-	     <filter-class>  
+	<!-- Sitemesh filter -->  
+	<filter>  
+		<filter-name>sitemesh</filter-name>  
+		<filter-class>  
 	         com.opensymphony.module.sitemesh.filter.PageFilter  
-	     </filter-class>  
-	 </filter>
-	 <filter-mapping>  
-         <filter-name>sitemesh</filter-name>  
-         <url-pattern>/*</url-pattern>  
-     </filter-mapping>   
+		</filter-class>  
+	</filter>
+	<filter-mapping>  
+		<filter-name>sitemesh</filter-name>  
+		<url-pattern>/*</url-pattern>  
+	</filter-mapping>   
 	<!-- Struts2 filter -->
 	<filter>
 		<filter-name>struts2</filter-name>

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
-import com.neusoft.base.dao.QueryFilter;
 import com.neusoft.base.utils.JsonUtil;
 import com.neusoft.struts2.user.model.TreeModel;
 import com.neusoft.struts2.user.model.User;
@@ -157,7 +156,6 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		return SUCCESS;
 	}
 
-	@JSON(deserialize = true)
 	public List<User> getUsers() {
 		return users;
 	}
