@@ -26,8 +26,45 @@ Ext.onReady(function() {
 			}, {
 				name : 'detail'
 			}];
-	//4：更改“xxxx”为模块的小写名称。因为后台匹配好了。
+	// 4：更改“xxxx”为模块的小写名称。因为后台匹配好了。
+
+	// 5：新增form的items,编辑的items
+	//    新增form的大小，和编辑页面大小
+	var win_width = 500;
+	var win_height = 250;
+	var additems = [{
+				fieldLabel : '姓名',
+				name : 'username'
+			}, {
+				fieldLabel : '密码',
+				name : 'password'
+			}, {
+				width : 345,
+				height : 80,
+				name : 'detail',
+				xtype : 'textarea',
+				fieldLabel : '详细'
+			}];
+	var edititems = [{
+				fieldLabel : 'id',
+				name : 'id',
+				readOnly : true
+			}, {
+				fieldLabel : '姓名',
+				name : 'username'
+			}, {
+				fieldLabel : '密码',
+				name : 'password'
+			}, {
+				width : 345,
+				height : 80,
+				name : 'detail',
+				xtype : 'textarea',
+				fieldLabel : '详细'
+			}];
+	//6：查询条件更改
 			
+
 	var cm = new Ext.grid.ColumnModel(columns);
 	var store = new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
@@ -113,48 +150,31 @@ Ext.onReady(function() {
 	var form_add = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
-				height : 117,
+				height : win_height-33,
 				frame : true,
 				border : 0,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
-				items : [{
-							fieldLabel : '姓名',
-							name : 'name'
-						}, {
-							fieldLabel : '密码',
-							name : 'pwd',
-							inputType : 'password'
-						}],
+				items : additems,
 				buttons : [btn_add_submit, btn_add_back]
 			});
-	// 新增form
+	// 修改form
 	var form_edit = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
 				frame : true,
-				height : 167,
+				height : win_height-33,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
-				items : [{
-							fieldLabel : 'id',
-							name : 'id',
-							readOnly : true
-						}, {
-							fieldLabel : '姓名',
-							name : 'name'
-						}, {
-							fieldLabel : '密码',
-							name : 'pwd'
-						}],
+				items : edititems,
 				buttons : [btn_edit_submit, btn_edit_back]
 			});
 	// 创建按钮
 	var tb = new Ext.Toolbar();
 	var win = new Ext.Window({
 				title : "新增用户",
-				width : 300,
-				height : 150,
+				width : win_width,
+				height : win_height,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -163,8 +183,8 @@ Ext.onReady(function() {
 	// 修改窗口
 	var win_edit = new Ext.Window({
 				title : "修改用户",
-				width : 300,
-				height : 200,
+				width : win_width,
+				height : win_height,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -280,7 +300,7 @@ Ext.onReady(function() {
 							columnWidth : .2,
 							layout : 'form',
 							items : [{
-										name : 'name',
+										name : 'username',
 										xtype : 'textfield',
 										fieldLabel : '姓名'
 									}]
@@ -288,9 +308,17 @@ Ext.onReady(function() {
 							columnWidth : .2,
 							layout : 'form',
 							items : [{
-										name : 'pwd',
+										name : 'password',
 										xtype : 'textfield',
 										fieldLabel : '密码'
+									}]
+						}, {
+							columnWidth : .2,
+							layout : 'form',
+							items : [{
+										name : 'detail',
+										xtype : 'textfield',
+										fieldLabel : '详细'
 									}]
 						}, {
 							columnWidth : .4,
