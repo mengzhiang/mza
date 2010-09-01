@@ -20,8 +20,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
-import com.neusoft.base.perm.model.PermUser;
-import com.neusoft.base.perm.service.PermService;
+import com.neusoft.base.perm.privilege.service.PermService;
+import com.neusoft.base.perm.user.model.PermUser;
 
 @Controller
 @Scope("prototype") 
