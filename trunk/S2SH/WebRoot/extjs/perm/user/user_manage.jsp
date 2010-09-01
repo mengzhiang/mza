@@ -5,7 +5,7 @@
 <script type="text/javascript" src="/S2SH/jslib/ext-3.2.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="/S2SH/jslib/ext-3.2.0/ext-all.js"></script>
 <script type="text/javascript" src="/S2SH/jslib/ext-3.2.0/src/locale/ext-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/S2SH/extjs/user_manage.js"></script>
+<script type="text/javascript" src="/S2SH/extjs/perm/user/user_manage.js"></script>
 </head>
 <body>
 

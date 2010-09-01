@@ -1,7 +1,7 @@
 Ext.onReady(function() {
 	// 树形配置开始
 	var loader = new Ext.tree.TreeLoader({
-				dataUrl : 'permRes_querytree'
+				dataUrl : 'permResModelTree_querytree'
 			});
 	loader.processResponse = function(response, node, callback) {
 		var json = response.responseText;

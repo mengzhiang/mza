@@ -1,4 +1,4 @@
-package com.neusoft.base.perm.resource.model;
+package com.neusoft.base.perm.resmodel.model;
 
 import java.util.List;
 
