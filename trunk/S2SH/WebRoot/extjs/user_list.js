@@ -178,6 +178,7 @@ Ext.onReady(function() {
 					form_edit.getForm().reset();
 					win_edit.show();
 					var record = sm.getSelected();
+					console.log(record);
 					form_edit.getForm().loadRecord(record);
 				}
 			});

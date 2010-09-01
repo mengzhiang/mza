@@ -48,9 +48,10 @@ Ext.onReady(function(){
            		tab = tabs.add({
            			id:node.text,
            			title:node.text,
-           			html:"<iframe src='/S2SH"+node.attributes.url+"' scrolling='no' frameborder='0' width='100%' height='100%'></iframe>",
+           			html:"<iframe id = '"+node.attributes.id+"' src='/S2SH"+node.attributes.url+"' scrolling='no' frameborder='0' width='100%' height='100%'></iframe>",
            			closable:true
            		});
+
            		tabs.setActiveTab(tab);
     });
     //创建跟节点

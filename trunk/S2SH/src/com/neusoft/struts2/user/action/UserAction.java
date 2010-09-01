@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.struts2.json.annotations.JSON;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -62,14 +61,6 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		this.users = users;
 	}
 
-	/**
-	 * 获取所有user的数量
-	 * 
-	 * @return
-	 */
-	private int getTotal() {
-		return userService.getTotal();
-	}
 
 	/**
 	 * 返回tree

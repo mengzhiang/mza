@@ -1,4 +1,4 @@
-package com.neusoft.template.action;
+package com.neusoft.base.perm.action;
 
 import java.util.List;
 
@@ -8,26 +8,28 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
+import com.neusoft.base.perm.model.PermMenuEntity;
+import com.neusoft.base.perm.service.PermMenuService;
 import com.neusoft.base.utils.JsonUtil;
-import com.neusoft.template.model.XxxxEntity;
-import com.neusoft.template.service.XxxxService;
 import com.opensymphony.xwork2.ModelDriven;
 
 //更改XXXX为模块名称
 
+
 @Controller
 @Scope("prototype")
-public class XxxxAction extends BaseAction implements ModelDriven<XxxxEntity> {
+public class PermMenuAction extends BaseAction implements ModelDriven<PermMenuEntity> {
 
 	private static final long serialVersionUID = 6386120048313640262L;
-	private XxxxEntity entity = new XxxxEntity();// 这里要手动new一下
-	private List<XxxxEntity> list;
+	private PermMenuEntity permMenuEntity = new PermMenuEntity();// 这里要手动new一下
+	
+	private List<PermMenuEntity> list;
 	private long sid;
-
+	
 	@Resource
-	private XxxxService service;
+	private PermMenuService service;
 
-	public void setService(XxxxService service) {
+	public void setService(PermMenuService service) {
 		this.service = service;
 	}
 
@@ -41,20 +43,19 @@ public class XxxxAction extends BaseAction implements ModelDriven<XxxxEntity> {
 				.getLimit()));
 		this.setSuccess(true);
 		return SUCCESS;
-		
 	}
 
 	public String load() {
-		entity = service.getById(sid);
+		permMenuEntity = service.getById(sid);
 		return SUCCESS;
 	}
 
 	public String save() {
-		service.save(entity);
+		service.save(permMenuEntity);
 		this.setSuccess(true);
 		return SUCCESS;
 	}
-
+	
 	public String delAll() {
 		JsonUtil.jsonToObject(this.getStrJson(), this);
 		service.delAll(this.getList());
@@ -68,24 +69,25 @@ public class XxxxAction extends BaseAction implements ModelDriven<XxxxEntity> {
 	public void setSid(long sid) {
 		this.sid = sid;
 	}
-
-	public XxxxEntity getEntity() {
-		return entity;
+	
+	public PermMenuEntity getPermMenuEntity() {
+		return permMenuEntity;
 	}
 
-	public void setEntity(XxxxEntity entity) {
-		this.entity = entity;
+	public void setPermMenuEntity(PermMenuEntity permMenuEntity) {
+		this.permMenuEntity = permMenuEntity;
 	}
 
-	public List<XxxxEntity> getList() {
+
+	public List<PermMenuEntity> getList() {
 		return list;
 	}
 
-	public void setList(List<XxxxEntity> list) {
+	public void setList(List<PermMenuEntity> list) {
 		this.list = list;
 	}
 
-	public XxxxEntity getModel() {
-		return null;
+	public PermMenuEntity getModel() {
+		return permMenuEntity;
 	}
 }

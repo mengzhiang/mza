@@ -32,4 +32,12 @@ public class PermUserServiceImpl implements PermUserService{
 		dao.deleteAll(list);
 		return "success";
 	}
+	public boolean isUnique(PermUser permUser) {
+		List<PermUser> list = dao.findByProperty("username", permUser.getUsername());
+		if(list.size()>0){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

@@ -10,4 +10,5 @@ public interface PermUserService {
 	public void save(PermUser permuser);
 	public PermUser getById(long id);
 	public String delAll(List<PermUser> list);
+	public boolean isUnique(PermUser permUser);
 }

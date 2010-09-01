@@ -24,7 +24,7 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 	 */
 	private static final long serialVersionUID = 6386120048313640262L;
 	private PermUser permUser = new PermUser();// 这里要手动new一下
-	private List<PermUser> permUsers;
+	private List<PermUser> list;
 
 	private long sid;
 	@Resource
@@ -52,15 +52,24 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 	}
 
 	public String save() {
-		permUserService.save(permUser);
-		this.setSuccess(true);
+		if(!isUnique()){
+			this.setSuccess(false);
+			this.addFieldError("username", "用户名已存在！");
+		}else{
+			permUserService.save(permUser);
+			this.setSuccess(true);	
+		}
 		return SUCCESS;
 	}
 
 	public String delAll() {
 		JsonUtil.jsonToObject(this.getStrJson(), this);
-		permUserService.delAll(this.getPermUsers());
+		permUserService.delAll(this.getList());
 		return SUCCESS;
+	}
+	
+	private boolean isUnique(){
+		return permUserService.isUnique(permUser);
 	}
 
 	public long getSid() {
@@ -79,12 +88,12 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 		this.permUser = permUser;
 	}
 
-	public List<PermUser> getPermUsers() {
-		return permUsers;
+	public List<PermUser> getList() {
+		return list;
 	}
 
-	public void setPermUsers(List<PermUser> permUsers) {
-		this.permUsers = permUsers;
+	public void setList(List<PermUser> list) {
+		this.list = list;
 	}
 
 	public PermUser getModel() {
