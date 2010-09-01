@@ -1,4 +1,4 @@
-package com.neusoft.base.perm.resource.model;
+package com.neusoft.base.perm.resmodel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

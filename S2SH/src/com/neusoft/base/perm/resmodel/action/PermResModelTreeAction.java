@@ -1,4 +1,4 @@
-package com.neusoft.base.perm.resource.action;
+package com.neusoft.base.perm.resmodel.action;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
+import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.resmodel.model.PermResModelTreeModel;
-import com.neusoft.base.perm.resource.model.PermResource;
-import com.neusoft.base.perm.resource.service.PermResService;
+import com.neusoft.base.perm.resmodel.service.PermResModelTreeService;
 import com.neusoft.base.utils.JsonUtil;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -19,25 +19,35 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class PermResAction extends BaseAction implements ModelDriven<PermResource> {
+public class PermResModelTreeAction extends BaseAction implements ModelDriven<PermResModelTreeEntity> {
 
 	private static final long serialVersionUID = 6386120048313640262L;
-	private PermResource permResource = new PermResource();// 这里要手动new一下
+	private PermResModelTreeEntity permResModelTreeEntity = new PermResModelTreeEntity();// 这里要手动new一下
 	
-	private List<PermResource> list;
+	private List<PermResModelTreeEntity> list;
 	private long sid;
 	
 	private List<PermResModelTreeModel> tree;
 	
 	@Resource
-	private PermResService service;
+	private PermResModelTreeService service;
 
-	public void setService(PermResService service) {
+	public void setService(PermResModelTreeService service) {
 		this.service = service;
 	}
 
 	@Override
 	public String execute() {
+		return SUCCESS;
+	}
+
+	/**
+	 * 返回tree
+	 * 
+	 * @return
+	 */
+	public String querytree() {
+		tree = service.getTree();
 		return SUCCESS;
 	}
 	
@@ -49,12 +59,12 @@ public class PermResAction extends BaseAction implements ModelDriven<PermResourc
 	}
 
 	public String load() {
-		permResource = service.getById(sid);
+		permResModelTreeEntity = service.getById(sid);
 		return SUCCESS;
 	}
 
 	public String save() {
-		service.save(permResource);
+		service.save(permResModelTreeEntity);
 		this.setSuccess(true);
 		return SUCCESS;
 	}
@@ -73,22 +83,23 @@ public class PermResAction extends BaseAction implements ModelDriven<PermResourc
 		this.sid = sid;
 	}
 	
-	public PermResource getPermResource() {
-		return permResource;
+	public PermResModelTreeEntity getPermResModelTreeEntity() {
+		return permResModelTreeEntity;
 	}
 
-	public void setPermResource(PermResource permResource) {
-		this.permResource = permResource;
+	public void setPermResModelTreeEntity(
+			PermResModelTreeEntity permResModelTreeEntity) {
+		this.permResModelTreeEntity = permResModelTreeEntity;
 	}
 
-	public List<PermResource> getList() {
+	public List<PermResModelTreeEntity> getList() {
 		return list;
 	}
 
-	public void setList(List<PermResource> list) {
+	public void setList(List<PermResModelTreeEntity> list) {
 		this.list = list;
 	}
-	
+
 	public List<PermResModelTreeModel> getTree() {
 		return tree;
 	}
@@ -98,7 +109,7 @@ public class PermResAction extends BaseAction implements ModelDriven<PermResourc
 	}
 
 
-	public PermResource getModel() {
-		return permResource;
+	public PermResModelTreeEntity getModel() {
+		return permResModelTreeEntity;
 	}
 }
