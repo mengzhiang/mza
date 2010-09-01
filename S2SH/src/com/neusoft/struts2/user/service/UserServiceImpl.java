@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 			//0非叶子节点1是叶子节点
 			if(tree.getLeaf()==0){
 				tm.setLeaf(false);
-				tm.setChildren(geneTree(parentid+1,level+1));
+				tm.setChildren(geneTree(Integer.parseInt(Long.toString(tree.getId())),level+1));
 			}else{
 				tm.setLeaf(true);
 			}

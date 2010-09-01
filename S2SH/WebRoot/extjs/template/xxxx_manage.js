@@ -1,8 +1,12 @@
 Ext.onReady(function() {
-	/** 用户定义数据 */
-	// 1:选择框
+	/**
+	 * 1:选择框 ******************************************************
+	 */
 	var sm = new Ext.grid.CheckboxSelectionModel();
-	// 2：定义grid列头和对应的属性名
+	/**
+	 * 2：定义grid列头和对应的属性名
+	 * ***************************************************************
+	 */
 	var columns = [sm, {
 				header : '编号',
 				dataIndex : 'id'
@@ -16,7 +20,10 @@ Ext.onReady(function() {
 				header : '详细',
 				dataIndex : 'detail'
 			}];
-	// 3：定义从后来取数据的
+	/**
+	 * 3：定义从后来取数据的
+	 * ****************************************************************
+	 */
 	var fields = [{
 				name : 'id'
 			}, {
@@ -26,12 +33,156 @@ Ext.onReady(function() {
 			}, {
 				name : 'detail'
 			}];
-	//4：更改“xxxx”为模块的小写名称。因为后台匹配好了。
-			
+	/**
+	 * 4：更改“xxxx”为模块的小写名称。因为后台匹配好了。
+	 * ****************************************************************
+	 */
+
+	/**
+	 * 5：新增form的items,编辑的items 新增form的大小，和编辑页面大小
+	 * ****************************************************************
+	 */
+	var win_width = 500;
+	var win_height = 250;
+	var additems = [{
+				fieldLabel : '姓名',
+				name : 'username',
+				allowBlank:false
+			}, {
+				fieldLabel : '密码',
+				name : 'password'
+			}, {
+				width : 345,
+				height : 80,
+				name : 'detail',
+				xtype : 'textarea',
+				fieldLabel : '详细'
+			}];
+	var edititems = [{
+				fieldLabel : 'id',
+				name : 'id',
+				readOnly : true
+			}, {
+				fieldLabel : '姓名',
+				name : 'username'
+			}, {
+				fieldLabel : '密码',
+				name : 'password'
+			}, {
+				width : 345,
+				height : 80,
+				name : 'detail',
+				xtype : 'textarea',
+				fieldLabel : '详细'
+			}];
+	/**
+	 * ************** 6：自定义查询条件
+	 * ****************************************************************
+	 */
+	var queryitems = [{
+				columnWidth : .2,
+				layout : 'form',
+				items : [{
+							name : 'id',
+							xtype : 'textfield',
+							fieldLabel : 'id'
+						}]
+			}, {
+				columnWidth : .2,
+				layout : 'form',
+				items : [{
+							name : 'username',
+							xtype : 'textfield',
+							fieldLabel : '姓名'
+						}]
+			}, {
+				columnWidth : .2,
+				layout : 'form',
+				items : [{
+							name : 'password',
+							xtype : 'textfield',
+							fieldLabel : '密码'
+						}]
+			}, {
+				columnWidth : .2,
+				layout : 'form',
+				items : [{
+							name : 'detail',
+							xtype : 'textfield',
+							fieldLabel : '详细'
+						}]
+			}, {
+				columnWidth : .2,
+				layout : 'form',
+				items : [{
+							name : 'button',
+							xtype : 'button',
+							text : '查&nbsp;&nbsp;&nbsp;&nbsp;询',
+							handler : function() {
+								var object = form_query.getForm().getValues();
+								console.log(object);
+								var filterArr = new Array;
+								if (object.id != "") {
+									var idfilter = {
+										name : 'id',
+										type : 'long',
+										property : 'id',
+										condition : '=',
+										value : object.id
+									}
+									filterArr.push(idfilter);
+								}
+								if (object.username != "") {
+									var namefilter = {
+										name : 'name',
+										type : 'String',
+										property : 'username',
+										condition : 'like',
+										value : "%" + object.username + "%"
+									}
+									filterArr.push(namefilter);
+								}
+								if (object.password != "") {
+									var pwdfilter = {
+										name : 'pwd',
+										type : 'String',
+										property : 'password',
+										condition : 'like',
+										value : "%" + object.password + "%"
+									}
+									filterArr.push(pwdfilter);
+								}
+								if (object.detail != "") {
+									var detailfilter = {
+										name : 'detail',
+										type : 'String',
+										property : 'detail',
+										condition : 'like',
+										value : "%" + object.detail + "%"
+									}
+									filterArr.push(detailfilter);
+								}
+								var data = {
+									filters : filterArr
+								}
+								store.baseParams.strFilter = Ext.encode(data);
+								store.load({
+											params : {
+												start : 0,
+												limit : 15
+											}
+										});
+							}
+						}]
+			}]
+
+	/** ***************************************************************************************** */
+	//初始化提示信息		
+	Ext.QuickTips.init();
 	var cm = new Ext.grid.ColumnModel(columns);
 	var store = new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-							url : 'xxxx_listpage'
+							url : 'permUser_listpage'
 						}),
 				reader : new Ext.data.JsonReader({
 							totalProperty : "paginationSupport.totalCount",
@@ -58,7 +209,7 @@ Ext.onReady(function() {
 					var bsform = form_add.getForm();
 					console.log(bsform);
 					bsform.doAction('submit', {
-								url : 'xxxx_save',
+								url : 'permUser_save',
 								method : 'post',
 								waitMsg : '正在保存',
 								timeout : 10000,
@@ -68,7 +219,11 @@ Ext.onReady(function() {
 									grid.store.reload();
 								},
 								failure : function(form, action) {
-									Ext.Msg.alert("提示", "保存失败！");
+									if(action.result.errors){
+										//Ext.Msg.alert("提示", action.result.errors.username);
+									}else{
+										Ext.Msg.alert("提示", "保存失败");
+									}
 								}
 							});
 				}
@@ -78,9 +233,8 @@ Ext.onReady(function() {
 				text : '提交',
 				handler : function() {
 					var bsform = form_edit.getForm();
-					console.log(bsform);
 					bsform.doAction('submit', {
-								url : 'xxxx_save',
+								url : 'permUser_save',
 								method : 'post',
 								waitMsg : '正在保存',
 								timeout : 10000,
@@ -113,48 +267,31 @@ Ext.onReady(function() {
 	var form_add = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
-				height : 117,
+				height : win_height - 33,
 				frame : true,
 				border : 0,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
-				items : [{
-							fieldLabel : '姓名',
-							name : 'name'
-						}, {
-							fieldLabel : '密码',
-							name : 'pwd',
-							inputType : 'password'
-						}],
+				items : additems,
 				buttons : [btn_add_submit, btn_add_back]
 			});
-	// 新增form
+	// 修改form
 	var form_edit = new Ext.form.FormPanel({
 				labelAlign : 'right',
 				labelWidth : 50,
 				frame : true,
-				height : 167,
+				height : win_height - 33,
 				defaultType : 'textfield',
 				buttonAlign : 'center',
-				items : [{
-							fieldLabel : 'id',
-							name : 'id',
-							readOnly : true
-						}, {
-							fieldLabel : '姓名',
-							name : 'name'
-						}, {
-							fieldLabel : '密码',
-							name : 'pwd'
-						}],
+				items : edititems,
 				buttons : [btn_edit_submit, btn_edit_back]
 			});
 	// 创建按钮
 	var tb = new Ext.Toolbar();
 	var win = new Ext.Window({
 				title : "新增用户",
-				width : 300,
-				height : 150,
+				width : win_width,
+				height : win_height,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -163,8 +300,8 @@ Ext.onReady(function() {
 	// 修改窗口
 	var win_edit = new Ext.Window({
 				title : "修改用户",
-				width : 300,
-				height : 200,
+				width : win_width,
+				height : win_height,
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
@@ -216,7 +353,7 @@ Ext.onReady(function() {
 													contentType : "application/json"
 												},
 												method : 'POST',
-												url : 'xxxx_delAll',
+												url : 'permUser_delAll',
 												success : function(request) {
 													Ext.Msg.alert('信息', '删除成功');
 													grid.store.reload();
@@ -268,85 +405,7 @@ Ext.onReady(function() {
 				frame : true,
 				width : 630,
 				layout : 'column',
-				items : [{
-							columnWidth : .2,
-							layout : 'form',
-							items : [{
-										name : 'id',
-										xtype : 'textfield',
-										fieldLabel : 'id'
-									}]
-						}, {
-							columnWidth : .2,
-							layout : 'form',
-							items : [{
-										name : 'name',
-										xtype : 'textfield',
-										fieldLabel : '姓名'
-									}]
-						}, {
-							columnWidth : .2,
-							layout : 'form',
-							items : [{
-										name : 'pwd',
-										xtype : 'textfield',
-										fieldLabel : '密码'
-									}]
-						}, {
-							columnWidth : .4,
-							layout : 'form',
-							items : [{
-								name : 'button',
-								xtype : 'button',
-								text : '查&nbsp;&nbsp;&nbsp;&nbsp;询',
-								handler : function() {
-									var object = form_query.getForm()
-											.getValues();
-									var filterArr = new Array;
-									if (object.id != "") {
-										var idfilter = {
-											name : 'id',
-											type : 'long',
-											property : 'id',
-											condition : '=',
-											value : object.id
-										}
-										filterArr.push(idfilter);
-									}
-									if (object.name != "") {
-										var namefilter = {
-											name : 'name',
-											type : 'String',
-											property : 'name',
-											condition : 'like',
-											value : "%" + object.name + "%"
-										}
-										filterArr.push(namefilter);
-									}
-									if (object.pwd != "") {
-										var pwdfilter = {
-											name : 'pwd',
-											type : 'String',
-											property : 'pwd',
-											condition : 'like',
-											value : "%" + object.pwd + "%"
-										}
-										filterArr.push(pwdfilter);
-									}
-									var data = {
-										filters : filterArr
-									}
-									store.baseParams.strFilter = Ext
-											.encode(data);
-									store.load({
-												params : {
-													start : 0,
-													limit : 15
-												}
-											});
-								}
-							}]
-						}]
+				items : queryitems
 			});
 	// 创建布局
 	var viewport = new Ext.Viewport({
