@@ -30,10 +30,85 @@ Ext.onReady(function() {
 				width : 250
 
 			});
-	// 注册右键事件
-	var contextmenu_fold = new Ext.menu.Menu({
-		id : "theContextMenu",
-		items : [{
+	var add_leaf_item = {
+			text : '新增下级菜单项',
+			handler : function() {
+				console.log(this.ownerCt);
+				var btn_submit = new Ext.Button({
+							text : '提交',
+							handler : function() {
+								var bsform = form.getForm();
+								console.log(bsform);
+								bsform.doAction('submit', {
+											url : 'permMenu_save',
+											method : 'post',
+											waitMsg : '正在保存',
+											timeout : 10000,
+											success : function(form, action) {
+												Ext.Msg.alert("提示", "保存成功!");
+												root.reload();
+												root.expand(true, true);
+												Ext.get("form").dom.innerHTML = "";
+											},
+											failure : function(form, action) {
+												Ext.Msg.alert("提示", "保存失败");
+											}
+										});
+							}
+						});
+				var form = new Ext.form.FormPanel({
+							labelAlign : 'right',
+							labelWidth : 70,
+							frame : true,
+							height : 150,
+							width : 300,
+							defaultType : 'textfield',
+							buttonAlign : 'center',
+							items : [{
+										xtype : 'fieldset',
+										title : '新增菜单项',
+										defaultType : 'textfield',
+										items : [{
+													fieldLabel : '菜单项名称',
+													name : 'title'
+												}, {
+													name : 'parentid',
+													hidden : true,
+													hideLabel : true
+												}, {
+													name : 'number',
+													hidden : true,
+													hideLabel : true
+												}, {
+													name : 'leaf',
+													hidden : true,
+													hideLabel : true
+												}, {
+													fieldLabel : 'URL地址',
+													name : 'url'
+												}]
+									}],
+							buttons : [btn_submit]
+						});
+				var selNode = tree.getSelectionModel().selNode;
+				var attr = selNode.attributes;
+				var record = new Ext.data.Record({
+							parentid : attr.id,
+							leaf : 1,
+							url : '',
+							number : 0
+						});
+				form.getForm().loadRecord(record);
+				// 如果已经存在form则删除重新加载
+				if (Ext.get("form").dom.children.length > 0) {
+					Ext.get("form").dom.innerHTML = "";
+					form.render("form");
+				} else {
+					form.render("form");
+				}
+			}
+		};
+	var add_fold_item = {
 			text : '新增下级菜单夹',
 			handler : function() {
 				console.log(this.ownerCt);
@@ -111,84 +186,8 @@ Ext.onReady(function() {
 					form.render("form");
 				}
 			}
-		}, {
-			text : '新增下级菜单项',
-			handler : function() {
-				console.log(this.ownerCt);
-				var btn_submit = new Ext.Button({
-							text : '提交',
-							handler : function() {
-								var bsform = form.getForm();
-								console.log(bsform);
-								bsform.doAction('submit', {
-											url : 'permMenu_save',
-											method : 'post',
-											waitMsg : '正在保存',
-											timeout : 10000,
-											success : function(form, action) {
-												Ext.Msg.alert("提示", "保存成功!");
-												root.reload();
-												root.expand(true, true);
-												Ext.get("form").dom.innerHTML = "";
-											},
-											failure : function(form, action) {
-												Ext.Msg.alert("提示", "保存失败");
-											}
-										});
-							}
-						});
-				var form = new Ext.form.FormPanel({
-							labelAlign : 'right',
-							labelWidth : 70,
-							frame : true,
-							height : 150,
-							width : 300,
-							defaultType : 'textfield',
-							buttonAlign : 'center',
-							items : [{
-										xtype : 'fieldset',
-										title : '新增菜单项',
-										defaultType : 'textfield',
-										items : [{
-													fieldLabel : '菜单项名称',
-													name : 'title'
-												}, {
-													name : 'parentid',
-													hidden : true,
-													hideLabel : true
-												}, {
-													name : 'number',
-													hidden : true,
-													hideLabel : true
-												}, {
-													name : 'leaf',
-													hidden : true,
-													hideLabel : true
-												}, {
-													fieldLabel : 'URL地址',
-													name : 'url'
-												}]
-									}],
-							buttons : [btn_submit]
-						});
-				var selNode = tree.getSelectionModel().selNode;
-				var attr = selNode.attributes;
-				var record = new Ext.data.Record({
-							parentid : attr.id,
-							leaf : 1,
-							url : '',
-							number : 0
-						});
-				form.getForm().loadRecord(record);
-				// 如果已经存在form则删除重新加载
-				if (Ext.get("form").dom.children.length > 0) {
-					Ext.get("form").dom.innerHTML = "";
-					form.render("form");
-				} else {
-					form.render("form");
-				}
-			}
-		}, {
+		};
+		var delete_item = {
 			text : '删除',
 			handler : function() {
 				var node = tree.getSelectionModel().selNode;
@@ -239,8 +238,13 @@ Ext.onReady(function() {
 							}
 						});
 			}
-		}]
+		};
+	// 注册右键事件
+	var contextmenu_fold = new Ext.menu.Menu({
+		id : "theContextMenu",
+		items : []
 	});
+	
 	var contextmenu_leaf = new Ext.menu.Menu({
 		id : "theContextMenu",
 		items : [{
@@ -300,16 +304,15 @@ Ext.onReady(function() {
 				e.preventDefault();
 				node.select();
 				if (node.leaf) {
-					if(!contextmenu_fold.hidden){
-						contextmenu_fold.hide(true);
-					};
-					contextmenu_leaf.showAt(e.getXY());
+					contextmenu_fold.removeAll();
+					contextmenu_fold.addItem(delete_item);
 				} else {
-					if(!contextmenu_leaf.hidden){
-						contextmenu_leaf.hide(true);
-					};
-					contextmenu_fold.showAt(e.getXY());
+					contextmenu_fold.removeAll();
+					contextmenu_fold.addItem(add_fold_item);
+					contextmenu_fold.addItem(add_leaf_item);
+					contextmenu_fold.addItem(delete_item);
 				}
+				contextmenu_fold.showAt(e.getXY());
 			});
 	// 给树添加事件
 	tree.on("click", function(node) {
@@ -328,6 +331,7 @@ Ext.onReady(function() {
 												Ext.Msg.alert("提示", "保存成功!");
 												root.reload();
 												root.expand(true, true);
+												Ext.get("form").dom.innerHTML = "";
 											},
 											failure : function(form, action) {
 												Ext.Msg.alert("提示", "保存失败");
@@ -338,7 +342,8 @@ Ext.onReady(function() {
 				if (node.leaf) {
 					var items = [{
 								fieldLabel : '编号',
-								name : 'id'
+								name : 'id',
+								readOnly :true
 							}, {
 								fieldLabel : '名称',
 								name : 'title'
@@ -357,7 +362,8 @@ Ext.onReady(function() {
 				} else {
 					var items = [{
 								fieldLabel : '编号',
-								name : 'id'
+								name : 'id',
+								readOnly :true
 							}, {
 								fieldLabel : '名称',
 								name : 'title'
