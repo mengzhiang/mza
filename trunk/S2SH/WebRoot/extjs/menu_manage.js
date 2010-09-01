@@ -404,7 +404,7 @@ Ext.onReady(function() {
 				}
 				var parentid = 0;
 				if (node.parentNode) {
-					parentid = node.parentNode.attributes.id
+					parentid = node.parentNode.attributes.id;
 				} else {
 					Ext.get("form").dom.innerHTML = "";
 					return;

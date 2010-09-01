@@ -42,7 +42,7 @@
 			</props>
 		</property>
 		
-		<property name="packagesToScan" value="com.neusoft.*.*.model"/>
+		<property name="packagesToScan" value="com.neusoft.*.*.model,com.neusoft.*.*.*.model"/>
 		<!--
 			 value只能中间写*最后不能写.*
 			 <property name="packagesToScan" value="com.neusoft.struts2.*.model"/>
@@ -80,6 +80,8 @@
 	<!--如果采用XML配置则用下面的配置-->
 	<aop:config proxy-target-class="true">
 		<aop:advisor pointcut="execution(* com.neusoft.*.*.service.*Impl.*(..))"
+			advice-ref="txAdvice"/>
+		<aop:advisor pointcut="execution(* com.neusoft.*.*.*.service.*Impl.*(..))"
 			advice-ref="txAdvice"/>
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
