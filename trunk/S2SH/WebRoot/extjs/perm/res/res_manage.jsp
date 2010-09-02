@@ -9,6 +9,5 @@
 <script type="text/javascript" src="/S2SH/extjs/perm/res/res_manage.js"></script>
 </head>
 <body>
-<div id="form"></div>
 </body>
 </html>
