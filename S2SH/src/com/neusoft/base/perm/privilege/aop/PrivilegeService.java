@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.base.exception.PrivilegeNotEnoughException;
 import com.neusoft.base.perm.privilege.service.PermService;
 import com.neusoft.base.perm.resource.model.PermResource;
 import com.neusoft.base.perm.role.model.PermRole;
@@ -79,7 +78,7 @@ public class PrivilegeService {
 		Map<Long, String> map = new HashMap<Long, String>();
 		for (PermResource res : reslist) {
 			// 如果是方法类型的不是URL的拼成方法
-			if (res.getReslx() == 1) {
+			if (res.getReslx() == "1") {
 				StringBuilder sb = new StringBuilder();
 				sb.append(res.getClasstype_name()).append(".").append(
 						res.getMethod_name()).append("(");

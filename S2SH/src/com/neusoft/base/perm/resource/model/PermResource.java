@@ -5,12 +5,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -32,12 +29,14 @@ import com.neusoft.base.perm.role.model.PermRole;
 public class PermResource {
 	//id
 	private long id;
+	//模块id
+	private String modelid;
 	//资源名称
 	private String name;
 	//资源码
 	private String code;
 	//资源类型
-	private int reslx;
+	private String reslx;
 	//资源URL
 	private String url;
 	//类名
@@ -46,7 +45,6 @@ public class PermResource {
 	private String method_name;
 	//参数
 	private String parametertype_names;
-	
 	//角色
     private Set<PermRole> roles; 
 	
@@ -58,6 +56,13 @@ public class PermResource {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	@Column
+	public String getModelid() {
+		return modelid;
+	}
+	public void setModelid(String modelid) {
+		this.modelid = modelid;
 	}
 	@Column
 	public String getName() {
@@ -74,10 +79,10 @@ public class PermResource {
 		this.code = code;
 	}
 	@Column
-	public int getReslx() {
+	public String getReslx() {
 		return reslx;
 	}
-	public void setReslx(int reslx) {
+	public void setReslx(String reslx) {
 		this.reslx = reslx;
 	}
 	@Column
