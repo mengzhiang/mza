@@ -1,5 +1,6 @@
 package com.neusoft.base.perm.role.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,10 +44,12 @@ public class PermRole {
 	private String code;
 	//角色说明
 	private String detail;
-
+	//父节点
+	private int parentid;
+	//number
+	private int number;
 	//资源
     private Set<PermResource> permResources; 
-    
 	//用户
     private Set<PermUser> permUser; 
     
@@ -79,6 +82,20 @@ public class PermRole {
 	}
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+	@Column
+	public int getParentid() {
+		return parentid;
+	}
+	public void setParentid(int parentid) {
+		this.parentid = parentid;
+	}
+	@Column
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	/**
 	 CascadeType.MERGE 表示联动修改
