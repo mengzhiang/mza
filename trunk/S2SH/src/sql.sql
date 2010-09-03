@@ -31,7 +31,7 @@ pwd varchar(50)
 CREATE TABLE t_perm_resources (
   id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
   name VARCHAR(20) NOT NULL COMMENT '资源名称',
-  code VARCHAR(20) NOT NULL UNIQUE KEY COMMENT '资源码',
+  code VARCHAR(20) NOT NULL COMMENT '资源码',
   reslx INTEGER NOT NULL COMMENT '资源类型0是URL1是方法',
   url VARCHAR(20) DEFAULT NULL COMMENT 'url',
   classtype_name VARCHAR(50) DEFAULT NULL COMMENT '类名',
@@ -44,15 +44,18 @@ INSERT INTO `t_perm_resources` (`id`, `name`, `code`, `reslx`, `url`, `classtype
 
   
   --角色表
-CREATE TABLE t_perm_role (
-  id INTEGER(11) auto_increment NOT NULL primary key COMMENT 'id',
-  name VARCHAR(20) NOT NULL COMMENT '角色名称',
-  code VARCHAR(20) NOT NULL UNIQUE KEY COMMENT '角色编码',
-  detail VARCHAR(300) DEFAULT NULL COMMENT '角色说明'
-)COMMENT'权限角色表';
-INSERT INTO `t_perm_role` (`id`, `name`, `code`, `detail`) VALUES 
-  (1, '管理员', 'admin', '管理员'),
-  (2, '普通用户', 'user', '普通用户');
+CREATE TABLE `t_perm_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(20) NOT NULL COMMENT '角色名称',
+  `code` varchar(20) NOT NULL COMMENT '角色编码',
+  `detail` varchar(300) DEFAULT NULL COMMENT '角色说明',
+  `parentid` int(11) DEFAULT NULL COMMENT '父节点',
+  `number` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=gbk COMMENT='权限角色表';	
+INSERT INTO `t_perm_role` (`id`,`name`,`code`,`detail`,`parentid`,`number`) VALUES (1,'管理员','admin','管理员',NULL,NULL);
+INSERT INTO `t_perm_role` (`id`,`name`,`code`,`detail`,`parentid`,`number`) VALUES (2,'普通用户','user','普通用户',NULL,NULL);
+INSERT INTO `t_perm_role` (`id`,`name`,`code`,`detail`,`parentid`,`number`) VALUES (7,'role1','role1',NULL,NULL,NULL);
   
 --角色资源关联表
 CREATE TABLE t_perm_role_and_resources (
