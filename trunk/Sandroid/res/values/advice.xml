@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="advice_light">你太瘦了，要多吃点！</string>
+    <string name="advice_average">哇塞，你身材太标准了！</string>
+    <string name="advice_heavy">额，你太胖了！你要减肥了啊！</string>
+</resources>
