@@ -7,6 +7,6 @@
 <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="你好！孟志昂！"
+    android:text="你好！孟志昂！第一个android程序"
     />
 </LinearLayout>
