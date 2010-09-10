@@ -4,7 +4,12 @@ import java.text.DecimalFormat;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -55,16 +60,57 @@ public class zha extends Activity {
 			}else{
 				suggest.setText(R.string.advice_average);
 			}
-			openOptionsDialog();
 		}
 	
     };
     
     private void openOptionsDialog() {
+    	//Toast.makeText(zha.this, "BMI 计算器", Toast.LENGTH_SHORT).show();
         new AlertDialog.Builder(zha.this)
         .setTitle(R.string.about_title)
         .setMessage(R.string.about_msg)
+        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.setNegativeButton("主页", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Uri uri = Uri.parse("http://mengzhiang.com");
+				Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+				startActivity(intent);
+			}
+		})
         .show();
-    };
+    }
+
+    /**
+     * 添加menu事件，添加按钮
+     */
+    private static final int MENU_ABOUT = Menu.FIRST;
+    private static final int MENU_QUIT = Menu.FIRST+1;
     
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		menu.add(0, MENU_ABOUT, 0, "关于");
+		menu.add(0, MENU_QUIT, 0,"结束" );
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		 super.onOptionsItemSelected(item);
+		 switch(item.getItemId()){
+		 	case MENU_ABOUT:
+			 	openOptionsDialog();
+			 	break;
+		 	case MENU_QUIT:
+		 		finish();
+		 		break;
+		 }
+		 return true;
+	};
+ 
 }
