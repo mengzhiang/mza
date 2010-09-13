@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 
 public class Report extends Activity {
 
+	private static final String TAG = "ZHA";
 	//主方法，页面载入时执行
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report);
+		Log.v(TAG, "find_view");
 		findView();
 		showResults();
 		setListener();
