@@ -8,4 +8,5 @@
     <string name="bmi_result">"你的哦BMI值"</string>
     <string name="about_title">"关于 Android BMI"</string>
     <string name="about_msg">"Android BMI Cacl \n 作者：孟志昂 \n mengzhiang@gmail.com"</string>
+    <string name="report_back">"返回上一页"</string>
 </resources>

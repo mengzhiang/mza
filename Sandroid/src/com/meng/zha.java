@@ -46,20 +46,13 @@ public class zha extends Activity {
     private OnClickListener calcBMI = new OnClickListener(){
 		@Override
 		public void onClick(View view) {
-			double height = Double.parseDouble(fieldheight.getText().toString())/100;
-			double weight = Double.parseDouble(fieldweight.getText().toString());
-
-			double BMI = weight / (height * height);
-			
-			DecimalFormat nf = new DecimalFormat("0.00");
-			result.setText("ÄãµÄ BMI ÊÇ "+nf.format(BMI));
-			if(BMI>25){
-				suggest.setText(R.string.advice_heavy);
-			}else if(BMI<20){
-				suggest.setText(R.string.advice_light);
-			}else{
-				suggest.setText(R.string.advice_average);
-			}
+			Intent intent = new Intent();
+			intent.setClass(zha.this, Report.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("KEY_HEIGHT",fieldheight.getText().toString());
+			bundle.putString("KEY_WEIGHT",fieldweight.getText().toString());
+			intent.putExtras(bundle);
+			startActivity(intent);
 		}
 	
     };
