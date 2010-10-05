@@ -9,6 +9,7 @@ public interface PermUserService {
 	public PaginationSupport listpage(int startIndex,int pageSize);
 	public void save(PermUser permuser);
 	public PermUser getById(long id);
+	public List<PermUser> findByProperty(String name,Object value);
 	public String delAll(List<PermUser> list);
 	public boolean isUnique(PermUser permUser);
 }

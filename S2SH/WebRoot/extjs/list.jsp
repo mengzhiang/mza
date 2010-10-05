@@ -19,6 +19,7 @@
 </style>
 <script type="text/javascript">
 	function quit(){
+		window.location = "login_logout";
 		window.location = "../index.jsp";
 		}
 </script>

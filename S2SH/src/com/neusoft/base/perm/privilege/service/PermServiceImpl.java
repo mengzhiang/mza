@@ -137,7 +137,7 @@ public class PermServiceImpl implements PermService {
 			}else{
 				info = "密码错误";
 			}
-		}if(list.size()==0){
+		}else if(list.size()==0){
 			System.out.println("用户不存在！");
 				info = "该用户不存在";
 		}else{
