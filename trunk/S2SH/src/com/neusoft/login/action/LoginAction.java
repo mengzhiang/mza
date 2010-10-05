@@ -11,7 +11,6 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -22,11 +21,12 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.base.action.BaseAction;
 import com.neusoft.base.perm.privilege.service.PermService;
 import com.neusoft.base.perm.user.model.PermUser;
+import com.neusoft.base.perm.user.service.PermUserService;
 
 @Controller
-@Scope("prototype") 
+@Scope("prototype")
 public class LoginAction extends BaseAction {
-	
+
 	/**
 	 * 
 	 */
@@ -34,11 +34,13 @@ public class LoginAction extends BaseAction {
 	private PermUser permUser;
 	@Resource
 	private PermService permService;
-	
+	@Resource
+	private PermUserService permUserService;
+
 	private String yzm;
-	
+
 	private String yzmjpgName;
-	
+
 	public String getYzm() {
 		return yzm;
 	}
@@ -69,6 +71,10 @@ public class LoginAction extends BaseAction {
 		this.permService = permService;
 	}
 
+	public void setPermUserService(PermUserService permUserService) {
+		this.permUserService = permUserService;
+	}
+
 	public String getYzmjpgName() {
 		return yzmjpgName;
 	}
@@ -78,62 +84,73 @@ public class LoginAction extends BaseAction {
 	}
 
 	@Override
-	public String execute(){
+	public String execute() {
 		return SUCCESS;
 	}
-	
-	public String login(){
+
+	public String login() {
 		String info = permService.checkUserAccount(permUser);
-		if(info.equals("true")){
+		if (info.equals("true")) {
 			this.setFlag("success");
-		}else{
+			HttpSession session = ServletActionContext.getRequest()
+					.getSession();
+			session.setAttribute("currentUser", permUserService.findByProperty(
+					"username", permUser.getUsername()).get(0));
+		} else {
 			this.setFlag(info);
-		};
+		}
+		;
 		return SUCCESS;
 	}
-	
-	public String geneImg() throws IOException{
-		BufferedImage img = new BufferedImage(68, 22,BufferedImage.TYPE_INT_RGB);
+
+	public String logout() {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		session.removeAttribute("currentUser");
+		return SUCCESS;
+	}
+
+	public String geneImg() throws IOException {
+		BufferedImage img = new BufferedImage(68, 22,
+				BufferedImage.TYPE_INT_RGB);
 		// 得到该图片的绘图对象
-        Graphics g = img.getGraphics();
-        Random r = new Random();
-        Color c = new Color(200, 150, 255);
-        g.setColor(c);
-        // 填充整个图片的颜色
-        g.fillRect(0, 0, 68, 22);
-        // 向图片中输出数字和字母
-        StringBuffer sb = new StringBuffer();
-        char[] ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-        int index, len = ch.length;
-        for (int i = 0; i < 4; i ++) {
-            index = r.nextInt(len);
-            g.setColor(new Color(r.nextInt(88), r.nextInt(188), r.nextInt(255)));
-            g.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 22));// 输出的字体和大小                 
-            g.drawString("" + ch[index], (i * 15) + 3, 18);//写什么数字，在图片的什么位置画
-            sb.append(ch[index]);
-        }
-        HttpServletResponse response = ServletActionContext.getResponse();
-        HttpSession session = ServletActionContext.getRequest().getSession();
-        session.setAttribute("piccode", sb.toString());
-        this.setYzm(sb.toString());
-		String path = this.getClass().getClassLoader().getResource("").getPath();
+		Graphics g = img.getGraphics();
+		Random r = new Random();
+		Color c = new Color(200, 150, 255);
+		g.setColor(c);
+		// 填充整个图片的颜色
+		g.fillRect(0, 0, 68, 22);
+		// 向图片中输出数字和字母
+		StringBuffer sb = new StringBuffer();
+		char[] ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		int index, len = ch.length;
+		for (int i = 0; i < 4; i++) {
+			index = r.nextInt(len);
+			g
+					.setColor(new Color(r.nextInt(88), r.nextInt(188), r
+							.nextInt(255)));
+			g.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 22));// 输出的字体和大小
+			g.drawString("" + ch[index], (i * 15) + 3, 18);// 写什么数字，在图片的什么位置画
+			sb.append(ch[index]);
+		}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		session.setAttribute("piccode", sb.toString());
+		this.setYzm(sb.toString());
+		String path = this.getClass().getClassLoader().getResource("")
+				.getPath();
 		String picName = String.valueOf(r.nextInt(1000));
 		this.setYzmjpgName(picName);
-		//保存文件在webroot的temp路径下文件
-		path = path.substring(1, path.length()-16)+ "\\temp\\yzm\\"+picName+".jpg"; 
-		File file = new File(path); 
-		
-		FileOutputStream fos_jpg = null;  
-		fos_jpg = new FileOutputStream(path); 
-        //ServletOutputStream out =  response.getOutputStream();
-        ImageIO.write(img, "JPG", fos_jpg);
-//        out.flush();
-//        out.close();
-//        out = null;
-  //      response.flushBuffer();
-		session.setAttribute("fileName",path);
+		// 保存文件在webroot的temp路径下文件
+		path = path.substring(1, path.length() - 16) + "\\temp\\yzm\\"
+				+ picName + ".jpg";
+		File file = new File(path);
+
+		FileOutputStream fos_jpg = null;
+		fos_jpg = new FileOutputStream(path);
+		ImageIO.write(img, "JPG", fos_jpg);
+		session.setAttribute("fileName", path);
 		fos_jpg.close();
-		
+
 		return SUCCESS;
 	}
 }
