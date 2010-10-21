@@ -1,0 +1,40 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>Insert title here</title>
+<style type="text/css">
+@import "../jslib/dojo1.5/dijit/themes/tundra/tundra.css";
+
+@import "../jslib/dojo1.5/dojo/resources/dojo.css";
+</style>
+<script type="text/javascript" src="../jslib/dojo1.5/dojo/dojo.js"
+	djConfig="parseOnLoad:true"></script>
+<script type="text/javascript">
+	dojo.require("dojo.parser");
+	dojo.require("dijit.form.ValidationTextBox");
+	dojo.require("dijit.Declaration");
+</script>
+</head>
+<body class="tundra">
+<div dojoType="dijit.form.ValidationTextBox"></div>
+<hr></hr>
+   <div dojoType="dijit.Declaration" widgetClass="CardLabel" 
+        defaults="{name: 'Nobody', address: 'Nowhere', csz: 'Nowhere'}">   
+      <tr>
+         <td>
+         ${name}<br/>
+         ${address}<br/>
+         ${csz}<br/>
+         <br/>
+         <div dojoAttachPoint="containerNode"></div>
+      </tr>
+   </div>
+
+   <table>
+      <div dojoType="CardLabel" name="Donald Trump" address="590 Trump Tower" 
+           csz="New York, NY 55555">
+      </div>
+      <div dojoType="CardLabel" name="Martha Stewart" address="Club Fed" 
+           csz="Attica, NY 11111"></div>
+   </table>
+</body>
+</html>
