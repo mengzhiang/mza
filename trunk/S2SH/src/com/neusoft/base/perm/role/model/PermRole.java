@@ -1,6 +1,5 @@
 package com.neusoft.base.perm.role.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.resource.model.PermResource;
 import com.neusoft.base.perm.user.model.PermUser;
 
@@ -49,7 +49,7 @@ public class PermRole {
 	//number
 	private int number;
 	//资源
-    private Set<PermResource> permResources; 
+    private Set<PermResModelTreeEntity> permResModelTreeEntity; 
 	//用户
     private Set<PermUser> permUser; 
     
@@ -102,7 +102,7 @@ public class PermRole {
 	 CascadeType.PERSIST 表示联动新增
 	 */
 	@ManyToMany(
-			targetEntity=com.neusoft.base.perm.resource.model.PermResource.class,  
+			targetEntity=com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity.class,  
 			cascade={CascadeType.MERGE,CascadeType.PERSIST}       
 			   )  
 	@JoinTable(
@@ -110,11 +110,11 @@ public class PermRole {
 			joinColumns={@JoinColumn(name="roleid")},//  
 			inverseJoinColumns={@JoinColumn(name="resid")}  
 			  ) 
-	public Set<PermResource> getPermResources() {
-		return permResources;
+	public Set<PermResModelTreeEntity> getPermResModelTreeEntity() {
+		return permResModelTreeEntity;
 	}
-	public void setPermResources(Set<PermResource> permResources) {
-		this.permResources = permResources;
+	public void setPermResModelTreeEntity(Set<PermResModelTreeEntity> permResModelTreeEntity) {
+		this.permResModelTreeEntity = permResModelTreeEntity;
 	}
 	
 	@ManyToMany(

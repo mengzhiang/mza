@@ -1,4 +1,4 @@
-package com.neusoft.test;
+package com.study;
 
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;

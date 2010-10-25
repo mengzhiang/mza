@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.base.action.BaseAction;
 import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.resmodel.model.PermResModelTreeModel;
+import com.neusoft.base.perm.resmodel.model.PermResMultiModelTreeModel;
 import com.neusoft.base.perm.resmodel.service.PermResModelTreeService;
 import com.neusoft.base.utils.JsonUtil;
 import com.opensymphony.xwork2.ModelDriven;
@@ -28,6 +29,8 @@ public class PermResModelTreeAction extends BaseAction implements ModelDriven<Pe
 	private long sid;
 	
 	private List<PermResModelTreeModel> tree;
+	private List<PermResMultiModelTreeModel> mutree;
+	
 	
 	@Resource
 	private PermResModelTreeService service;
@@ -48,6 +51,16 @@ public class PermResModelTreeAction extends BaseAction implements ModelDriven<Pe
 	 */
 	public String querytree() {
 		tree = service.getTree();
+		return SUCCESS;
+	}
+	
+	/**
+	 * 返回多选tree
+	 * 
+	 * @return
+	 */
+	public String queryMuTree() {
+		mutree = service.getMuTree();
 		return SUCCESS;
 	}
 	
@@ -108,6 +121,13 @@ public class PermResModelTreeAction extends BaseAction implements ModelDriven<Pe
 		this.tree = tree;
 	}
 
+	public List<PermResMultiModelTreeModel> getMutree() {
+		return mutree;
+	}
+
+	public void setMutree(List<PermResMultiModelTreeModel> mutree) {
+		this.mutree = mutree;
+	}
 
 	public PermResModelTreeEntity getModel() {
 		return permResModelTreeEntity;

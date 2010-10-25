@@ -11,6 +11,7 @@ import com.neusoft.base.dao.PaginationSupport;
 import com.neusoft.base.perm.resmodel.dao.PermResModelTreeDao;
 import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.resmodel.model.PermResModelTreeModel;
+import com.neusoft.base.perm.resmodel.model.PermResMultiModelTreeModel;
 
 //  更改“XXXX”为您的模块名成
 @Service
@@ -51,6 +52,32 @@ public class PermResModelTreeServiceImpl implements PermResModelTreeService{
 			if(tree.getLeaf()==0){
 				tm.setLeaf(false);
 				tm.setChildren(geneTree(Integer.parseInt(Long.toString(tree.getId())),level+1));
+			}else{
+				tm.setLeaf(true);
+			}
+			treelist.add(tm);
+		}
+		return treelist;
+	}
+
+	public List<PermResMultiModelTreeModel> getMuTree() {
+		List<PermResMultiModelTreeModel> tmlist = geneMuTree(0,0);
+		return tmlist;
+	}
+	
+	private List<PermResMultiModelTreeModel> geneMuTree(int parentid,int level){
+		List<PermResMultiModelTreeModel> treelist = new ArrayList<PermResMultiModelTreeModel>();
+		List<PermResModelTreeEntity> list = dao.findByProperty("parentid", parentid);
+		for(PermResModelTreeEntity tree :list){
+			PermResMultiModelTreeModel tm = new PermResMultiModelTreeModel();
+			tm.setId(tree.getId());
+			tm.setText(tree.getName());
+			tm.setUrl(tree.getCode());
+			tm.setChecked(true);
+			//0非叶子节点1是叶子节点
+			if(tree.getLeaf()==0){
+				tm.setLeaf(false);
+				tm.setChildren(geneMuTree(Integer.parseInt(Long.toString(tree.getId())),level+1));
 			}else{
 				tm.setLeaf(true);
 			}

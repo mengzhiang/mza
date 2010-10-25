@@ -28,6 +28,38 @@ Ext.onReady(function() {
 				loader : loader,
 				width : 200
 			});
+			
+	/**********************************第二个树资源树*************************************************/
+	var res_loader = new Ext.tree.TreeLoader({dataUrl: 'permResModelTree_queryMuTree'});
+    res_loader.processResponse = function(response, node, callback){
+        var json = response.responseText;
+        try {
+            var json = eval("("+json+")");
+            node.beginUpdate();
+            var o = json["mutree"];
+            for(var i = 0, len = o.length; i < len; i++){
+                var n = this.createNode(o[i]);
+                if(n){
+                    node.appendChild(n);
+                }
+            }
+            node.endUpdate();
+            if(typeof callback == "function"){
+                callback(this, node);
+            }
+        }catch(e){
+            this.handleFailure(response);
+        }
+    };
+   //创建树panel
+    var res_tree = new Ext.tree.TreePanel({
+        loader: res_loader,
+        width: 200
+    });
+    var res_root = new Ext.tree.AsyncTreeNode({text:'基础信息'});
+    res_tree.setRootNode(res_root);
+    res_root.expand(true,true);
+	/***********************************************************************************/
 	var add_leaf_item = {
 		text : '新增下级菜单项',
 		handler : function() {
@@ -581,7 +613,7 @@ Ext.onReady(function() {
 										type : 'String',
 										property : 'modelid',
 										condition : '=',
-										value : modelid 
+										value : modelid
 									}
 									filterArr.push(modelfilter);
 									if (object.id != "") {
@@ -913,11 +945,24 @@ Ext.onReady(function() {
 				items : queryitems
 			});
 	// 创建布局
-	var res_viewport = new Ext.Panel({
-				layout : 'border',
-				items : [form_query, grid]
+//	var res_viewport = new Ext.Panel({
+//				layout : 'border',
+//				items : [form_query, grid]
+//			});
+//	var res_viewport = new Ext.Panel({
+//				layout : 'border',
+//				items : [res_tree]
+//			});
+	var tabs = new Ext.TabPanel({
+				activeTab : 1,
+				items : [{
+							title : '用户信息',
+							items :[grid]
+						}, {
+							title : '授权',
+							items :[res_tree]
+						}]
 			});
-
 	// 创建布局
 	var viewport = new Ext.Viewport({
 				renderTo : document.body,
@@ -933,7 +978,7 @@ Ext.onReady(function() {
 							region : 'center',
 							split : true,
 							layout : 'fit',
-							items : [res_viewport]
+							items : [tabs]
 						}]
 			});
 });
