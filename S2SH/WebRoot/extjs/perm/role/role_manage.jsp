@@ -9,6 +9,5 @@
 <script type="text/javascript" src="/S2SH/extjs/perm/role/role_manage.js"></script>
 </head>
 <body>
-
 </body>
 </html>
