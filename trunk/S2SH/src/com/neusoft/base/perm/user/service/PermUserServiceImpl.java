@@ -43,4 +43,10 @@ public class PermUserServiceImpl implements PermUserService{
 	public List<PermUser> findByProperty(String pro,Object value){
 		return dao.findByProperty(pro, value);
 	}
+	public PaginationSupport getUserByRole(int startIndex,int pageSize){
+		String hql ="from PermUser";
+		Object[] values = new Object[2];
+		values[1] = 1;
+		return dao.findPageByQuery(hql, pageSize, startIndex, values);
+	}
 }

@@ -346,8 +346,8 @@ Ext.onReady(function() {
 					if (id != "") {
 						var idfilter = {
 							name : 'modelid',
-							type : 'String',
-							property : 'modelid',
+							type : 'long',
+							property : 'id',
 							condition : '=',
 							value : modelid
 						}
@@ -722,11 +722,11 @@ Ext.onReady(function() {
 	var cm = new Ext.grid.ColumnModel(columns);
 	var store = new Ext.data.Store({
 				proxy : new Ext.data.HttpProxy({
-							url : 'permRes_listpage'
+							url : 'permRole_listpage'
 						}),
 				reader : new Ext.data.JsonReader({
-							totalProperty : "paginationSupport.totalCount",
-							root : "paginationSupport.items"
+							totalProperty : "paginationSupport.items.permUser.length",
+							root : "paginationSupport.items.permUser"
 						}, fields)
 			});
 	// 创建翻页对象
