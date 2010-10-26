@@ -1,6 +1,8 @@
 package com.neusoft.base.perm.privilege.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -8,6 +10,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.base.perm.resmodel.dao.PermResModelTreeDao;
+import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.resource.dao.PermResourceDao;
 import com.neusoft.base.perm.resource.model.PermResource;
 import com.neusoft.base.perm.role.dao.PermRoleDao;
@@ -39,6 +43,8 @@ public class PermServiceImpl implements PermService {
 	private PermRoleDao permRoleDao;
 	@Resource
 	private PermUserDao permUserDao;
+	@Resource
+	private PermResModelTreeDao permResModelTreeDao;
 
 	public void setPermUserDao(PermUserDao permUserDao) {
 		this.permUserDao = permUserDao;
@@ -91,31 +97,6 @@ public class PermServiceImpl implements PermService {
 	 * @return
 	 */
 	public List<PermResource> getPermResourceByPermRole(PermRole permrole) {
-		
-//		PermRole role = new PermRole();
-//		role.setName("role1");
-//		role.setCode("role1");
-//		
-//		PermResource pers = new PermResource();
-//		pers.setName("pers2");
-//		pers.setCode("pers2");
-//		Set<PermResource> resset = new HashSet<PermResource>();
-//		resset.add(pers);
-//		
-//		PermUser user = new PermUser();
-//		user.setPassword("user1");
-//		user.setUsername("user1");
-//		Set<PermUser> userset = new HashSet<PermUser>();
-//		userset.add(user);
-//		
-//		role.setPermResources(resset);
-//		role.setPermUser(userset);
-//		
-//		permUserDao.save(user);
-//		permResourceDao.save(pers);
-//		permRoleDao.save(role);
-		
-		
 		DetachedCriteria dc = DetachedCriteria.forClass(PermResource.class);
 		dc.add(Restrictions.eq("id", permrole.getId()));
 		return permResourceDao.findPageByCriteria(dc);
@@ -137,12 +118,45 @@ public class PermServiceImpl implements PermService {
 			}else{
 				info = "密码错误";
 			}
-		}else if(list.size()==0){
+		}if(list.size()==0){
 			System.out.println("用户不存在！");
 				info = "该用户不存在";
 		}else{
 			System.out.println("登陆错误");
 		}
 		return info;
+	}
+	
+	/**
+	 *  Created on 2010-10-26
+	 * <p>Description:[测试级联保存成功。]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public String saveRoleAndUser(){
+		PermRole role = new PermRole();
+		role.setName("role1");
+		role.setCode("role1");
+		
+		PermResource pers = new PermResource();
+		pers.setName("pers2");
+		pers.setCode("pers2");
+		Set<PermResource> resset = new HashSet<PermResource>();
+		resset.add(pers);
+		
+		PermUser user = new PermUser();
+		user.setPassword("user1");
+		user.setUsername("user1");
+		Set<PermUser> userset = new HashSet<PermUser>();
+		userset.add(user);
+		
+		role.setPermResources(resset);
+		role.setPermUser(userset);
+		
+		permUserDao.save(user);
+		permResourceDao.save(pers);
+		permRoleDao.save(role);
+		return null;
 	}
 }

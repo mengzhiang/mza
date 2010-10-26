@@ -45,6 +45,8 @@ public class PermResource {
 	private String method_name;
 	//参数
 	private String parametertype_names;
+	//角色
+    private Set<PermRole> roles; 
 	
 	
 	@Id
@@ -111,4 +113,17 @@ public class PermResource {
 	public void setParametertype_names(String parametertypeNames) {
 		parametertype_names = parametertypeNames;
 	}
+
+	@ManyToMany(
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE }, 
+			mappedBy="permResources",//主控方交给role，由role来维护中间表。
+			targetEntity=com.neusoft.base.perm.role.model.PermRole.class
+				) 
+	public Set<PermRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<PermRole> roles) {
+		this.roles = roles;
+	}
+	
 }

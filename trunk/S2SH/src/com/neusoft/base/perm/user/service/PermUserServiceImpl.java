@@ -28,9 +28,6 @@ public class PermUserServiceImpl implements PermUserService{
 	public PermUser getById(long id) {
 		return dao.get(id);
 	}
-	public List<PermUser> findByProperty(String name,Object value) {
-		return dao.findByProperty(name,value);
-	}
 	public String delAll(List<PermUser> list) {
 		dao.deleteAll(list);
 		return "success";
@@ -42,5 +39,8 @@ public class PermUserServiceImpl implements PermUserService{
 		}else{
 			return true;
 		}
+	}
+	public List<PermUser> findByProperty(String pro,Object value){
+		return dao.findByProperty(pro, value);
 	}
 }

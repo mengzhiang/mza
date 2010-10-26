@@ -50,4 +50,12 @@ public interface PermService {
 	 * @return
 	 */
 	public String checkUserAccount(PermUser pu);
+	/**
+	 *  Created on 2010-10-26 
+	 * <p>Description:[测试新增角色同时新增资源和用户是否保存成功]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String saveRoleAndUser();
 }
