@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.base.action.BaseAction;
+import com.neusoft.base.perm.privilege.service.PermService;
 import com.neusoft.base.perm.user.model.PermUser;
 import com.neusoft.base.perm.user.service.PermUserService;
 import com.neusoft.base.utils.JsonUtil;
@@ -33,6 +34,13 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 	public void setPermUserService(PermUserService permUserService) {
 		this.permUserService = permUserService;
 	}
+	
+	@Resource
+	private PermService permService;
+
+	public void setPermService(PermService permService) {
+		this.permService = permService;
+	}
 
 	@Override
 	public String execute() {
@@ -43,6 +51,8 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 		this.setPaginationSupport(permUserService.listpage(this.getStart(),
 				this.getLimit()));
 		this.setSuccess(true);
+		//测试级联保存
+		permService.saveRoleAndUser();
 		return SUCCESS;
 	}
 
