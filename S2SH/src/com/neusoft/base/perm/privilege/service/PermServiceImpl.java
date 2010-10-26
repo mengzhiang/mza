@@ -139,11 +139,18 @@ public class PermServiceImpl implements PermService {
 		role.setName("role1");
 		role.setCode("role1");
 		
-		PermResource pers = new PermResource();
-		pers.setName("pers2");
-		pers.setCode("pers2");
-		Set<PermResource> resset = new HashSet<PermResource>();
-		resset.add(pers);
+//		PermResource pers = new PermResource();
+//		pers.setName("pers2");
+//		pers.setCode("pers2");
+//		Set<PermResource> resset = new HashSet<PermResource>();
+//		resset.add(pers);
+		PermResModelTreeEntity model = new PermResModelTreeEntity();
+		model.setCode("test");
+		model.setName("test");
+		model.setName("test");
+		model.setParentid(1);
+		Set<PermResModelTreeEntity> mset = new HashSet<PermResModelTreeEntity>();
+		mset.add(model);
 		
 		PermUser user = new PermUser();
 		user.setPassword("user1");
@@ -151,11 +158,11 @@ public class PermServiceImpl implements PermService {
 		Set<PermUser> userset = new HashSet<PermUser>();
 		userset.add(user);
 		
-		role.setPermResources(resset);
+		role.setPermResModelTreeEntity(mset);
 		role.setPermUser(userset);
 		
 		permUserDao.save(user);
-		permResourceDao.save(pers);
+		permResModelTreeDao.save(model);
 		permRoleDao.save(role);
 		return null;
 	}

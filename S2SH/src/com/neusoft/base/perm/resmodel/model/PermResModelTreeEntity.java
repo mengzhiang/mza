@@ -1,11 +1,17 @@
 package com.neusoft.base.perm.resmodel.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.neusoft.base.perm.role.model.PermRole;
 
 
 
@@ -19,7 +25,7 @@ import javax.persistence.Table;
  * @version:$Revision$
 */
 @Entity
-@Table(name="`t_perm_res_model_tree`")
+@Table(name="t_perm_res_model_tree")
 public class PermResModelTreeEntity {
 	private long id;
 	private int parentid;
@@ -27,7 +33,8 @@ public class PermResModelTreeEntity {
 	private String code;
 	private int number;
 	private int leaf;
-	
+	//角色
+    private Set<PermRole> roles; 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
@@ -72,4 +79,15 @@ public class PermResModelTreeEntity {
 		this.leaf = leaf;
 	}
 	
+	@ManyToMany(
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE }, 
+			mappedBy="permResModelTreeEntity",//主控方交给role，由role来维护中间表。
+			targetEntity=com.neusoft.base.perm.role.model.PermRole.class
+				) 
+	public Set<PermRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<PermRole> roles) {
+		this.roles = roles;
+	}
 }
