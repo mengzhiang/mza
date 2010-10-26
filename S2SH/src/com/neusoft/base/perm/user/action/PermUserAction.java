@@ -48,11 +48,11 @@ public class PermUserAction extends BaseAction implements ModelDriven<PermUser> 
 	}
 
 	public String listpage() {
-		this.setPaginationSupport(permUserService.listpage(this.getStart(),
+//		this.setPaginationSupport(permUserService.listpage(this.getStart(),
+//				this.getLimit()));
+		this.setPaginationSupport(permUserService.getUserByRole(this.getStart(),
 				this.getLimit()));
 		this.setSuccess(true);
-		//测试级联保存
-		permService.saveRoleAndUser();
 		return SUCCESS;
 	}
 

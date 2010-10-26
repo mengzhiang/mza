@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
@@ -326,7 +327,29 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 		DetachedCriteria dc = this.buildFilterCriterion(list);
 		return findPageByCriteria(dc, pageSize, startIndex);
 	}
-
+	
+    /** *//**  
+     * 根据hql加载分页，指定页大小和起始位置  
+     */  
+    public PaginationSupport findPageByQuery(final String hql, final int pageSize, final int startIndex, final Object...values){   
+		return (PaginationSupport) hibernateTemplate
+				.executeWithNativeSession(new HibernateCallback() {
+					@SuppressWarnings("unchecked")
+					public Object doInHibernate(Session session)
+							throws HibernateException {
+						Query query = session.createQuery(hql);
+						query = query.setProperties(values);
+						int totalCount = query.list().size();
+						List items = query.setFirstResult(startIndex)
+								.setMaxResults(pageSize).list();
+						items = transformResults(items);
+						PaginationSupport ps = new PaginationSupport(items,
+								totalCount, pageSize, startIndex);
+						return ps;
+					}
+				});
+    }   
+       
 	/**
 	 * Created on 2010-8-19
 	 * <p>

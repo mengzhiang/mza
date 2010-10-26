@@ -134,4 +134,8 @@ public interface IBaseDao<T,PK extends Serializable> {
 	 * @return
 	 */
 	public PaginationSupport findByProperties(List<Parameter> list,int startIndex,int pageSize);
+    /** *//**  
+     * 根据hql加载分页，指定页大小和起始位置  
+     */  
+    public PaginationSupport findPageByQuery(final String hql, final int pageSize, final int startIndex, Object...values);
 }

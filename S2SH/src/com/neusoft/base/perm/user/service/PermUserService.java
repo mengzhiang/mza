@@ -12,4 +12,5 @@ public interface PermUserService {
 	public String delAll(List<PermUser> list);
 	public boolean isUnique(PermUser permUser);
 	public List<PermUser> findByProperty(String pro,Object value);
+	public PaginationSupport getUserByRole(int startIndex,int pageSize);
 }
