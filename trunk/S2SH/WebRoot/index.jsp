@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <style type="text/css">
@@ -28,14 +28,14 @@
 	width: 480px;
 	height: 120px;
 	position: absolute;
-	margin-left: 50px;
+	left:90px;
 	margin-top: 120px;
 }
 
 .login_td {
 	text-align: left;
 	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
-	HEIGHT: 28px;
+	height: 28px;
 	font-size: 12px;
 	width: 55px;
 	vertical-align: middle;
@@ -44,7 +44,7 @@
 .input_bg {
 	width: 180px;
 	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
-	HEIGHT: 22px;
+	height: 18px;
 }
 
 .errormsg {
@@ -56,7 +56,7 @@
 .input_yzm {
 	width: 106px;
 	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
-	HEIGHT: 22px;
+	height: 18px;
 	font-size: 12px;
 }
 
@@ -73,24 +73,24 @@ input,img {
 </head>
 <body class="body_bg">
 <div class="login_bg">
-<table class="login_table">
-	<tr>
+<table class="login_table" >
+	<tr align="left">
 		<td class="login_td">用户名：</td>
 		<td><input id="username" type="text" name="username"
 			class="input_bg"></input></td>
 	</tr>
-	<tr>
+	<tr align="left">
 		<td class="login_td">密&nbsp;&nbsp;&nbsp;码：</td>
 		<td><input id="password" type="password" name="password"
 			class="input_bg"></input></td>
 	</tr>
-	<tr>
+	<tr align="left">
 		<td class="login_td">验证码：</td>
 		<td><input id="yzm" type="text" name="yzm" class="input_yzm"></input>
 		<img id="yzmpic" width="68" height="22" src="" title="点击更换"
 			class="yzmimg" /></td>
 	</tr>
-	<tr>
+	<tr align="left">
 		<td></td>
 		<td><img id="button" src="images/images/button.gif" /></td>
 	</tr>
