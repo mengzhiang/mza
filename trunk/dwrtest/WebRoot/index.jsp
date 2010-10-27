@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  访问这个地址测试 http://localhost:8080/dwr/
     <script type="text/javascript">
     	function test(){
     	 JTest.hello(callback); 	
