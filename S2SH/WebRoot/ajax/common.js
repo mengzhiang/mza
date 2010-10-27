@@ -537,8 +537,16 @@ function MZA() {
 	}
 	// 添加事件
 	this.connect = function(elementid, eventname, functionname) {
-		document.getElementById(elementid)
+		//IE下 document.getElementById.setAttribute() 不好使。
+		if(isIE){
+			document.getElementById(elementid)[eventname]=function(){
+				eval(functionname);
+			}
+		}else{
+			document.getElementById(elementid)
 				.setAttribute(eventname, functionname);
+		}
+		
 	}
 }
 var MZA = new MZA();
