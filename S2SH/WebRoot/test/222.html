@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>Insert title here</title>
+<script type="text/javascript">
+//前++是加完返回，后++是返回后加。Math.PI修改后没有用，等于没有修改。
+/*
+var a = (++Math.PI); 
+alert(a); //1
+alert(Math.PI); //2
+
+var b = (Math.PI++); 
+alert(b); //3
+alert(Math.PI); //4
+
+
+var c = Math.PI = (++Math.PI); 
+alert(c); //5
+alert(Math.PI); //6
+
+
+
+var d = Math.PI = (Math.PI++); 
+alert(d); //7
+alert(Math.PI); //8
+*/
+/*
+var e = Math.PI = (Math.PI + 1);
+alert(e); //9
+alert(Math.PI); //10*/
+
+function test(){
+	this.name = 'taobao';
+	var waitMes = function (){
+		//每隔5秒钟执行this.name
+		setTimeout(function (){alert(self.name)},5000);
+	}
+	return waitMes;
+}
+var _test = test();
+_test();
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
