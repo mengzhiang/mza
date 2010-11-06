@@ -43,6 +43,8 @@ function createFunctions() {
 	var result = new Array();
 	for (var i = 0; i < 10; i++) {
 		result[i] = function(num) {
+			//i访问的同一个引用所以一样，做成这样，当成参数传进来每次都复制到内存中的另一个引用。
+			//js是传值的不是传引用的。所以这个值每次是不一样的。
 			return function() {
 				return num;
 			};
@@ -71,7 +73,18 @@ var object ={
 		};
 	}
 }
-//alert(object.getNameFunction()());
+var objectf =function(){
+	this.name = "My Object";
+	this.getNameFunction = function(){
+		var that = this;
+		return function(){
+			console.log(that);
+			return that.name;
+		}
+	}
+}
+console.log(new objectf().getNameFunction()());
+//alert();
 
 //内存泄漏问题
 function assignHandler(){
@@ -222,13 +235,13 @@ var application2 = function(){
 //application2.registerComponent(new BaseComponent());
 //alert(application2.getComponentCount());
 
-function test(){
-	this.name = 'taobao';
-	var waitMes = function (){
-		//每隔5秒钟执行this.name
-		setTimeout(function (){alert(self.name)},5000);
-	}
-	return waitMes;
-}
-var _test = test();
-_test();
+//function test(){
+//	this.name = 'taobao';
+//	var waitMes = function (){
+//		//每隔5秒钟执行this.name
+//		setTimeout(function (){alert(self.name)},5000);
+//	}
+//	return waitMes;
+//}
+//var _test = test();
+//_test();
