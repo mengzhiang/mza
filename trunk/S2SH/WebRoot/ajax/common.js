@@ -1,6 +1,9 @@
-function MZA() {
+(function (window){
+	var MZA = {};
+	window.MZA = MZA;
+	MZA.ajax = {};
 	// 发送ajax请求，返回json数据
-	this.ajax = function(data) {
+	MZA.ajax.ajax = function(data) {
 		var request;
 		var url = "";
 		var type = "get";
@@ -63,7 +66,7 @@ function MZA() {
 	}
 
 	// 绑定初始化事件
-	this.addOnLoad = function(func) {
+	MZA.addOnload = function(func) {
 		var oldonload = window.onload;
 		if (typeof window.onload != "function") {
 			window.onload = func;
@@ -74,9 +77,13 @@ function MZA() {
 			}
 		}
 	}
+	MZA.ready = function(func){
+		window.onload = func;
+	}
+	MZA.bom = {};
 	// 获取窗口可视区域大小和页面大小
 	// 窗口大小可变，但是页面大小是不变的。
-	this.getWindowSize = function() {
+	MZA.bom.getWindowSize = function() {
 		var winWidth = 0;
 		var winHeight = 0;
 		// window.innerWidth在FF下好使
@@ -126,7 +133,7 @@ function MZA() {
 		return arrayPageSize;
 	}
 	// 获得内容层内容原始大小
-	this.getConSize = function(conId, w, h) {
+	MZA.bom.getConSize = function(conId, w, h) {
 		var conObj = document.getElementById(conId)
 		conObj.style.position = "absolute";
 		conObj.style.left = -1000 + "px";
@@ -140,7 +147,7 @@ function MZA() {
 		return arrayConSize;
 	}
 	// 获取滚动条的离浏览器左端的距离和离浏览器顶端的距离
-	this.getPageSroll = function() {
+	MZA.bom.getPageSroll = function() {
 		// 获取滚动条的高度
 		var xScroll, yScroll;
 		// self对象是指当前窗口，用于由iframe和frameset的情况下。
@@ -162,8 +169,9 @@ function MZA() {
 		arrayPageScroll = new Array(xScroll, yScroll)
 		return arrayPageScroll;
 	}
+	MZA.dialog ={};
 	// 显示模态窗口
-	this.openDialog = function(data) {
+	MZA.dialog.openDialog = function(data) {
 		// 1:设置一个div宽度，高度和窗口一样
 		// 2：点击时显示出来，但是要在原来的窗口上面，不能挤下去，所以要设置position:absoulte
 		// 3: 但是要显示那一层在上面所以要设置z-index越大越在上
@@ -268,14 +276,25 @@ function MZA() {
 	/**
 	 * 关闭模态窗口
 	 */
-	this.closeDialog = function() {
+	MZA.dialog.closeDialog = function() {
 		this.removeElement(document.getElementById("bodypop"));
 		this.removeElement(document.getElementById("bodybg"));
+	}
+	MZA.dom ={};
+	MZA.dom.find = function(value){
+		var str = value.toString();
+		var flag = str.substring(0,1);
+		if(flag =="#"){
+			var id = str.substring(1);
+			return document.getElementById(id);
+		}else{
+			return document.getElementsByTagName(str);
+		}
 	}
 	/**
 	 * 刷新页面
 	 */
-	this.refreshPage = function() {
+	MZA.dom.refreshPage = function() {
 		window.location.reload();
 	}
 	/**
@@ -284,7 +303,7 @@ function MZA() {
 	 * @param {}
 	 *            _element
 	 */
-	this.removeElement = function(_element) {
+	MZA.dom.removeElement = function(_element) {
 		var _parentElement = _element.parentNode;
 		if (_parentElement) {
 			_parentElement.removeChild(_element);
@@ -297,7 +316,7 @@ function MZA() {
 	 * @param {}
 	 *            _element
 	 */
-	this.removeAllElement = function(elementarr) {
+	MZA.dom.removeAllElement = function(elementarr) {
 		var len = elementarr.length;
 		for (var i = len - 1; i >= 0; i--) {
 			var _parentElement = elementarr[i].parentNode;
@@ -311,10 +330,11 @@ function MZA() {
 	var move = false;
 	var oldcolor;
 	var _X, _Y;
+	MZA.dragdrop ={};
 	/**
 	 * 开始拖拽
 	 */
-	this.startDrag = function(e, obj) {
+	MZA.dragdrop.startDrag = function(e, obj) {
 		var e = e ? e : event;// 如果是e则是e否则是event
 		if (isIE) {
 			obj.setCapture();// 鼠标跟踪当前对象
@@ -332,7 +352,7 @@ function MZA() {
 	/**
 	 * 结束拖拽
 	 */
-	this.Drag = function(e, obj) {
+	MZA.dragdrop.Drag = function(e, obj) {
 		var e = e ? e : event;// 如果是e则是e否则是event
 		if (move) {
 			var dragObject = document.getElementById("contain");
@@ -343,7 +363,7 @@ function MZA() {
 	/**
 	 * 拖拽中
 	 */
-	this.stopDrag = function(obj) {
+	MZA.dragdrop.stopDrag = function(obj) {
 		obj.style.background = oldcolor;
 		if (isIE) {
 			obj.releaseCapture();// 鼠标跟踪当前对象
@@ -352,21 +372,22 @@ function MZA() {
 		}
 		move = false;
 	}
+	MZA.grid ={};
 	/**
 	 * 定义分页常量
 	 */
-	this.START = 0;
-	this.LIMIT = 10;
-	this.TOTAL = 0;
-	this.PAGECOUNT = 0;
-	this.PAGENO = 1;
-	this.setStart = function(start) {
+	MZA.grid.START = 0;
+	MZA.grid.LIMIT = 10;
+	MZA.grid.TOTAL = 0;
+	MZA.grid.PAGECOUNT = 0;
+	MZA.grid.PAGENO = 1;
+	MZA.grid.setStart = function(start) {
 		MZA.START = start;
 	}
-	this.setLimit = function(limit) {
+	MZA.grid.setLimit = function(limit) {
 		MZA.LIMIT = limit;
 	}
-	this.setTotal = function(total) {
+	MZA.grid.setTotal = function(total) {
 		MZA.TOTAL = total;
 	}
 	/**
@@ -375,7 +396,7 @@ function MZA() {
 	 * 
 	 * @type
 	 */
-	this.showGrid = function(store, colModel) {
+	MZA.grid.showGrid = function(store, colModel) {
 		var tablediv = document.createElement("div");
 		tablediv.setAttribute("id", "tablediv");
 		var table = document.createElement("table");
@@ -443,7 +464,7 @@ function MZA() {
 		this.checkPage();
 	}
 	// 增加鼠标悬停变色
-	this.addBlur = function() {
+	MZA.grid.addBlur = function() {
 		var rows = document.getElementsByTagName('tr');
 		for (var i = 0; i < rows.length; i++) {
 			if (rows[i].className == "tr") {
@@ -459,15 +480,15 @@ function MZA() {
 	/**
 	 * 设置分页方法
 	 */
-	this.queryData = function() {
+	MZA.grid.queryData = function() {
 	};
-	this.setPageMethod = function(method) {
+	MZA.grid.setPageMethod = function(method) {
 		MZA.queryData = method;
 	}
 	/**
 	 * 下一页
 	 */
-	this.next = function() {
+	MZA.grid.next = function() {
 		MZA.removeElement(document.getElementById("tablediv"));
 		MZA.PAGENO += 1;
 		this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
@@ -475,7 +496,7 @@ function MZA() {
 	/**
 	 * 上一页
 	 */
-	this.pre = function() {
+	MZA.grid.pre = function() {
 		MZA.removeElement(document.getElementById("tablediv"));
 		MZA.PAGENO -= 1;
 		this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
@@ -483,7 +504,7 @@ function MZA() {
 	/**
 	 * 首页
 	 */
-	this.first = function() {
+	MZA.grid.first = function() {
 		MZA.removeElement(document.getElementById("tablediv"));
 		this.queryData(0, MZA.LIMIT);
 		MZA.PAGENO = 1;
@@ -492,7 +513,7 @@ function MZA() {
 	/**
 	 * 尾页
 	 */
-	this.last = function() {
+	MZA.grid.last = function() {
 		MZA.removeElement(document.getElementById("tablediv"));
 		this.queryData((MZA.PAGECOUNT - 1) * MZA.LIMIT, MZA.LIMIT);
 		MZA.PAGENO = MZA.PAGECOUNT;
@@ -501,7 +522,7 @@ function MZA() {
 	/**
 	 * 更改页码样式
 	 */
-	this.checkPage = function() {
+	MZA.grid.checkPage = function() {
 		for (var j = 1; j <= MZA.PAGENO; j++) {
 			if (MZA.PAGENO == j) {
 				var sp = document.createElement("span");
@@ -529,24 +550,93 @@ function MZA() {
 	/**
 	 * 定位到那一页
 	 */
-	this.goPage = function(pageindex) {
+	MZA.grid.goPage = function(pageindex) {
 		MZA.removeElement(document.getElementById("tablediv"));
 		MZA.PAGENO = pageindex;
 		this.queryData((pageindex - 1) * MZA.LIMIT, MZA.LIMIT);
 		this.checkPage();
 	}
+	MZA.event ={};
 	// 添加事件
-	this.connect = function(elementid, eventname, functionname) {
-		//IE下 document.getElementById.setAttribute() 不好使。
-		if(isIE){
-			document.getElementById(elementid)[eventname]=function(){
-				eval(functionname);
-			}
+	MZA.event.addHandler = function(element, type, handler) {
+		if(element.addEventListener){
+			element.addEventListener(type,handler,false);
+		}else if(element.attachEvent){
+			element.attachEvent("on"+type,handler);
 		}else{
-			document.getElementById(elementid)
-				.setAttribute(eventname, functionname);
+			element["on"+type] = handler;
 		}
-		
 	}
-}
-var MZA = new MZA();
+	//删除事件
+	MZA.event.removeHandler = function(element,type,handler){
+		if(element.removeEventListener){
+			element.removeEventListener(type,handler,false);
+		}else if(element.detachEvent){
+			element.detachEvent("on"+type,handler);
+		}else{
+			element["on"+type] = handler;
+		}
+	}
+	//得到当前事件
+	MZA.event.getEvent = function(event){
+		return event ?event:window.event;
+	}
+	//得到事件目标
+	MZA.event.getTarget = function(event){
+		return event.target ||event.srcElement;
+	}
+	//阻止默认行为
+	MZA.event.preventDefault = function(event){
+		if(event.preventDefault){
+			event.preventDefault();
+		}else{
+			event.returnValue = false;
+		}
+	}
+	//阻止继续冒泡
+	MZA.event.stopPropagation = function(event){
+		if(event.stopPropagation){
+			event.stopPropagation();
+		}else{
+			event.cancelBuddle = true;
+		}
+	}
+	MZA.load ={};
+	// 动态加载js文件。
+	MZA.load.loadScript = function(url){
+		var script = document.createElement("script");
+		script.type ="text/javascript";
+		script.src = url;
+		document.body.appendChild(script);
+	}
+	// 动态加载css文件
+	MZA.load.loadStyles = function(url){
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.type = "text/css";
+		link.href = url;
+		var head = document.getElementsByTagName("head")[0];
+		head.appendChild(link);
+	}
+	//检测浏览器对DOM2和DOM3的支持情况
+	MZA.dom.checkSupport = function(){
+		var implementation = document.implementation;
+		var supportsDOM2CORE = implementation.hasFeature("CORE","2.0");
+		var supportsDOM3CORE = implementation.hasFeature("CORE","3.0");
+		var supportsDOM2HTML = implementation.hasFeature("HTML","2.0");
+		var supportsDOM2View = implementation.hasFeature("Views","2.0");
+		var supportsDOM2XML = implementation.hasFeature("XML","2.0");
+		var supportsDOM2CSS = implementation.hasFeature("CSS","2.0");
+		var supportsDOM2CSS2 = implementation.hasFeature("CSS2","2.0");
+		
+		return {
+			"supportsDOM2CORE":supportsDOM2CORE,
+			"supportsDOM3CORE":supportsDOM3CORE,
+			"supportsDOM2HTML":supportsDOM2HTML,
+			"supportsDOM2View":supportsDOM2View,
+			"supportsDOM2XML":supportsDOM2XML,
+			"supportsDOM2CSS":supportsDOM2CSS,
+			"supportsDOM2CSS2":supportsDOM2CSS2
+		}
+	}
+})(window);
