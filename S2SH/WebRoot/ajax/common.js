@@ -1,4 +1,4 @@
-(function (window){
+(function(window) {
 	var MZA = {};
 	window.MZA = MZA;
 	MZA.ajax = {};
@@ -52,7 +52,7 @@
 		request.send(paras);
 		if (!sync) {
 			var str = request.responseText;
-			try {	
+			try {
 				var object = eval('(' + str + ')');
 			} catch (e) {
 			}
@@ -77,7 +77,7 @@
 			}
 		}
 	}
-	MZA.ready = function(func){
+	MZA.ready = function(func) {
 		window.onload = func;
 	}
 	MZA.bom = {};
@@ -169,7 +169,7 @@
 		arrayPageScroll = new Array(xScroll, yScroll)
 		return arrayPageScroll;
 	}
-	MZA.dialog ={};
+	MZA.dialog = {};
 	// 显示模态窗口
 	MZA.dialog.openDialog = function(data) {
 		// 1:设置一个div宽度，高度和窗口一样
@@ -280,14 +280,14 @@
 		this.removeElement(document.getElementById("bodypop"));
 		this.removeElement(document.getElementById("bodybg"));
 	}
-	MZA.dom ={};
-	MZA.dom.find = function(value){
+	MZA.dom = {};
+	MZA.dom.find = function(value) {
 		var str = value.toString();
-		var flag = str.substring(0,1);
-		if(flag =="#"){
+		var flag = str.substring(0, 1);
+		if (flag == "#") {
 			var id = str.substring(1);
 			return document.getElementById(id);
-		}else{
+		} else {
 			return document.getElementsByTagName(str);
 		}
 	}
@@ -327,52 +327,49 @@
 	}
 
 	var isIE = document.all ? true : false;// 如果是IE是true否则是false
-	var move = false;
-	var oldcolor;
-	var _X, _Y;
-	MZA.dragdrop ={};
+
 	/**
 	 * 开始拖拽
 	 */
-	MZA.dragdrop.startDrag = function(e, obj) {
-		var e = e ? e : event;// 如果是e则是e否则是event
-		if (isIE) {
-			obj.setCapture();// 鼠标跟踪当前对象
-		} else {
-			window.captureEvents(obj.MOUSEMOVE);
-		}
-		oldcolor = obj.style.backgroundColor;
-		// 获取拖拽的对象
-		var dragObject = document.getElementById("contain");
-		// 记录拖动对象的开始位置
-		_X = dragObject.offsetLeft - e.clientX;
-		_Y = dragObject.offsetTop - e.clientY;
-		move = true;
-	}
-	/**
-	 * 结束拖拽
-	 */
-	MZA.dragdrop.Drag = function(e, obj) {
-		var e = e ? e : event;// 如果是e则是e否则是event
-		if (move) {
-			var dragObject = document.getElementById("contain");
-			dragObject.style.left = e.clientX + _X + "px";
-			dragObject.style.top = e.clientY + _Y + "px";
-		}
-	}
-	/**
-	 * 拖拽中
-	 */
-	MZA.dragdrop.stopDrag = function(obj) {
-		obj.style.background = oldcolor;
-		if (isIE) {
-			obj.releaseCapture();// 鼠标跟踪当前对象
-		} else {
-			window.releaseEvents(obj.MOUSEMOVE);
-		}
-		move = false;
-	}
-	MZA.grid ={};
+	// MZA.dragdrop.startDrag = function(e, obj) {
+	// var e = e ? e : event;// 如果是e则是e否则是event
+	// if (isIE) {
+	// obj.setCapture();// 鼠标跟踪当前对象
+	// } else {
+	// window.captureEvents(obj.MOUSEMOVE);
+	// }
+	// oldcolor = obj.style.backgroundColor;
+	// // 获取拖拽的对象
+	// var dragObject = document.getElementById("contain");
+	// // 记录拖动对象的开始位置
+	// _X = dragObject.offsetLeft - e.clientX;
+	// _Y = dragObject.offsetTop - e.clientY;
+	// move = true;
+	// }
+	// /**
+	// * 结束拖拽
+	// */
+	// MZA.dragdrop.Drag = function(e, obj) {
+	// var e = e ? e : event;// 如果是e则是e否则是event
+	// if (move) {
+	// var dragObject = document.getElementById("contain");
+	// dragObject.style.left = e.clientX + _X + "px";
+	// dragObject.style.top = e.clientY + _Y + "px";
+	// }
+	// }
+	// /**
+	// * 拖拽中
+	// */
+	// MZA.dragdrop.stopDrag = function(obj) {
+	// obj.style.background = oldcolor;
+	// if (isIE) {
+	// obj.releaseCapture();// 鼠标跟踪当前对象
+	// } else {
+	// window.releaseEvents(obj.MOUSEMOVE);
+	// }
+	// move = false;
+	// }
+	MZA.grid = {};
 	/**
 	 * 定义分页常量
 	 */
@@ -556,61 +553,109 @@
 		this.queryData((pageindex - 1) * MZA.LIMIT, MZA.LIMIT);
 		this.checkPage();
 	}
-	MZA.event ={};
+	MZA.form = {};
+	MZA.form.getSelectedOptions = function(selectbox) {
+		var result = new Array();
+		var option = null;
+		for (var i = 0, len = selectbox.options.length; i < len; i++) {
+			option = selectbox.options[i];
+			if (option.selected) {
+				result.push(option);
+			}
+		}
+		return result;
+	}
+	MZA.event = {};
 	// 添加事件
 	MZA.event.addHandler = function(element, type, handler) {
-		if(element.addEventListener){
-			element.addEventListener(type,handler,false);
-		}else if(element.attachEvent){
-			element.attachEvent("on"+type,handler);
-		}else{
-			element["on"+type] = handler;
+		if (element.addEventListener) {
+			element.addEventListener(type, handler, false);
+		} else if (element.attachEvent) {
+			element.attachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = handler;
 		}
 	}
-	//删除事件
-	MZA.event.removeHandler = function(element,type,handler){
-		if(element.removeEventListener){
-			element.removeEventListener(type,handler,false);
-		}else if(element.detachEvent){
-			element.detachEvent("on"+type,handler);
-		}else{
-			element["on"+type] = handler;
+	// 删除事件
+	MZA.event.removeHandler = function(element, type, handler) {
+		if (element.removeEventListener) {
+			element.removeEventListener(type, handler, false);
+		} else if (element.detachEvent) {
+			element.detachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = handler;
 		}
 	}
-	//得到当前事件
-	MZA.event.getEvent = function(event){
-		return event ?event:window.event;
+	// 得到当前事件
+	MZA.event.getEvent = function(event) {
+		return event ? event : window.event;
 	}
-	//得到事件目标
-	MZA.event.getTarget = function(event){
-		return event.target ||event.srcElement;
+	// 得到事件目标
+	MZA.event.getTarget = function(event) {
+		return event.target || event.srcElement;
 	}
-	//阻止默认行为
-	MZA.event.preventDefault = function(event){
-		if(event.preventDefault){
+	// 阻止默认行为
+	MZA.event.preventDefault = function(event) {
+		if (event.preventDefault) {
 			event.preventDefault();
-		}else{
+		} else {
 			event.returnValue = false;
 		}
 	}
-	//阻止继续冒泡
-	MZA.event.stopPropagation = function(event){
-		if(event.stopPropagation){
+	// 阻止继续冒泡
+	MZA.event.stopPropagation = function(event) {
+		if (event.stopPropagation) {
 			event.stopPropagation();
-		}else{
+		} else {
 			event.cancelBuddle = true;
 		}
 	}
-	MZA.load ={};
+	// 自定义事件类
+	MZA.event.EventTarget = function() {
+		this.handlers = {};
+	}
+	MZA.event.EventTarget.prototype = {
+		constructor : MZA.event.EventTarget,
+		addHandler : function(type, handler) {
+			// 同一个类型的事件有多个，不同的类型的时间是属性。
+			if (typeof this.handlers[type] == "undefined") {
+				this.handlers[type] = [];
+			}
+			this.handlers[type].push(handler);
+		},
+		fire : function(event) {
+			if (!event.target) {
+				event.target = this;
+			}
+			if (this.handlers[event.type] instanceof Array) {
+				var handlers = this.handlers[event.type];
+				for (var i = 0; i < handlers.length; i++) {
+					handlers[i](event);
+				}
+			}
+		},
+		removeHandler : function(type, handler) {
+			if (this.handlers[type] instanceof Array) {
+				var handlers = this.handlers[type];
+				for (var i = 0; i < handlers.length; i++) {
+					if (handlers[i] === handler) {
+						break;
+					}
+				}
+				handlers.splice(i, 1);
+			}
+		}
+	}
+	MZA.load = {};
 	// 动态加载js文件。
-	MZA.load.loadScript = function(url){
+	MZA.load.loadScript = function(url) {
 		var script = document.createElement("script");
-		script.type ="text/javascript";
+		script.type = "text/javascript";
 		script.src = url;
 		document.body.appendChild(script);
 	}
 	// 动态加载css文件
-	MZA.load.loadStyles = function(url){
+	MZA.load.loadStyles = function(url) {
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.type = "text/css";
@@ -618,25 +663,101 @@
 		var head = document.getElementsByTagName("head")[0];
 		head.appendChild(link);
 	}
-	//检测浏览器对DOM2和DOM3的支持情况
-	MZA.dom.checkSupport = function(){
+	// 检测浏览器对DOM2和DOM3的支持情况
+	MZA.dom.checkSupport = function() {
 		var implementation = document.implementation;
-		var supportsDOM2CORE = implementation.hasFeature("CORE","2.0");
-		var supportsDOM3CORE = implementation.hasFeature("CORE","3.0");
-		var supportsDOM2HTML = implementation.hasFeature("HTML","2.0");
-		var supportsDOM2View = implementation.hasFeature("Views","2.0");
-		var supportsDOM2XML = implementation.hasFeature("XML","2.0");
-		var supportsDOM2CSS = implementation.hasFeature("CSS","2.0");
-		var supportsDOM2CSS2 = implementation.hasFeature("CSS2","2.0");
-		
+		var supportsDOM2CORE = implementation.hasFeature("CORE", "2.0");
+		var supportsDOM3CORE = implementation.hasFeature("CORE", "3.0");
+		var supportsDOM2HTML = implementation.hasFeature("HTML", "2.0");
+		var supportsDOM2View = implementation.hasFeature("Views", "2.0");
+		var supportsDOM2XML = implementation.hasFeature("XML", "2.0");
+		var supportsDOM2CSS = implementation.hasFeature("CSS", "2.0");
+		var supportsDOM2CSS2 = implementation.hasFeature("CSS2", "2.0");
+
 		return {
-			"supportsDOM2CORE":supportsDOM2CORE,
-			"supportsDOM3CORE":supportsDOM3CORE,
-			"supportsDOM2HTML":supportsDOM2HTML,
-			"supportsDOM2View":supportsDOM2View,
-			"supportsDOM2XML":supportsDOM2XML,
-			"supportsDOM2CSS":supportsDOM2CSS,
-			"supportsDOM2CSS2":supportsDOM2CSS2
+			"supportsDOM2CORE" : supportsDOM2CORE,
+			"supportsDOM3CORE" : supportsDOM3CORE,
+			"supportsDOM2HTML" : supportsDOM2HTML,
+			"supportsDOM2View" : supportsDOM2View,
+			"supportsDOM2XML" : supportsDOM2XML,
+			"supportsDOM2CSS" : supportsDOM2CSS,
+			"supportsDOM2CSS2" : supportsDOM2CSS2
 		}
 	}
+
+	MZA.DragDrop = function() {
+		var dragdrop = new MZA.event.EventTarget();
+		var dragging = null;
+		var diffX = 0;
+		var diffY = 0;
+		function handleEvent(e) {
+			var event = MZA.event.getEvent(e);
+			var target = MZA.event.getTarget(event);
+			switch (event.type) {
+
+				case "mousedown" :
+					if (target.className.indexOf("draggable") > -1) {
+						dragging = target;
+						// 记录下鼠标位置和div的left和top的差值
+						diffX = event.clientX - target.offsetLeft;
+						diffY = event.clientY - target.offsetTop;
+						dragdrop.fire({
+									type : "dragstart",
+									target : dragging,
+									x : event.clientX,
+									y : event.clientY
+								});
+					}
+					// 自定义事件
+					break;
+
+				case "mousemove" :
+					if (dragging !== null) {
+						// 解决FF下拖动bug，清空选中。
+						window.getSelection ? window.getSelection()
+								.removeAllRanges() : document.selection.empty();
+						event = MZA.event.getEvent(e);
+						// 最后的位置是计算差值后的位置。
+						dragging.style.left = (event.clientX - diffX) + "px";
+						dragging.style.top = (event.clientY - diffY) + "px";
+						dragdrop.fire({
+									type : "drag",
+									target : dragging,
+									x : event.clientX,
+									y : event.clientY
+								});
+					}
+					break;
+
+				case "mouseup" :
+					if (dragging !== null) {
+						dragdrop.fire({
+									type : "dragend",
+									target : dragging,
+									x : event.clientX,
+									y : event.clientY
+								});
+						dragging = null;
+					}
+					break;
+			}
+		};
+
+		dragdrop.enable = function() {
+			MZA.event.addHandler(document, "mousedown", handleEvent);
+			MZA.event.addHandler(document, "mousemove", handleEvent);
+			MZA.event.addHandler(document, "mouseup", handleEvent);
+		}
+		dragdrop.disable = function() {
+			MZA.event.removeHandler(document, "mousedown", handleEvent);
+			MZA.event.removeHandler(document, "mousemove", handleEvent);
+			MZA.event.removeHandler(document, "mouseup", handleEvent);
+		}
+		return dragdrop;
+	}();
+	MZA.anim = function(){
+		
+	}
+	
+	MZA.core = {};
 })(window);
