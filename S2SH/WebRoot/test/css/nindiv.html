@@ -1,0 +1,525 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>div+css制作强大的九宫格</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	text-align: center;
+	background: url(img/bg.gif) repeat;
+}
+
+table td {
+	padding: 20px;
+}
+
+hr {
+	margin: 10px;
+}
+
+/* MODULE */
+.mdl {
+	min-height: 1px;
+	_height: 1px;
+}
+
+.mdl_t {
+	position: relative;
+	font-size: 12px;
+}
+
+.mdl_t_l,.mdl_t_r {
+	position: absolute;
+	top: 0px;
+	font-size: 1px;
+	overflow: hidden;
+}
+
+.mdl_t_l {
+	left: 0;
+}
+
+.mdl_t_r {
+	right: 0;
+	float: right;
+}
+
+.mdl_t_m {
+	position: absolute;
+	text-align: left;
+	height: 20px;
+	line-height: 20px;
+}
+
+.mdl_t_m h3 {
+	font-size: 14px;
+	width: 120px;
+}
+
+.mdl_t_c {
+	position: relative;
+	text-align: left;
+	overflow: hidden;
+}
+
+.mdl_t_c span.a_a {
+	text-decoration: none;
+}
+
+.mdl_c {
+	position: relative;
+	overflow: hidden;
+}
+
+.mdl_c .mdl_m_t,.mdl_c .mdl_m_c,.mdl_c .mdl_m_b {
+	padding: 0 2px;
+}
+
+.mdl_c .mdl_m_t,.mdl_c .mdl_m_b {
+	text-align: left;
+}
+
+.mdl_c_l,.mdl_c_r {
+	position: absolute;
+	top: 0;
+	font-size: 1px;
+}
+
+.mdl_c_l {
+	left: 0;
+}
+
+.mdl_c_r {
+	right: 0;
+}
+
+.mdl_c_c {
+	position: relative;
+	zoom: 1;
+}
+
+.mdl_b {
+	position: relative;
+	overflow: hidden;
+}
+
+.mdl_b_l,.mdl_b_r {
+	position: absolute;
+	top: 0;
+	font-size: 1px;
+}
+
+.mdl_b_l {
+	left: 0;
+}
+
+.mdl_b_r {
+	right: 0;
+}
+
+.g_p_fill {
+	padding-bottom: 32767px;
+	margin-bottom: -32767px;
+}
+
+.g_p_hide {
+	overflow: hidden;
+	display: block !important;
+	display: inline-block;
+}
+
+div.s2 {
+	margin: 10px 0px;
+}
+
+div.s2 .mdl_t {
+	height: 52px;
+	line-height: 57px;
+	color: #000;
+}
+
+div.s2 .mdl_t_l {
+	background: url(img/s2/a1.png) no-repeat scroll left top;
+	width: 27px;
+	height: 52px;
+	line-height: 57px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/a1.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_t_c {
+	background: url(img/s2/a2.png) repeat-x scroll left top;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0px 28px 0px 27px;
+	height: 52px;
+	line-height: 57px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/a2.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_t_c p {
+	position: absolute;
+}
+
+div.s2 .mdl_t_r {
+	background: url(img/s2/a3.png) no-repeat scroll left top;
+	width: 28px;
+	height: 52px;
+	line-height: 57px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/a3.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_t_m {
+	right: 20px;
+	top: 18px;
+}
+
+div.s2 .mdl_c_l {
+	background: url(img/s2/b1.png) repeat-y scroll left top;
+	width: 27px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/b1.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_c_c {
+	background: url(img/s2/b2.png) repeat scroll left top;
+	margin: 0px 28px 0px 27px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/b2.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_c_r {
+	background: url(img/s2/b3.png) repeat-y scroll left top;
+	width: 28px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/b3.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_b {
+	height: 28px;
+}
+
+div.s2 .mdl_b_l {
+	background: url(img/s2/c1.png) no-repeat scroll left top;
+	height: 28px;
+	width: 27px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/c1.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_b_c {
+	background: url(img/s2/c2.png) repeat-x scroll left top;
+	height: 28px;
+	margin: 0px 28px 0px 27px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/c2.png', sizingMethod = 'scale' );
+}
+
+div.s2 .mdl_b_r {
+	background: url(img/s2/c3.png) no-repeat scroll left top;
+	height: 28px;
+	width: 28px;
+	_background: none;
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'img/s2/c3.png', sizingMethod = 'scale' );
+}
+
+div.s3 .mdl_t {
+	height: 45px;
+	line-height: 45px;
+	color: #000;
+}
+
+div.s3 .mdl_t_l {
+	background: url(img/s3/a1.gif) no-repeat scroll left top;
+	width: 14px;
+	height: 45px;
+	line-height: 45px;
+}
+
+div.s3 .mdl_t_c {
+	background: url(img/s3/a2.gif) repeat-x scroll left top;
+	margin: 0 80px 0 14px;
+	height: 45px;
+	line-height: 45px;
+}
+
+div.s3 .mdl_t_r {
+	background: url(img/s3/a3.gif) no-repeat scroll left top;
+	width: 80px;
+	height: 45px;
+	line-height: 45px;
+}
+
+div.s3 .mdl_t_m {
+	right: 50px;
+	top: 18px;
+}
+
+div.s3 .mdl_c_l {
+	background: url(img/s3/b1.gif) repeat-y scroll left top;
+	width: 14px;
+}
+
+div.s3 .mdl_c_c {
+	background: #fff url(img/s3/b2.gif) repeat scroll left top;
+	margin: 0 14px;
+}
+
+div.s3 .mdl_c_r {
+	background: url(img/s3/b3.gif) repeat-y scroll left top;
+	width: 14px;
+}
+
+div.s3 .mdl_b {
+	height: 14px;
+}
+
+div.s3 .mdl_b_l {
+	background: url(img/s3/c1.gif) no-repeat scroll left top;
+	width: 14px;
+	height: 14px;
+}
+
+div.s3 .mdl_b_c {
+	background: url(img/s3/c2.gif) repeat-x scroll left top;
+	height: 14px;
+	margin: 0 80px 0 14px;
+}
+
+div.s3 .mdl_b_r {
+	background: url(img/s3/c3.gif) no-repeat scroll left top;
+	width: 80px;
+	height: 14px;
+}
+
+div.s4 .mdl_t {
+	height: 44px;
+	line-height: 44px;
+	color: #000;
+}
+
+div.s4 .mdl_t_l {
+	background: url(img/s4/a1.gif) no-repeat scroll left top;
+	width: 51px;
+	height: 44px;
+	line-height: 44px;
+}
+
+div.s4 .mdl_t_c {
+	background: url(img/s4/a2.gif) repeat-x scroll left top;
+	margin: 0 10px 0 51px;
+	height: 44px;
+	line-height: 44px;
+}
+
+div.s4 .mdl_t_r {
+	background: url(img/s4/a3.gif) no-repeat scroll left top;
+	width: 10px;
+	height: 44px;
+	line-height: 44px;
+}
+
+div.s4 .mdl_t_m {
+	right: 20px;
+	top: 12px;
+}
+
+div.s4 .mdl_c_l {
+	background: url(img/s4/b1.gif) repeat-y scroll left top;
+	width: 10px;
+}
+
+div.s4 .mdl_c_c {
+	background: #fff url(img/s4/b2.gif) repeat scroll left top;
+	margin: 0 10px;
+}
+
+div.s4 .mdl_c_r {
+	background: url(img/s4/b3.gif) repeat-y scroll left top;
+	width: 10px;
+}
+
+div.s4 .mdl_b {
+	height: 10px;
+}
+
+div.s4 .mdl_b_l {
+	background: url(img/s4/c1.gif) no-repeat scroll left top;
+	width: 10px;
+	height: 10px;
+}
+
+div.s4 .mdl_b_c {
+	background: url(img/s4/c2.gif) repeat-x scroll left top;
+	height: 10px;
+	margin: 0 10px;
+}
+
+div.s4 .mdl_b_r {
+	background: url(img/s4/c3.gif) no-repeat scroll left top;
+	width: 10px;
+	height: 10px;
+}
+</style>
+</head>
+<body>
+<table width="90%" height="0" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+		<div class="mdl s2">
+		<div class="mdl_t">
+		<div class="mdl_t_l"></div>
+		<div class="mdl_t_r"></div>
+		<div class="mdl_t_c">
+		<h3>作品欣赏</h3>
+		</div>
+		<div class="mdl_t_m">更多</div>
+		</div>
+		<!--mdl_t-->
+		<div class="mdl_c g_p_hide">
+		<div class="mdl_c_l g_p_fill"></div>
+		<div class="mdl_c_r g_p_fill"></div>
+		<div class="mdl_c_c">
+		<div class="mdl_m_t"></div>
+		<div class="mdl_m_c">1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		5<br />
+		6<br />
+		1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		6<br />
+		module风格2</div>
+		<div class="mdl_m_b"></div>
+		</div>
+		</div>
+		<!--mdl_c-->
+		<div class="mdl_b">
+		<div class="mdl_b_l"></div>
+		<div class="mdl_b_r"></div>
+		<div class="mdl_b_c"></div>
+		</div>
+		<!--mdl_b--></div>
+		<!--mdl-->
+
+		<hr />
+
+		<div class="mdl s3">
+		<div class="mdl_t">
+		<div class="mdl_t_l"></div>
+		<div class="mdl_t_r"></div>
+		<div class="mdl_t_c">
+		<h3>业界资讯</h3>
+		</div>
+		<div class="mdl_t_m">更多>></div>
+		</div>
+		<!--mdl_t-->
+		<div class="mdl_c g_p_hide">
+		<div class="mdl_c_l g_p_fill"></div>
+		<div class="mdl_c_r g_p_fill"></div>
+		<div class="mdl_c_c">
+		<div class="mdl_m_t"></div>
+		<div class="mdl_m_c">1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		5<br />
+		6<br />
+		1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		6<br />
+		module风格3</div>
+		<div class="mdl_m_b"></div>
+		</div>
+		</div>
+		<!--mdl_c-->
+		<div class="mdl_b">
+		<div class="mdl_b_l"></div>
+		<div class="mdl_b_r"></div>
+		<div class="mdl_b_c"></div>
+		</div>
+		<!--mdl_b--></div>
+		<!--mdl-->
+
+		<hr />
+
+		<div class="mdl s4">
+		<div class="mdl_t">
+		<div class="mdl_t_l"></div>
+		<div class="mdl_t_r"></div>
+		<div class="mdl_t_c">
+		<h3>作品欣赏</h3>
+		</div>
+		<div class="mdl_t_m">更多>></div>
+		</div>
+		<!--mdl_t-->
+		<div class="mdl_c g_p_hide">
+		<div class="mdl_c_l g_p_fill"></div>
+		<div class="mdl_c_r g_p_fill"></div>
+		<div class="mdl_c_c">
+		<div class="mdl_m_t"></div>
+		<div class="mdl_m_c">1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		5<br />
+		6<br />
+		1<br />
+		2<br />
+		3<br />
+		4<br />
+		5<br />
+		6<br />
+		module风格4</div>
+		<div class="mdl_m_b"></div>
+		</div>
+		</div>
+		<!--mdl_c-->
+		<div class="mdl_b">
+		<div class="mdl_b_l"></div>
+		<div class="mdl_b_r"></div>
+		<div class="mdl_b_c"></div>
+		</div>
+		<!--mdl_b--></div>
+		<!--mdl--></td>
+	</tr>
+</table>
+
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-3019803-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

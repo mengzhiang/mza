@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>Insert title here</title>
+<style type="text/css">
+
+.all{
+	width:500px;
+}
+.xtop,.xbottom {
+	display: block;
+	background: transparent;
+	font-size: 1px;
+}
+
+.xb1,.xb2,.xb3,.xb4 {
+	display: block;
+	overflow: hidden;
+}
+
+.xb1,.xb2,.xb3 {
+	height: 1px;
+}
+
+.xb2,.xb3,.xb4 {
+	background: #ccc;
+	border-left: 1px solid #08c;
+	border-right: 1px solid #08c;
+}
+
+.xb1 {
+	margin: 0 5px; /* 上下0 左右5*/
+	background: #08c;
+}
+
+.xb2 {
+	margin: 0 3px; /* 上下0 左右3*/
+	border-width: 0 2px; /*上下0，左右2*/
+}
+
+.xb3 {
+	margin: 0 2px; /* 上下0 左右2*/
+}
+
+.xb4 {
+	height: 2px;   /*第四个高度是2*/
+	margin: 0 1px; /* 上下0 左右1*/
+}
+
+.xboxcontent {
+	display: block;
+	background: #ccc;
+	border: 0 solid #08c;
+	border-width: 0 1px;
+}
+.test{
+	height:400px;
+	width :400px;
+	border :1px solid black;
+	border-radius :200px;
+}
+</style>
+</head>
+<body>
+
+<div class="all">
+	<b class="xtop">
+		<b class="xb1"></b>
+		<b class="xb2"></b>
+		<b class="xb3"></b>
+		<b class="xb4"></b>
+	</b>
+		
+			<div class="xboxcontent">
+					原理是上面有四个叠起来的杠杠，<br>
+					高度都是1px，margin不同，渐进，下面也是一样。<br>
+			</div>
+			
+	<b class="xbottom">
+		<b class="xb4"></b>
+		<b class="xb3"></b>
+		<b class="xb2"></b>
+		<b class="xb1"></b>
+	</b>
+</div>
+<div class="test">
+
+</div>
+</body>
+</html>

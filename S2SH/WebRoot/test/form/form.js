@@ -26,5 +26,6 @@ MZA.ready(function(){
 	}
 	E.addHandler(font,"change",changeFont);
 	
+	console.log(MZA.find("input"));
 
 });
