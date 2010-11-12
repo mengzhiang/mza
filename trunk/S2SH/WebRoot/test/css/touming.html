@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>自适应高度的透明背景</title>
+<style type="text/css">
+body {
+	background: url(http://www.google.cn/intl/zh-CN/images/logo_cn.gif);
+	position: relative;
+	width: 80%;
+	margin: 40px auto;
+	font-size: 12px;
+}
+
+p {
+	margin: 0;
+}
+
+/*定义透明背景容器 开始*/
+.alphaContainer {
+	border: solid 1px #000;
+	position: relative;
+	overflow: hidden;
+	padding: 20px;
+}
+
+.alphaContainer:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+b.alphaBg {
+	opacity: 0.4;
+	background: #000;
+	height: 2000px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+	text-indent: -999em;
+}
+
+.content {
+	position: relative;
+	z-index: 2;
+	background: #fff;
+	width: 100%;
+	float: left;
+	border: solid 1px blue;
+}
+
+.content p {
+	line-height: 23px;
+	display: inline-block;
+	margin: 10px;
+}
+/*定义透明背景容器 结束*/
+</style>
+<!--[if IE]><style type="text/css">.alphaContainer{zoom:1;}b.alphaBg{filter:alpha(opacity=40);}</style><![endif]-->
+<!--[if IE 6]><style type="text/css">b.alphaBg{padding-right:40px;}/*注意：如果.alphaContainer{padding:10px;}那么这里padding-right:20px;*/</style><![endif]-->
+</head>
+<body>
+<div class="alphaContainer">
+<b class="alphaBg">这个层用来显示背景</b>
+<div class="content">
+<p>生命如此短暂生命如此短暂！
+生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂
+！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！</p>
+<p>生命如此短暂生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！
+生命如此短暂！生命如此短暂！生命如此短暂！生命如此短暂！</p>
+</div>
+</div>
+</body>
+</html>

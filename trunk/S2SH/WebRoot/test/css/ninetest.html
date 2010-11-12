@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script type="text/javascript" src="../../ajax/common.js"></script>
+<script >
+	var DD = MZA.DragDrop;
+	DD.enable();
+</script>
+<style type="text/css">
+#showBox {
+      position: absolute;
+      z-index: 200;
+      overflow: hidden;
+      width: 770px;
+      left: 50%;
+      margin-left: -385px;
+      top: 12%;
+      color: #fff;
+      padding: 10px;
+  }
+  
+  #myAlpha {
+      position: absolute;
+      z-index: -1;
+      width: 1999px;
+      height: 1999px;
+      filter:alpha(opacity=40);
+      opacity: 0.4;
+      left: 0;
+      top: 0;
+      background-color: #000;
+  }
+  
+ #container {
+    padding:5px;
+    border: 2px solid #000;
+    background-color: #56718b;
+  }
+ body{
+ 	background:url(Water.jpg) ;
+ }
+</style>
+</head>
+<!--position:relative;必须的，和父层的position:static对应-->
+<body>
+<div id="showBox" class="draggable">
+    <div id="myAlpha">
+    </div>
+    <div id="container">
+      asdfasdfasdfasdfasdf<br></br>
+      asdfasdfasdf
+    </div>
+</div>
+</body>
+</html>
