@@ -3,7 +3,6 @@
 <html>
 <head>
 <style type="text/css">
-/*CSS IE6和IE7 两个div嵌套，里面的div默认居中，而IE8默认居右,需要在父div里显示的规定居中还是居左*/
 .body_bg {
 	background-color: #5e96c5;
 	background-image: url(images/images/bg.gif);
@@ -24,19 +23,17 @@
 	top: 40%;
 	margin-left: -272px;
 	margin-top: -157px;
-	text-align: left;
 }
 
 .login_form {
 	width: 480px;
 	height: 120px;
-	margin-top: 125px;
-	margin-left:100px;
+	position: absolute;
+	margin-top: 120px;
 }
 .login_form div {
 	width: 400px;
 	margin-top: 5px;
-	text-align: left;
 }
 
 .login_form div span{
@@ -45,21 +42,10 @@
 	font-size: 12px;
 }
 
-.login_form div span input{
+.input_bg {
 	width: 180px;
 	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
 	height: 18px;
-}
-
-.login_form div span .yzmimg {
-	margin-left:0px;
-	cursor: pointer;
-	width:68px; 
-	height:22px;
-}
-
-.login_form div span img{
-	margin-left:52px;
 }
 
 .errormsg {
@@ -68,7 +54,7 @@
 	color: red;
 }
 
-.login_form div span .input_yzm {
+.input_yzm {
 	width: 106px;
 	font-family: Verdana, Arial, Helvetica, sans-serif, "宋体";
 	height: 18px;
@@ -79,6 +65,9 @@ input,img {
 	vertical-align: middle;
 }
 
+.yzmimg {
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="ajax/common.js"></script>
 <script type="text/javascript" src="index.js"></script>
@@ -88,16 +77,19 @@ input,img {
 <div class="login_form" >
 	<div>
 		<span>用户名：</span>
-		<span><input id="username" type="text" name="username"></input></span>
+		<span><input id="username" type="text" name="username"
+			class="input_bg"></input></span>
 	</div>
 	<div>
 		<span>密&nbsp;&nbsp;&nbsp;码：</span>
-		<span><input id="password" type="password" name="password"></input></span>
+		<span><input id="password" type="password" name="password"
+			class="input_bg"></input></span>
 	</div>
 	<div>
 		<span>验证码：</span>
 		<span><input id="yzm" type="text" name="yzm" class="input_yzm"></input>
-		<img id="yzmpic"  src="" title="点击更换" class="yzmimg" /></span>
+		<img id="yzmpic" width="68" height="22" src="" title="点击更换"
+			class="yzmimg" /></span>
 	</div>
 	<div>
 		<span><img id="button" src="images/images/button.gif" /></span>

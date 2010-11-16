@@ -1,4 +1,32 @@
 (function(window) {
+	Function.prototype.bind = function() {
+		var args = [];
+		for (i = 1; i < arguments.length; i++) {
+			args.push(arguments[i]);
+		}
+		var method = this;
+		var thisObj = arguments[0];
+		return function() {
+			return method.apply(thisObj, args);
+		}
+	};
+	
+	String.prototype.trim = function() {
+		return this.replace(/(^\s*)|(\s*$)/g, "");
+	}
+
+	String.prototype.isNaN = function() {
+		return isNaN(Number(this));
+	}
+
+	String.prototype.toNum = function() {
+		return Number(this);
+	}
+
+	String.prototype.startWith = function(oString) {
+		return this.indexOf(oString) == 0;
+	}
+	
 	var MZA = {};
 	window.MZA = MZA;
 	MZA.ajax = {};
@@ -280,7 +308,7 @@
 		this.removeElement(document.getElementById("bodypop"));
 		this.removeElement(document.getElementById("bodybg"));
 	}
-	MZA.dom = {};
+	MZA.DOM = MZA.Dom = MZA.dom = {};
 	MZA.dom.find = function(value) {
 		var str = value.toString();
 		var flag = str.substring(0, 1);
@@ -565,7 +593,7 @@
 		}
 		return result;
 	}
-	MZA.event = {};
+	MZA.EVENT = MZA.Event = MZA.event = {};
 	// 添加事件
 	MZA.event.addHandler = function(element, type, handler) {
 		if (element.addEventListener) {
@@ -2104,10 +2132,10 @@
 		};
 
 		// EXPOSE
-		MZA.find = Sizzle;
-		window.Sizzle = Sizzle;
+		window.Sizzle = window.$ = Sizzle;
 
 	})();
+
 	/**
 	 * 函数绑定。给函数制定作用域
 	 */
@@ -2119,7 +2147,7 @@
 			};
 		};
 	}
-	/*继承实现只是拷贝属性*/
+	/* 继承实现只是拷贝属性 */
 	MZA.extend = function() {
 		var target = arguments[0];
 		for (var i = 1; i < arguments.length; i++) {
@@ -2131,4 +2159,16 @@
 		}
 		return target;
 	}
+	/**
+	 * 由于Sizzle通过id查询返回的也是数组，
+	 * 所以经过这次修正如果是通过id查询则只返回数组第一个元素。
+	 */
+	$ = function(value) {
+		if(value.startWith("#")){
+			return Sizzle(value)[0];
+		}else{
+			return Sizzle(value);
+		}
+	}
+
 })(window);

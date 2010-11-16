@@ -1,4 +1,5 @@
 function Login() {
+	var E = MZA.event;
 	this.yzmcode = "";
 	this.submit = function() {
 		if ((!this.checkInput()) || (!this.checkYzm())) {
@@ -11,7 +12,7 @@ function Login() {
 			sync : false,
 			url : "login_login?" + paras
 		}
-		var object = MZA.ajax(data);
+		var object = MZA.ajax.ajax(data);
 		if (object.flag == "success") {
 			window.location = "extjs/list.jsp";
 		} else if (object.flag == "该用户不存在") {
@@ -96,9 +97,9 @@ function Login() {
 	}
 	// 按Enter键登陆
 	this.enterToSubmit = function(event) {
-		var e = event ? event : window.event
+		event = E.getEvent(event);
 		if (event.keyCode == 13) {
-			this.submit();
+			login.submit();
 		}
 	}
 	// 初始化验证码
@@ -108,7 +109,7 @@ function Login() {
 			sync : false,// 同步非异步
 			url : "login_geneImg?test=" + test
 		}
-		var object = MZA.ajax(data);
+		var object = MZA.ajax.ajax(data);
 		this.yzmcode = object.yzm;
 		document.getElementById('yzmpic').setAttribute('src',
 				'/S2SH/temp/yzm/' + object.yzmjpgName + '.jpg');
@@ -116,18 +117,23 @@ function Login() {
 	// 初始化方法
 	this.init = function() {
 		login.inityzm();
-		MZA.connect("button", "onmouseover",
-				"login.swapImage('images/images/button_onmouse.gif')");
-		MZA.connect("button", "onmouseout",
-				"login.swapImage('images/images/button.gif')");
-		MZA.connect("button", "onclick", "login.submit()");
-		MZA.connect("username", "onfocus", "login.onnamefocus()");
-		MZA.connect("password", "onfocus", "login.onpassfocus()");
-		MZA.connect("yzm", "onfocus", "login.onyzmfocus()");
-		MZA.connect("yzm", "onkeydown", "login.enterToSubmit(event)");
-		MZA.connect("yzmpic", "onclick", "login.inityzm()");
+		var btn_submit = $("#button");
+		var input_username = $("#username");
+		var input_password = $("#password");
+		var input_yzm = $("#yzm");
+		var img_yzm = $("#yzmpic");
+		E.addHandler(btn_submit, "mouseover", login.swapImage.bind(login,
+						"images/images/button_onmouse.gif"));
+		E.addHandler(btn_submit, "mouseout", login.swapImage.bind(login,
+						"images/images/button.gif"));
+		E.addHandler(btn_submit, "click", login.submit.bind(login));
+		E.addHandler(input_username, "focus", login.onnamefocus);
+		E.addHandler(input_password, "focus", login.onpassfocus);
+		E.addHandler(input_yzm, "focus", login.onyzmfocus);
+		E.addHandler(input_yzm, "keydown", login.enterToSubmit);
+		E.addHandler(img_yzm, "click", login.inityzm);
 	}
 
 }
 var login = new Login();
-MZA.addOnLoad(login.init);
+MZA.ready(login.init);
