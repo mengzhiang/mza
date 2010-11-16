@@ -2,7 +2,7 @@
 <!--defaultdir指定了main.jsp存放的文件夹-->
 <decorators defaultdir="/decorators">
     <excludes>
-    	  <pattern>/index.jsp*</pattern>
+    	  <pattern>/index*.jsp*</pattern>
           <pattern>/login/*</pattern>
           <pattern>/ajax/*</pattern>
           <pattern>/jslib/*</pattern>
