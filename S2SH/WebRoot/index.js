@@ -1,37 +1,38 @@
 function Login() {
 	var E = MZA.event;
+	var D = MZA.dom;
+	var A = MZA.ajax;
 	this.yzmcode = "";
 	this.submit = function() {
+		
+		//验证表单。
+		//表单序列化
 		if ((!this.checkInput()) || (!this.checkYzm())) {
 			return;
 		};
-		var name = document.getElementById("username").value;
-		var pwd = document.getElementById("password").value;
-		var paras = "permUser.username=" + name + "&permUser.password=" + pwd;
+		var paras = D.formSerialize($(".login_form")[0]);
 		var data = {
 			sync : false,
 			url : "login_login?" + paras
 		}
-		var object = MZA.ajax.ajax(data);
+		var object = A.ajax(data);
 		if (object.flag == "success") {
 			window.location = "extjs/list.jsp";
 		} else if (object.flag == "该用户不存在") {
-			if (!document.getElementById("nouser")) {
-				var node = document.createElement("span");
-				node.setAttribute("id", "nouser");
-				node.setAttribute("class", "errormsg");
+			if (!$("#nouser")) {
+				var node = D.create("span");
+				node.attr("id", "nouser");
+				node.addClass("errormsg");
 				node.innerHTML = "该用户不存在";
-				document.getElementById("username").parentNode
-						.appendChild(node);
+				node.appendTo($("#username"));
 			}
 		} else if (object.flag == "密码错误") {
 			if (!document.getElementById("passerror")) {
-				var node = document.createElement("span");
-				node.setAttribute("id", "passerror");
-				node.setAttribute("class", "errormsg");
+				var node = D.create("span");
+				node.attr("id", "passerror");
+				node.addClass("errormsg");
 				node.innerHTML = "密码错误";
-				document.getElementById("password").parentNode
-						.appendChild(node);
+				node.appendTo($("#password"));
 			}
 		} else {
 
@@ -39,20 +40,20 @@ function Login() {
 	}
 	// 校验
 	this.checkInput = function() {
-		var erronodes = document.getElementsByName("blankerror");
-		if (erronodes.length > 0) {
-			MZA.removeAllElement(erronodes);
+	
+		var msgnode = $("input ~ span");
+		if (msgnode.length > 0) {
+			D.remove(msgnode);
 		}
 		var flag = true;
-		var arr = document.getElementsByTagName("input");
+		var arr = $("input");
 		var len = arr.length;
 		for (var i = len - 1; i >= 0; i--) {
 			if (!arr[i].value) {
-				var node = document.createElement("span");
-				node.setAttribute("name", "blankerror");
-				node.setAttribute("class", "errormsg");
-				node.innerHTML = "不能为空";
-				arr[i].parentNode.appendChild(node);
+				var node = D.create("span");
+				node.addClass("errormsg");
+				node.innerHTML ="不能为空";
+				node.appendTo(arr[i]);
 				flag = false;
 			}
 		}
@@ -60,16 +61,14 @@ function Login() {
 	}
 	// 判断验证码输入
 	this.checkYzm = function() {
-		var yzminput = document.getElementById("yzm");
-		var yzmvalue = yzminput.value;
+		var yzmvalue = $("#yzm").value;
 		if (this.yzmcode == yzmvalue) {
 			return true;
 		} else {
-			var node = document.createElement("span");
-			node.setAttribute("id", "yzmerror");
-			node.setAttribute("class", "errormsg");
-			node.innerHTML = "验证码错误";
-			yzminput.parentNode.appendChild(node);
+			var node = D.create("span");
+			node.addClass("errormsg");
+			node.innerHTML ="验证码错误";
+			node.appendTo($("#yzmpic"));
 			return false;
 		}
 	}
@@ -130,7 +129,7 @@ function Login() {
 		E.addHandler(input_username, "focus", login.onnamefocus);
 		E.addHandler(input_password, "focus", login.onpassfocus);
 		E.addHandler(input_yzm, "focus", login.onyzmfocus);
-		E.addHandler(input_yzm, "keydown", login.enterToSubmit);
+		E.addHandler(input_yzm, "keydown", login.enterToSubmit.bind);
 		E.addHandler(img_yzm, "click", login.inityzm);
 	}
 
