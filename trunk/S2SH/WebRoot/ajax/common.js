@@ -1,3 +1,80 @@
+/**
+ * @method isUndefined
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isUndefined(object) {
+	return typeof object == 'undefined';
+}
+
+/**
+ * @method isString
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isString(object) {
+	return typeof object == 'string';
+}
+
+/**
+ * @method isElement
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isElement(object) {
+	return object && object.nodeType == 1;
+}
+
+/**
+ * @method isFunction
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isFunction(object) {
+	return typeof object == 'function';
+}
+
+/**
+ * @method isObject
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isObject(object) {
+	return typeof object == 'object';
+}
+
+/**
+ * @method isArray
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isArray(object) {
+	return Object.prototype.toString.call(object) === '[object Array]';
+}
+
+/**
+ * @method isNumber
+ * @param {Any}
+ *            object
+ * @return {Boolean}
+ */
+
+function isNumber(object) {
+	return typeof object == 'number';
+}
+
 (function(window) {
 	Function.prototype.bind = function() {
 		var args = [];
@@ -10,7 +87,7 @@
 			return method.apply(thisObj, args);
 		}
 	};
-	
+
 	String.prototype.trim = function() {
 		return this.replace(/(^\s*)|(\s*$)/g, "");
 	}
@@ -26,7 +103,7 @@
 	String.prototype.startWith = function(oString) {
 		return this.indexOf(oString) == 0;
 	}
-	
+
 	var MZA = {};
 	window.MZA = MZA;
 	MZA.ajax = {};
@@ -309,16 +386,7 @@
 		this.removeElement(document.getElementById("bodybg"));
 	}
 	MZA.DOM = MZA.Dom = MZA.dom = {};
-	MZA.dom.find = function(value) {
-		var str = value.toString();
-		var flag = str.substring(0, 1);
-		if (flag == "#") {
-			var id = str.substring(1);
-			return document.getElementById(id);
-		} else {
-			return document.getElementsByTagName(str);
-		}
-	}
+
 	/**
 	 * 刷新页面
 	 */
@@ -331,72 +399,86 @@
 	 * @param {}
 	 *            _element
 	 */
-	MZA.dom.removeElement = function(_element) {
-		var _parentElement = _element.parentNode;
-		if (_parentElement) {
-			_parentElement.removeChild(_element);
-		}
-	}
+	MZA.dom.remove = function(_element) {
+		if (isArray(_element)) {
+			var len = _element.length;
+			for (var i = len - 1; i >= 0; i--) {
+				var _parentElement = _element[i].parentNode;
+				if (_parentElement) {
+					_parentElement.removeChild(_element[i]);
+				}
+			}
 
-	/**
-	 * 删除全部节点 数组
-	 * 
-	 * @param {}
-	 *            _element
-	 */
-	MZA.dom.removeAllElement = function(elementarr) {
-		var len = elementarr.length;
-		for (var i = len - 1; i >= 0; i--) {
-			var _parentElement = elementarr[i].parentNode;
+		} else {
+			var _parentElement = _element.parentNode;
 			if (_parentElement) {
-				_parentElement.removeChild(elementarr[i]);
+				_parentElement.removeChild(_element);
 			}
 		}
 	}
-
+	/**
+	 * 创建一个包装元素
+	 */
+	MZA.dom.create = function(_element) {
+		var node = document.createElement(_element);
+		return MZA.extend(node, MZA.element);
+	}
+	/**
+	 * 创建一个DOM元素
+	 */
+	MZA.dom.createDOM = function(_element) {
+		var node = document.createElement(_element);
+		return node;
+	}
+	MZA.dom.formSerialize = function(form) {
+		var parts = [];
+		var field = null;
+		for (var i = 0, len = form.elements.length; i < len; i++) {
+			field = form.elements[i];
+			if (field.name == "") {
+				break;
+			};
+			switch (field.type) {
+				case "select-one" :
+				case "select-multiple" :
+					for (var j = 0, optLen = field.options.length; j < optLen; j++) {
+						var option = field.options[j];
+						if (option.selected) {
+							var optValue = "";
+							if (option.hasAttribute) {
+								optValue = (option.hasAttribute("value")
+										? option.value
+										: option.text);
+							} else {
+								optValue = (option.attributes["value"].specified
+										? option.value
+										: option.text);
+							}
+							parts.push(encodeURIComponent(field.name) + "="
+									+ encodeURIComponent(optValue));
+						}
+					}
+					break;
+				case undefined :
+				case "file" :
+				case "submit" :
+				case "result" :
+				case "button" :
+					break;
+				case "radio" :
+				case "checkbox" :
+					if (!field.checked) {
+						break;
+					}
+				default :
+					parts.push(encodeURIComponent(field.name) + "="
+							+ encodeURIComponent(field.value));
+			}
+		}
+		return parts.join("&");
+	}
 	var isIE = document.all ? true : false;// 如果是IE是true否则是false
 
-	/**
-	 * 开始拖拽
-	 */
-	// MZA.dragdrop.startDrag = function(e, obj) {
-	// var e = e ? e : event;// 如果是e则是e否则是event
-	// if (isIE) {
-	// obj.setCapture();// 鼠标跟踪当前对象
-	// } else {
-	// window.captureEvents(obj.MOUSEMOVE);
-	// }
-	// oldcolor = obj.style.backgroundColor;
-	// // 获取拖拽的对象
-	// var dragObject = document.getElementById("contain");
-	// // 记录拖动对象的开始位置
-	// _X = dragObject.offsetLeft - e.clientX;
-	// _Y = dragObject.offsetTop - e.clientY;
-	// move = true;
-	// }
-	// /**
-	// * 结束拖拽
-	// */
-	// MZA.dragdrop.Drag = function(e, obj) {
-	// var e = e ? e : event;// 如果是e则是e否则是event
-	// if (move) {
-	// var dragObject = document.getElementById("contain");
-	// dragObject.style.left = e.clientX + _X + "px";
-	// dragObject.style.top = e.clientY + _Y + "px";
-	// }
-	// }
-	// /**
-	// * 拖拽中
-	// */
-	// MZA.dragdrop.stopDrag = function(obj) {
-	// obj.style.background = oldcolor;
-	// if (isIE) {
-	// obj.releaseCapture();// 鼠标跟踪当前对象
-	// } else {
-	// window.releaseEvents(obj.MOUSEMOVE);
-	// }
-	// move = false;
-	// }
 	MZA.grid = {};
 	/**
 	 * 定义分页常量
@@ -2136,39 +2218,113 @@
 
 	})();
 
-	/**
-	 * 函数绑定。给函数制定作用域
-	 */
-	if (!Function.prototype.bind) {
-		Function.prototype.bind = function(context) {
-			var fun = this;
-			return function() {
-				fun.apply(context, arguments);
-			};
-		};
-	}
 	/* 继承实现只是拷贝属性 */
 	MZA.extend = function() {
 		var target = arguments[0];
-		for (var i = 1; i < arguments.length; i++) {
-			if (typeof arguments[i] == "object") {
-				for (var pop in arguments[i]) {
-					target[pop] = arguments[i][pop];
+		if (target) {
+			for (var i = 1; i < arguments.length; i++) {
+				if (typeof arguments[i] == "object") {
+					for (var pop in arguments[i]) {
+						target[pop] = arguments[i][pop];
+					}
 				}
 			}
 		}
+
 		return target;
 	}
 	/**
-	 * 由于Sizzle通过id查询返回的也是数组，
-	 * 所以经过这次修正如果是通过id查询则只返回数组第一个元素。
+	 * 由于Sizzle通过id查询返回的也是数组， 所以经过这次修正如果是通过id查询则只返回数组第一个元素。
 	 */
-	$ = function(value) {
-		if(value.startWith("#")){
-			return Sizzle(value)[0];
-		}else{
-			return Sizzle(value);
-		}
-	}
 
+	MZA.element = {
+		test : function() {
+			alert("hello");
+			return this;
+		},
+		/**
+		 * 是否存在某样式表
+		 */
+		hasClassName : function(className) {
+			return new RegExp('(^|\\s+)' + className + '(\\s+|$)')
+					.test($(this).className);
+		},
+		/**
+		 * 添加样式
+		 */
+		addClass : function(className) {
+			if (this.hasClassName(this, className))
+				return this;
+			this.className += ' ' + className;
+			return this;
+		},
+		/**
+		 * 删除样式
+		 */
+		delClass : function(className) {
+			if (isUndefined(className)) {
+				this.className = "";
+			} else if (isString(className)) {
+				if (this.hasClassName(className)) {
+					this.className = this.className.replace(className, "");
+				}
+			}
+			return this;
+		},
+		/**
+		 * 给当前元素添加兄弟元素
+		 */
+		append : function(node) {
+			this.parentNode.appendChild(node);
+			return this;
+		},
+		/**
+		 * 元素作为目标元素的兄弟元素
+		 */
+		appendTo : function(node) {
+			node.parentNode.appendChild(this);
+			return this;
+		},
+		/**
+		 * 清空该元素。
+		 */
+		clear : function() {
+			this.innerHTML = "";
+			return this;
+		},
+		/**
+		 * 添加属性或查看属性
+		 */
+		attr : function() {
+			if (arguments.length > 1) {
+				var key = arguments[0];
+				var value = arguments[1];
+				this.setAttribute(key, value);
+			} else {
+				var key = arguments[0];
+				this.getAttribute(key);
+			}
+		}
+	};
+	MZA.ELEMENT = MZA.Element = This = MZA.element;
+
+	$ = function(value) {
+		var element;
+		if (value == null) {
+			element = null;
+		} else if ((isString(value) || isNumber(value)) && value.startWith("#")) {
+			element = MZA.extend(Sizzle(value)[0], MZA.element);
+		} else if (isString(value)) {
+			var arr = [];
+			var sarr = Sizzle(value);
+			for (var i = 0, len = sarr.length; i < len; i++) {
+				var el = MZA.extend(sarr[i], MZA.element);
+				arr.push(el);
+			}
+			element = arr;
+		} else {
+			element = MZA.extend(value, MZA.element);
+		}
+		return element;
+	}
 })(window);
