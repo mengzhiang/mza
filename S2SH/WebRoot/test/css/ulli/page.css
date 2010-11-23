@@ -1,0 +1,35 @@
+ol.pagination {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+ol.pagination li {
+	float: left;
+	margin-right: 0.6em;
+}
+
+ol.pagination a,ol.pagination li.selected {
+	display: block;
+	text-decoration: none;
+	border: 1px solid #ccc;
+	padding: 0.2em 0.5em;
+}
+
+ol.pagination a:hover,ol.pagination a:focus,ol.pagination li.selected {
+	background-color: blue;
+	color: white;
+}
+
+ol.pagination a[rel="prev"],ol.pagination a[rel="next"] {
+	border:none;
+}
+ol.pagination a[rel="prev"]:before{
+	content:"\00AB";
+	padding-right:0.5em;
+}
+
+ol.pagination a[rel="next"]:after{
+	content:"\00BB";
+	padding-left:0.5em;
+}

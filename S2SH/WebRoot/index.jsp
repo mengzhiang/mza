@@ -25,7 +25,7 @@
 				<img id="yzmpic"  src="" title="点击更换" class="yzmimg" /></span>
 			</div>
 			<div>
-				<span><img id="button" src="images/images/button.gif" /></span>
+				<div id="button"></div>
 			</div>
 		
 		</form>

@@ -53,9 +53,6 @@
 	height:22px;
 }
 
-.login_form div span img{
-	margin-left:52px;
-}
 
 .login_form div span span{
 	background-image: url(../images/tipicon.png);
@@ -83,4 +80,16 @@
 
 input,img {
 	vertical-align: middle;
+}
+
+#button{
+	margin-left:52px;
+	width:110px;
+	height:28px;
+	background-image: url(../images/images/button.gif);
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+#button:hover{
+	background-image: url(../images/images/button_onmouse.gif);
 }
