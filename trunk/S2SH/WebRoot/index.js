@@ -66,32 +66,29 @@ function Login() {
 			return true;
 		} else {
 			var node = D.create("span");
+			node.attr("id","yzmerror");
 			node.addClass("errormsg");
 			node.innerHTML ="验证码错误";
 			node.appendTo($("#yzmpic"));
 			return false;
 		}
 	}
-	// 更换背景图片
-	this.swapImage = function(url) {
-		document.getElementById("button").setAttribute("src", url);
-	}
 	// 去除提示信息
 	this.onnamefocus = function() {
-		if (document.getElementById("nouser")) {
-			MZA.removeElement(document.getElementById("nouser"));
+		if ($("#nouser")) {
+			$("#nouser").remove();
 		}
 	}
 	// 去除提示信息
 	this.onpassfocus = function() {
-		if (document.getElementById("passerror")) {
-			MZA.removeElement(document.getElementById("passerror"));
+		if ($("#passerror")) {
+			$("#passerror").remove();
 		}
 	}
 	// 去除提示信息
 	this.onyzmfocus = function() {
-		if (document.getElementById("yzmerror")) {
-			MZA.removeElement(document.getElementById("yzmerror"));
+		if ($("#yzmerror")) {
+			$("#yzmerror").remove();
 		}
 	}
 	// 按Enter键登陆
@@ -108,9 +105,9 @@ function Login() {
 			sync : false,// 同步非异步
 			url : "login_geneImg?test=" + test
 		}
-		var object = MZA.ajax.ajax(data);
+		var object = A.ajax(data);
 		this.yzmcode = object.yzm;
-		document.getElementById('yzmpic').setAttribute('src',
+		$('#yzmpic').attr('src',
 				'/S2SH/temp/yzm/' + object.yzmjpgName + '.jpg');
 	}
 	// 初始化方法
@@ -121,15 +118,11 @@ function Login() {
 		var input_password = $("#password");
 		var input_yzm = $("#yzm");
 		var img_yzm = $("#yzmpic");
-		E.addHandler(btn_submit, "mouseover", login.swapImage.bind(login,
-						"images/images/button_onmouse.gif"));
-		E.addHandler(btn_submit, "mouseout", login.swapImage.bind(login,
-						"images/images/button.gif"));
 		E.addHandler(btn_submit, "click", login.submit.bind(login));
 		E.addHandler(input_username, "focus", login.onnamefocus);
 		E.addHandler(input_password, "focus", login.onpassfocus);
 		E.addHandler(input_yzm, "focus", login.onyzmfocus);
-		E.addHandler(input_yzm, "keydown", login.enterToSubmit.bind);
+		E.addHandler(input_yzm, "keydown", login.enterToSubmit);
 		E.addHandler(img_yzm, "click", login.inityzm);
 	}
 

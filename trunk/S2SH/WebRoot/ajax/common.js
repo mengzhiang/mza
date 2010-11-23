@@ -2253,7 +2253,7 @@ function isNumber(object) {
 		 * 添加样式
 		 */
 		addClass : function(className) {
-			if (this.hasClassName(this, className))
+			if (this.hasClassName(className))
 				return this;
 			this.className += ' ' + className;
 			return this;
@@ -2267,6 +2267,27 @@ function isNumber(object) {
 			} else if (isString(className)) {
 				if (this.hasClassName(className)) {
 					this.className = this.className.replace(className, "");
+				}
+			}
+			return this;
+		},
+		/**
+		 * 来回开关一个元素的某个样式
+		 */
+		toggleClass : function(className, className2) {
+			if (isUndefined(className2)) {
+				if (this.hasClassName(className)) {
+					this.delClass(className);
+				} else {
+					this.addClass(className);
+				}
+			} else {
+				if (this.hasClassName(className)) {
+					this.delClass(className);
+					this.addClass(className2);
+				} else {
+					this.addClass(className);
+					this.delClass(className2);
 				}
 			}
 			return this;
@@ -2293,6 +2314,13 @@ function isNumber(object) {
 			return this;
 		},
 		/**
+		 * 删除该元素
+		 */
+		remove : function() {
+			this.parentNode.removeChild(this);
+			return this;
+		},
+		/**
 		 * 添加属性或查看属性
 		 */
 		attr : function() {
@@ -2304,7 +2332,9 @@ function isNumber(object) {
 				var key = arguments[0];
 				this.getAttribute(key);
 			}
+			return this;
 		}
+
 	};
 	MZA.ELEMENT = MZA.Element = This = MZA.element;
 

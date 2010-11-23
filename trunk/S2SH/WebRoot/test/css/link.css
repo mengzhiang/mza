@@ -1,0 +1,21 @@
+a{
+	display:block;
+	width:5em;
+	height:2em;
+	font-weight:bold;
+	line-height:2em; /*可以使文本垂直居中*/
+	text-align:center;
+	text-decoration:none;
+	border:1px solid #66a300;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#abe142),to(#67a400));
+	background-color:#8cca12;
+	color:#fff;
+	border-radius:6px;/*CSS3下圆角效果*/
+	-moz-border-radius :6px;/*ff下圆角效果*/
+	-webkit-border-radius :6px;/*webkit下圆角效果*/
+	text-shadow:2px 2px 2px #66a300;/*CSS3字体阴影，水平偏移，垂直偏移，模糊半径 背景颜色*/
+	-moz-box-shadow:11px 11px 11px #ccc;
+	-webkit-box-shadow:11px 11px 11px #ccc;
+	box-shadow:11px 11px 11px #ccc;
+	-webkit-box-reflect:below 2px -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(0.52,transparent),to(white));
+}

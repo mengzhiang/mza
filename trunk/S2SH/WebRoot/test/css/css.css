@@ -1,0 +1,46 @@
+
+/*
+如果需要把链接访问过的和没有访问过的样式都一样，就把link和visited样式设置成一样即可。
+*/
+/*没有访问过的样式*/
+a:link {
+	color: blue;
+	text-decoration :none;/*去掉下划线*/
+	font-weight:bold;
+	border-bottom :1px dotted #000;
+}
+/*当访问之后的样式*/
+a:visited{
+	color:black;
+}
+/*当鼠标悬停时的样式*/
+a:hover{
+	color:red;
+	text-decoration :none;/*去掉下划线*/
+	font-weight:bold;
+	border-bottom-style:solid;
+	background-color:#f7a300;
+}
+/*当通过键盘访问链接时*/
+a:focus{
+	color:white;
+}
+/*当鼠标点击时的样式*/
+a:active{
+	color:yellow;
+}
+/*CSS3属性选择器。
+以什么开头 ^=
+以什么结尾 $=
+*/
+a[href^="http:"]{
+	background-color:yellow;
+}
+a[href$=".doc"]{
+	background-color:red;
+}
+a{
+	display:block;
+	width:20em;
+	height:2em;
+}

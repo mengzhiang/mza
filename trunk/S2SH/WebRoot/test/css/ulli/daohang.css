@@ -1,0 +1,58 @@
+ul.nav{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width:78em;
+	overflow:hidden;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#abe142),to(#67a400));
+	background-color:#8cca12;
+	font-weight:bold;
+}
+ul.nav li{
+	float:left;
+}
+
+ul.nav a{
+	display:block;
+	text-decoration:none;
+	padding:0 3em;
+	line-height:2.1em;
+	color:#fff;
+	border-left:1px solid #fff;
+}
+/*伪类设置第一个没有边框*/
+ul.nav li:first-child a{
+	border:0;
+}
+ul.nav a:hover,
+ul.nav a:focus{
+	color:#333;
+}
+ul.nav li ul{
+	position:static;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	position:absolute;/*将对象从文档流中拖出，使用left，right，top，bottom等属性进行绝对定位。而其层叠通过z-index属性定义*/
+	display:none;
+	background-color:#8cca12;
+}
+ul.nav li ul li{
+	float:none;
+	border:1px solid #67a400;
+	padding:0em;
+	width:8.1em;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#abe142),to(#67a400));
+}
+
+ul.nav li ul li a{
+	color:#fff;
+	padding:0 1em;
+	border:0;
+}
+ul.nav li ul li a:hover{
+	color:#333;
+}
+ul.nav li:hover ul{
+	display:block;
+}
