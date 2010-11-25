@@ -170,6 +170,7 @@ function isNumber(object) {
 		}
 	}
 
+	MZA.AJAX = MZA.Ajax = MZA.ajax;
 	// 绑定初始化事件
 	MZA.addOnload = function(func) {
 		var oldonload = window.onload;
@@ -274,117 +275,7 @@ function isNumber(object) {
 		arrayPageScroll = new Array(xScroll, yScroll)
 		return arrayPageScroll;
 	}
-	MZA.dialog = {};
-	// 显示模态窗口
-	MZA.dialog.openDialog = function(data) {
-		// 1:设置一个div宽度，高度和窗口一样
-		// 2：点击时显示出来，但是要在原来的窗口上面，不能挤下去，所以要设置position:absoulte
-		// 3: 但是要显示那一层在上面所以要设置z-index越大越在上
-		// 4:但是还要看到下面一层的东西所以要设置半透明
-		var popwidth = 300;
-		var popheight = 200;
-		var title = "弹出页面";
-		if (data.title) {
-			title = data.title;
-		}
-		var url = "";
-		if (data.url) {
-			url = data.url;
-		}
-		var arrWinSize = MZA.getWindowSize();
-		var pageWidth = arrWinSize[0];
-		var pageHeight = arrWinSize[1];
-		var winWidth = arrWinSize[2];
-		var winHeight = arrWinSize[3];
-		var bodyBack = document.createElement("div");
-		bodyBack.setAttribute("id", "bodybg");
-		bodyBack.style.position = "absolute";
-		bodyBack.style.width = pageWidth;
-		bodyBack.style.height = pageHeight;
-		bodyBack.style.top = 0;
-		bodyBack.style.left = 0;
-		bodyBack.style.zIndex = 98;// 不用写成z-index
-		bodyBack.style.filter = "alpha(opacity=50)";// IE的透明
-		bodyBack.style.opacity = 0.5;// css标准透明
-		bodyBack.style.background = "#ddf";// 颜色不错,也不用写成background-color
-		var bodyNode = document.getElementsByTagName("body");
-		bodyNode[0].appendChild(bodyBack);
-		var popObj = document.createElement("div");
-		popObj.setAttribute("id", "bodypop");
-		popObj.style.position = "absolute";
-		popObj.style.zIndex = 99;
-		popwidth = data.width;
-		popheight = data.height;
-		popObj.style.width = popwidth + "px";
-		popObj.style.height = popheight + "px";
-		var top = "0px";
-		if (winHeight - popheight > 0) {
-			top = (winHeight - popheight) / 2 + "px";
-		} else {
-			top = (popheight - winHeight) / 2 + "px";
-		}
-		var left = "0px";
-		if (winWidth - popwidth > 0) {
-			left = (winWidth - popwidth) / 2 + "px";
-		} else {
-			left = (popwidth - winWidth) / 2 + "px";
-		}
-		popObj.style.top = top;
-		popObj.style.left = left;
-		// 创建弹出页面
-		var contentNode = document.createElement("div");
-		contentNode.setAttribute("id", "contain");
-		contentNode.style.width = popwidth + "px";
-		contentNode.setAttribute("class", "contain");
-		var titleNode = document.createElement("div");
-		titleNode.setAttribute("class", "dlgtitle");
-		titleNode.setAttribute("id", "dlgtitle");
-		titleNode.setAttribute("onMousedown", "MZA.startDrag(event,this)");
-		titleNode.setAttribute("onMouseup", "MZA.stopDrag(this)");
-		titleNode.setAttribute("onMousemove", "MZA.Drag(event,this)");
-		titleNode.style.width = popwidth + "px";
-		var tlNode = document.createElement("div");
-		tlNode.setAttribute("id", "dlgtl");
-		var trNode = document.createElement("div");
-		trNode.setAttribute("id", "dlgtr");
-		var tnameNode = document.createElement("div");
-		tnameNode.setAttribute("id", "dlgtname");
-		tnameNode.style.width = popwidth - 10 + "px";
-		var tnameSpanNode = document.createElement("span");
-		tnameSpanNode.setAttribute("id", "tnamespan")
-		tnameSpanNode.innerHTML = title;
-		tnameNode.appendChild(tnameSpanNode);
-		var tbutNode = document.createElement("div");
-		tbutNode.setAttribute("id", "dlgtbut");
-		tbutNode.setAttribute("onMouseover",
-				"this.style.backgroundPosition = '0 -19px';");
-		tbutNode.setAttribute("onMouseout",
-				"this.style.backgroundPosition = '0 0px';");
-		tbutNode.setAttribute("onClick", "MZA.closeDialog();");
-		titleNode.appendChild(tlNode);
-		titleNode.appendChild(tnameNode);
-		titleNode.appendChild(trNode);
-		titleNode.appendChild(tbutNode);
-		var innerNode = document.createElement("div");
-		innerNode.setAttribute("class", "dlginner");
-		innerNode.setAttribute("id", "dlginner");
-		var iframeNode = document.createElement("iframe");
-		iframeNode.setAttribute("src", url);
-		iframeNode.setAttribute("frameborder", "0");
-		innerNode.appendChild(iframeNode);
-		innerNode.style.height = popheight - 31 + "px";
-		contentNode.appendChild(titleNode);
-		contentNode.appendChild(innerNode);
-		popObj.appendChild(contentNode);
-		bodyNode[0].appendChild(popObj);
-	}
-	/**
-	 * 关闭模态窗口
-	 */
-	MZA.dialog.closeDialog = function() {
-		this.removeElement(document.getElementById("bodypop"));
-		this.removeElement(document.getElementById("bodybg"));
-	}
+
 	MZA.DOM = MZA.Dom = MZA.dom = {};
 
 	/**
@@ -479,190 +370,6 @@ function isNumber(object) {
 	}
 	var isIE = document.all ? true : false;// 如果是IE是true否则是false
 
-	MZA.grid = {};
-	/**
-	 * 定义分页常量
-	 */
-	MZA.grid.START = 0;
-	MZA.grid.LIMIT = 10;
-	MZA.grid.TOTAL = 0;
-	MZA.grid.PAGECOUNT = 0;
-	MZA.grid.PAGENO = 1;
-	MZA.grid.setStart = function(start) {
-		MZA.START = start;
-	}
-	MZA.grid.setLimit = function(limit) {
-		MZA.LIMIT = limit;
-	}
-	MZA.grid.setTotal = function(total) {
-		MZA.TOTAL = total;
-	}
-	/**
-	 * 1:前台MVC分离， Model是指json串即数据 view是指HTML和css分离显示 Control是指javascript 控制动作
-	 * 动态生成的table样式是不能通过外部引用来改变的
-	 * 
-	 * @type
-	 */
-	MZA.grid.showGrid = function(store, colModel) {
-		var tablediv = document.createElement("div");
-		tablediv.setAttribute("id", "tablediv");
-		var table = document.createElement("table");
-		table.setAttribute("class", "table");
-		var tbody = document.createElement("tbody");
-		// 生成表头
-		var modellength = colModel.length;
-		var tr = document.createElement("tr");
-		tr.setAttribute("class", "tr");
-		for (var i = 0; i < modellength; i++) {
-			var td = document.createElement("th");
-			td.setAttribute("class", "th");
-			td.innerHTML = colModel[i].header;
-			tr.appendChild(td);
-		}
-		tbody.appendChild(tr);
-		// 生成表里的数据
-		var storelength = store.length;
-		for (var i = 0; i < storelength; i++) {
-			var tr = document.createElement("tr");
-			tr.setAttribute("class", "tr");
-			for (var j = 0; j < modellength; j++) {
-				var td = document.createElement("td");
-				td.setAttribute("class", "td");
-				var data = store[i];
-				var colId = colModel[j].dataIndex;
-				var colformat = colModel[j].format;
-				if (typeof(colformat) == "function") {
-					td.innerHTML = colformat(data[colId]);
-				} else if (colId != null) {
-					td.innerHTML = data[colId];
-				}
-				tr.appendChild(td);
-			}
-			tbody.appendChild(tr);
-		}
-		table.appendChild(tbody);
-		tablediv.appendChild(table);
-
-		var pagediv = document.createElement("div");
-		pagediv.setAttribute("id", "pagebar");
-		pagediv.setAttribute("class", "pagebar");
-		// var pagestr =
-		// "<div>"+
-		// "<span>第<span id='curPageIndex'>"+MZA.PAGENO+"</span>页</span>&nbsp;"+
-		// "<span>共<span id='rowCount'>"+MZA.TOTAL+"</span>条</span>&nbsp;"+
-		// "<span>共<span id='pageCount'>"+MZA.PAGECOUNT+"</span>页</span>&nbsp;"+
-		// "<a href='#' id='first' onClick='MZA.first();'>首页</a>&nbsp;"+
-		// "<a href='#' id='pre' onClick='MZA.pre();'>上一页</a>&nbsp;"+
-		// "<a href='#' id='next' onClick='MZA.next();'>下一页</a>&nbsp;"+
-		// "<a href='#' id='last' onClick='MZA.last();'>尾页</a>&nbsp;"+
-		// "</div>";
-		var pagestr = "<div id='pages'>"
-				+ "<a href='#' id='pre' onClick='MZA.pre();' class='page'>&lt;</a>&nbsp;";
-
-		for (var i = 1; i <= MZA.PAGECOUNT; i++) {
-			pagestr += "<a href='#' id='page" + i + "' onClick='MZA.goPage("
-					+ (i) + ")'>" + i + "</a>&nbsp;"
-		}
-		pagestr += "<a href='#' id='next' onClick='MZA.next();'>&gt;</a>&nbsp;</div>";
-		pagediv.innerHTML = pagestr;
-		tablediv.appendChild(pagediv);
-		document.getElementById("grid").appendChild(tablediv);
-		this.addBlur();
-		this.checkPage();
-	}
-	// 增加鼠标悬停变色
-	MZA.grid.addBlur = function() {
-		var rows = document.getElementsByTagName('tr');
-		for (var i = 0; i < rows.length; i++) {
-			if (rows[i].className == "tr") {
-				rows[i].onmouseover = function() { // 鼠标在行上面的时候
-					this.className = 'altrow';
-				}
-				rows[i].onmouseout = function() { // 鼠标离开时
-					this.className = this.className.replace('altrow', '');
-				}
-			}
-		}
-	}
-	/**
-	 * 设置分页方法
-	 */
-	MZA.grid.queryData = function() {
-	};
-	MZA.grid.setPageMethod = function(method) {
-		MZA.queryData = method;
-	}
-	/**
-	 * 下一页
-	 */
-	MZA.grid.next = function() {
-		MZA.removeElement(document.getElementById("tablediv"));
-		MZA.PAGENO += 1;
-		this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
-	}
-	/**
-	 * 上一页
-	 */
-	MZA.grid.pre = function() {
-		MZA.removeElement(document.getElementById("tablediv"));
-		MZA.PAGENO -= 1;
-		this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
-	}
-	/**
-	 * 首页
-	 */
-	MZA.grid.first = function() {
-		MZA.removeElement(document.getElementById("tablediv"));
-		this.queryData(0, MZA.LIMIT);
-		MZA.PAGENO = 1;
-		document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
-	}
-	/**
-	 * 尾页
-	 */
-	MZA.grid.last = function() {
-		MZA.removeElement(document.getElementById("tablediv"));
-		this.queryData((MZA.PAGECOUNT - 1) * MZA.LIMIT, MZA.LIMIT);
-		MZA.PAGENO = MZA.PAGECOUNT;
-		document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
-	}
-	/**
-	 * 更改页码样式
-	 */
-	MZA.grid.checkPage = function() {
-		for (var j = 1; j <= MZA.PAGENO; j++) {
-			if (MZA.PAGENO == j) {
-				var sp = document.createElement("span");
-				sp.setAttribute("id", "page" + j);
-				sp.innerHTML = j;
-				var oldnode = document.getElementById("page" + j);
-				oldnode.parentNode.replaceChild(sp, oldnode);
-			}
-			if (MZA.PAGENO == 1) {
-				var sp = document.createElement("span");
-				sp.setAttribute("id", "pre");
-				sp.innerHTML = "&lt;";
-				var oldnode = document.getElementById("pre");
-				oldnode.parentNode.replaceChild(sp, oldnode);
-			}
-			if (MZA.PAGENO == MZA.PAGECOUNT) {
-				var sp = document.createElement("span");
-				sp.setAttribute("id", "next");
-				sp.innerHTML = "&gt;";
-				var oldnode = document.getElementById("next");
-				oldnode.parentNode.replaceChild(sp, oldnode);
-			}
-		}
-	}
-	/**
-	 * 定位到那一页
-	 */
-	MZA.grid.goPage = function(pageindex) {
-		MZA.removeElement(document.getElementById("tablediv"));
-		MZA.PAGENO = pageindex;
-		this.queryData((pageindex - 1) * MZA.LIMIT, MZA.LIMIT);
-		this.checkPage();
-	}
 	MZA.form = {};
 	MZA.form.getSelectedOptions = function(selectbox) {
 		var result = new Array();
@@ -2333,11 +2040,49 @@ function isNumber(object) {
 				this.getAttribute(key);
 			}
 			return this;
+		},
+		/**
+		 * 添加事件
+		 */
+		bind : function(type, handler) {
+			if (this.addEventListener) {
+				this.addEventListener(type, handler, false);
+			} else if (element.attachEvent) {
+				this.attachEvent("on" + type, handler);
+			} else {
+				this["on" + type] = handler;
+			}
+		},
+		/**
+		 * 去除事件
+		 */
+		unbind : function(type, handler) {
+			if (element.removeEventListener) {
+				element.removeEventListener(type, handler, false);
+			} else if (element.detachEvent) {
+				element.detachEvent("on" + type, handler);
+			} else {
+				element["on" + type] = handler;
+			}
+		},
+		/**
+		 * 隐藏
+		 */
+		hide : function() {
+			this.style.display = "none";
+		},
+		/**
+		 * 显示元素
+		 */
+		show : function() {
+			this.style.display = "block";
 		}
-
 	};
 	MZA.ELEMENT = MZA.Element = This = MZA.element;
 
+	/**
+	 * 返回dom元素前包装
+	 */
 	$ = function(value) {
 		var element;
 		if (value == null) {
@@ -2356,5 +2101,473 @@ function isNumber(object) {
 			element = MZA.extend(value, MZA.element);
 		}
 		return element;
+	}
+
+	MZA.grid = function(object) {
+		// columnModel
+		var cm = null;
+		// 数据
+		var store = null;
+		// 添加到那个元素中
+		var renderTo = null;
+		// 初始化。
+		cm = object.cm;
+		store = object.store;
+		renderTo = object.renderTo;
+		var target = $("#" + renderTo);
+		(function() {
+			var D = MZA.dom;
+			var grid = D.create("div");
+			grid.attr("class", "mzaGrid");
+			var table = D.create("table");
+			var thead = D.create("thead");
+			// 生成表头
+			var clen = cm.length;
+			var thtr = D.create("tr");
+			for (var i = 0; i < clen; i++) {
+				var th = document.createElement("th");
+				th.innerHTML = cm[i].header;
+				thtr.appendChild(th);
+			}
+			table.appendChild(thtr);
+			var tbody = D.create("tbody");
+			var slen = store.length;
+			for (var i = 0; i < slen; i++) {
+				var tr = D.create("tr");
+				for (var j = 0; j < clen; j++) {
+					var td = D.create("td");
+					var data = store[i];
+					var colId = cm[j].dataIndex;
+					var colformat = cm[j].format;
+					if (typeof(colformat) == "function") {
+						td.innerHTML = colformat(data[colId]);
+					} else if (colId != null) {
+						td.innerHTML = data[colId];
+					}
+					tr.appendChild(td);
+				}
+				tbody.appendChild(tr);
+			}
+			table.appendChild(tbody);
+			grid.appendChild(table);
+			target.appendChild(grid);
+		})();
+
+		return {
+			show : function() {
+
+			},
+			hide : function() {
+				target.hide();
+			}
+		}
+	}
+
+	// MZA.grid = {};
+	// /**
+	// * 定义分页常量
+	// */
+	// MZA.grid.START = 0;
+	// MZA.grid.LIMIT = 10;
+	// MZA.grid.LIMIT = 10;
+	// MZA.grid.PAGECOUNT = 0;
+	// MZA.grid.PAGENO = 1;
+	// MZA.grid.setStart = function(start) {
+	// MZA.START = start;
+	// }
+	// MZA.grid.setLimit = function(limit) {
+	// MZA.LIMIT = limit;
+	// }
+	// MZA.grid.setTotal = function(total) {
+	// MZA.TOTAL = total;
+	// }
+	// /**
+	// * 1:前台MVC分离， Model是指json串即数据 view是指HTML和css分离显示 Control是指javascript 控制动作
+	// * 动态生成的table样式是不能通过外部引用来改变的
+	// *
+	// * @type
+	// */
+	// MZA.grid.showGrid = function(store, colModel) {
+	// var tablediv = document.createElement("div");
+	// tablediv.setAttribute("id", "tablediv");
+	// var table = document.createElement("table");
+	// table.setAttribute("class", "table");
+	// var tbody = document.createElement("tbody");
+	// // 生成表头
+	// var modellength = colModel.length;
+	// var tr = document.createElement("tr");
+	// tr.setAttribute("class", "tr");
+	// for (var i = 0; i < modellength; i++) {
+	// var td = document.createElement("th");
+	// td.setAttribute("class", "th");
+	// td.innerHTML = colModel[i].header;
+	// tr.appendChild(td);
+	// }
+	// tbody.appendChild(tr);
+	// // 生成表里的数据
+	// var storelength = store.length;
+	// for (var i = 0; i < storelength; i++) {
+	// var tr = document.createElement("tr");
+	// tr.setAttribute("class", "tr");
+	// for (var j = 0; j < modellength; j++) {
+	// var td = document.createElement("td");
+	// td.setAttribute("class", "td");
+	// var data = store[i];
+	// var colId = colModel[j].dataIndex;
+	// var colformat = colModel[j].format;
+	// if (typeof(colformat) == "function") {
+	// td.innerHTML = colformat(data[colId]);
+	// } else if (colId != null) {
+	// td.innerHTML = data[colId];
+	// }
+	// tr.appendChild(td);
+	// }
+	// tbody.appendChild(tr);
+	// }
+	// table.appendChild(tbody);
+	// tablediv.appendChild(table);
+	//
+	// var pagediv = document.createElement("div");
+	// pagediv.setAttribute("id", "pagebar");
+	// pagediv.setAttribute("class", "pagebar");
+	// // var pagestr =
+	// // "<div>"+
+	// // "<span>第<span id='curPageIndex'>"+MZA.PAGENO+"</span>页</span>&nbsp;"+
+	// // "<span>共<span id='rowCount'>"+MZA.TOTAL+"</span>条</span>&nbsp;"+
+	// // "<span>共<span id='pageCount'>"+MZA.PAGECOUNT+"</span>页</span>&nbsp;"+
+	// // "<a href='#' id='first' onClick='MZA.first();'>首页</a>&nbsp;"+
+	// // "<a href='#' id='pre' onClick='MZA.pre();'>上一页</a>&nbsp;"+
+	// // "<a href='#' id='next' onClick='MZA.next();'>下一页</a>&nbsp;"+
+	// // "<a href='#' id='last' onClick='MZA.last();'>尾页</a>&nbsp;"+
+	// // "</div>";
+	// var pagestr = "<div id='pages'>"
+	// + "<a href='#' id='pre' onClick='MZA.pre();'
+	// class='page'>&lt;</a>&nbsp;";
+	//
+	// for (var i = 1; i <= MZA.PAGECOUNT; i++) {
+	// pagestr += "<a href='#' id='page" + i + "' onClick='MZA.goPage("
+	// + (i) + ")'>" + i + "</a>&nbsp;"
+	// }
+	// pagestr += "<a href='#' id='next'
+	// onClick='MZA.next();'>&gt;</a>&nbsp;</div>";
+	// pagediv.innerHTML = pagestr;
+	// tablediv.appendChild(pagediv);
+	// document.getElementById("grid").appendChild(tablediv);
+	// this.addBlur();
+	// this.checkPage();
+	// }
+	// // 增加鼠标悬停变色
+	// MZA.grid.addBlur = function() {
+	// var rows = document.getElementsByTagName('tr');
+	// for (var i = 0; i < rows.length; i++) {
+	// if (rows[i].className == "tr") {
+	// rows[i].onmouseover = function() { // 鼠标在行上面的时候
+	// this.className = 'altrow';
+	// }
+	// rows[i].onmouseout = function() { // 鼠标离开时
+	// this.className = this.className.replace('altrow', '');
+	// }
+	// }
+	// }
+	// }
+	// /**
+	// * 设置分页方法
+	// */
+	// MZA.grid.queryData = function() {
+	// };
+	// MZA.grid.setPageMethod = function(method) {
+	// MZA.grid.queryData = method;
+	// }
+	// /**
+	// * 下一页
+	// */
+	// MZA.grid.next = function() {
+	// MZA.removeElement(document.getElementById("tablediv"));
+	// MZA.PAGENO += 1;
+	// this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
+	// }
+	// /**
+	// * 上一页
+	// */
+	// MZA.grid.pre = function() {
+	// MZA.removeElement(document.getElementById("tablediv"));
+	// MZA.PAGENO -= 1;
+	// this.queryData((MZA.PAGENO - 1) * MZA.LIMIT, MZA.LIMIT);
+	// }
+	// /**
+	// * 首页
+	// */
+	// MZA.grid.first = function() {
+	// MZA.removeElement(document.getElementById("tablediv"));
+	// this.queryData(0, MZA.LIMIT);
+	// MZA.PAGENO = 1;
+	// document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	// }
+	// /**
+	// * 尾页
+	// */
+	// MZA.grid.last = function() {
+	// MZA.removeElement(document.getElementById("tablediv"));
+	// this.queryData((MZA.PAGECOUNT - 1) * MZA.LIMIT, MZA.LIMIT);
+	// MZA.PAGENO = MZA.PAGECOUNT;
+	// document.getElementById("curPageIndex").innerHTML = MZA.PAGENO;
+	// }
+	// /**
+	// * 更改页码样式
+	// */
+	// MZA.grid.checkPage = function() {
+	// for (var j = 1; j <= MZA.PAGENO; j++) {
+	// if (MZA.PAGENO == j) {
+	// var sp = document.createElement("span");
+	// sp.setAttribute("id", "page" + j);
+	// sp.innerHTML = j;
+	// var oldnode = document.getElementById("page" + j);
+	// oldnode.parentNode.replaceChild(sp, oldnode);
+	// }
+	// if (MZA.PAGENO == 1) {
+	// var sp = document.createElement("span");
+	// sp.setAttribute("id", "pre");
+	// sp.innerHTML = "&lt;";
+	// var oldnode = document.getElementById("pre");
+	// oldnode.parentNode.replaceChild(sp, oldnode);
+	// }
+	// if (MZA.PAGENO == MZA.PAGECOUNT) {
+	// var sp = document.createElement("span");
+	// sp.setAttribute("id", "next");
+	// sp.innerHTML = "&gt;";
+	// var oldnode = document.getElementById("next");
+	// oldnode.parentNode.replaceChild(sp, oldnode);
+	// }
+	// }
+	// }
+	// /**
+	// * 定位到那一页
+	// */
+	// MZA.grid.goPage = function(pageindex) {
+	// MZA.removeElement(document.getElementById("tablediv"));
+	// MZA.PAGENO = pageindex;
+	// this.queryData((pageindex - 1) * MZA.LIMIT, MZA.LIMIT);
+	// this.checkPage();
+	// }
+	MZA.GRID = MZA.Grid = MZA.grid;
+
+	MZA.window = function(data) {
+		// 初始化
+		var popwidth = 300;
+		var popheight = 200;
+		var title = "弹出页面";
+		if (data.title) {
+			title = data.title;
+		}
+		var url = "";
+		if (data.url) {
+			url = data.url;
+		}
+		var arrWinSize = MZA.bom.getWindowSize();
+		var pageWidth = arrWinSize[0];
+		var pageHeight = arrWinSize[1];
+		var winWidth = arrWinSize[2];
+		var winHeight = arrWinSize[3];
+		(function() {
+			var bodyBack = document.createElement("div");
+			bodyBack.setAttribute("id", "bodybg");
+			bodyBack.style.position = "absolute";
+			bodyBack.style.width = pageWidth;
+			bodyBack.style.height = pageHeight;
+			bodyBack.style.bottom = "0px";
+			bodyBack.style.right = "0px";
+			bodyBack.style.top = "0px";
+			bodyBack.style.left = "0px";
+			bodyBack.style.zIndex = 98;// 不用写成z-index
+			bodyBack.style.filter = "alpha(opacity=50)";// IE的透明
+			bodyBack.style.opacity = 0.5;// css标准透明
+			bodyBack.style.background = "#ddf";// 颜色不错,也不用写成background-color
+
+			var popObj = document.createElement("div");
+			popObj.setAttribute("id", "bodypop");
+			popObj.style.position = "absolute";
+			popObj.style.zIndex = 99;
+			popwidth = data.width;
+			popheight = data.height;
+			popObj.style.width = popwidth + "px";
+			popObj.style.height = popheight + "px";
+			var top = "0px";
+			if (winHeight - popheight > 0) {
+				top = (winHeight - popheight) / 2 + "px";
+			} else {
+				top = (popheight - winHeight) / 2 + "px";
+			}
+			var left = "0px";
+			if (winWidth - popwidth > 0) {
+				left = (winWidth - popwidth) / 2 + "px";
+			} else {
+				left = (popwidth - winWidth) / 2 + "px";
+			}
+			popObj.style.top = top;
+			popObj.style.left = left;
+			// 创建弹出页面
+			var contentNode = document.createElement("div");
+			contentNode.setAttribute("id", "contain");
+			contentNode.style.width = popwidth + "px";
+			contentNode.setAttribute("class", "contain");
+			var titleNode = document.createElement("div");
+			titleNode.setAttribute("class", "dlgtitle");
+			titleNode.setAttribute("id", "dlgtitle");
+			// titleNode.setAttribute("onMousedown",
+			// "MZA.startDrag(event,this)");
+			// titleNode.setAttribute("onMouseup", "MZA.stopDrag(this)");
+			// titleNode.setAttribute("onMousemove", "MZA.Drag(event,this)");
+			titleNode.style.width = popwidth + "px";
+			var tlNode = document.createElement("div");
+			tlNode.setAttribute("id", "dlgtl");
+			var trNode = document.createElement("div");
+			trNode.setAttribute("id", "dlgtr");
+			var tnameNode = document.createElement("div");
+			tnameNode.setAttribute("id", "dlgtname");
+			tnameNode.style.width = popwidth - 10 + "px";
+			var tnameSpanNode = document.createElement("span");
+			tnameSpanNode.setAttribute("id", "tnamespan")
+			tnameSpanNode.innerHTML = title;
+			tnameNode.appendChild(tnameSpanNode);
+			var tbutNode = document.createElement("div");
+			tbutNode.setAttribute("id", "dlgtbut");
+			tbutNode.setAttribute("onMouseover",
+					"this.style.backgroundPosition = '0 -19px';");
+			tbutNode.setAttribute("onMouseout",
+					"this.style.backgroundPosition = '0 0px';");
+			tbutNode.setAttribute("onClick", "MZA.closeDialog();");
+			titleNode.appendChild(tlNode);
+			titleNode.appendChild(tnameNode);
+			titleNode.appendChild(trNode);
+			titleNode.appendChild(tbutNode);
+			var innerNode = document.createElement("div");
+			innerNode.setAttribute("class", "dlginner");
+			innerNode.setAttribute("id", "dlginner");
+			var iframeNode = document.createElement("iframe");
+			iframeNode.setAttribute("src", url);
+			iframeNode.setAttribute("frameborder", "0");
+			innerNode.appendChild(iframeNode);
+			innerNode.style.height = popheight - 31 + "px";
+			contentNode.appendChild(titleNode);
+			contentNode.appendChild(innerNode);
+			popObj.appendChild(contentNode);
+			
+			var bodyNode = document.getElementsByTagName("body");
+			bodyNode[0].appendChild(bodyBack);
+			
+			bodyNode[0].appendChild(popObj);
+		})();
+		return {
+			show : function() {
+				
+			}
+		}
+	};
+	MZA.dialog = {};
+	// 显示模态窗口
+	MZA.dialog.openDialog = function(data) {
+		// 1:设置一个div宽度，高度和窗口一样
+		// 2：点击时显示出来，但是要在原来的窗口上面，不能挤下去，所以要设置position:absoulte
+		// 3: 但是要显示那一层在上面所以要设置z-index越大越在上
+		// 4:但是还要看到下面一层的东西所以要设置半透明
+		var popwidth = 300;
+		var popheight = 200;
+		var title = "弹出页面";
+		if (data.title) {
+			title = data.title;
+		}
+		var url = "";
+		if (data.url) {
+			url = data.url;
+		}
+
+		var bodyBack = document.createElement("div");
+		bodyBack.setAttribute("id", "bodybg");
+		bodyBack.style.position = "absolute";
+		bodyBack.style.width = pageWidth;
+		bodyBack.style.height = pageHeight;
+		bodyBack.style.top = 0;
+		bodyBack.style.left = 0;
+		bodyBack.style.zIndex = 98;// 不用写成z-index
+		bodyBack.style.filter = "alpha(opacity=50)";// IE的透明
+		bodyBack.style.opacity = 0.5;// css标准透明
+		bodyBack.style.background = "#ddf";// 颜色不错,也不用写成background-color
+		var bodyNode = document.getElementsByTagName("body");
+		bodyNode[0].appendChild(bodyBack);
+		var popObj = document.createElement("div");
+		popObj.setAttribute("id", "bodypop");
+		popObj.style.position = "absolute";
+		popObj.style.zIndex = 99;
+		popwidth = data.width;
+		popheight = data.height;
+		popObj.style.width = popwidth + "px";
+		popObj.style.height = popheight + "px";
+		var top = "0px";
+		if (winHeight - popheight > 0) {
+			top = (winHeight - popheight) / 2 + "px";
+		} else {
+			top = (popheight - winHeight) / 2 + "px";
+		}
+		var left = "0px";
+		if (winWidth - popwidth > 0) {
+			left = (winWidth - popwidth) / 2 + "px";
+		} else {
+			left = (popwidth - winWidth) / 2 + "px";
+		}
+		popObj.style.top = top;
+		popObj.style.left = left;
+		// 创建弹出页面
+		var contentNode = document.createElement("div");
+		contentNode.setAttribute("id", "contain");
+		contentNode.style.width = popwidth + "px";
+		contentNode.setAttribute("class", "contain");
+		var titleNode = document.createElement("div");
+		titleNode.setAttribute("class", "dlgtitle");
+		titleNode.setAttribute("id", "dlgtitle");
+		titleNode.setAttribute("onMousedown", "MZA.startDrag(event,this)");
+		titleNode.setAttribute("onMouseup", "MZA.stopDrag(this)");
+		titleNode.setAttribute("onMousemove", "MZA.Drag(event,this)");
+		titleNode.style.width = popwidth + "px";
+		var tlNode = document.createElement("div");
+		tlNode.setAttribute("id", "dlgtl");
+		var trNode = document.createElement("div");
+		trNode.setAttribute("id", "dlgtr");
+		var tnameNode = document.createElement("div");
+		tnameNode.setAttribute("id", "dlgtname");
+		tnameNode.style.width = popwidth - 10 + "px";
+		var tnameSpanNode = document.createElement("span");
+		tnameSpanNode.setAttribute("id", "tnamespan")
+		tnameSpanNode.innerHTML = title;
+		tnameNode.appendChild(tnameSpanNode);
+		var tbutNode = document.createElement("div");
+		tbutNode.setAttribute("id", "dlgtbut");
+		tbutNode.setAttribute("onMouseover",
+				"this.style.backgroundPosition = '0 -19px';");
+		tbutNode.setAttribute("onMouseout",
+				"this.style.backgroundPosition = '0 0px';");
+		tbutNode.setAttribute("onClick", "MZA.closeDialog();");
+		titleNode.appendChild(tlNode);
+		titleNode.appendChild(tnameNode);
+		titleNode.appendChild(trNode);
+		titleNode.appendChild(tbutNode);
+		var innerNode = document.createElement("div");
+		innerNode.setAttribute("class", "dlginner");
+		innerNode.setAttribute("id", "dlginner");
+		var iframeNode = document.createElement("iframe");
+		iframeNode.setAttribute("src", url);
+		iframeNode.setAttribute("frameborder", "0");
+		innerNode.appendChild(iframeNode);
+		innerNode.style.height = popheight - 31 + "px";
+		contentNode.appendChild(titleNode);
+		contentNode.appendChild(innerNode);
+		popObj.appendChild(contentNode);
+		bodyNode[0].appendChild(popObj);
+	}
+	/**
+	 * 关闭模态窗口
+	 */
+	MZA.dialog.closeDialog = function() {
+		this.removeElement(document.getElementById("bodypop"));
+		this.removeElement(document.getElementById("bodybg"));
 	}
 })(window);

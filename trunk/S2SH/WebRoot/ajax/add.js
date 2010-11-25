@@ -28,4 +28,4 @@ function closeDialog(){
 	parent.MZA.closeDialog();
 }
 var userAdd = new UserAdd();
-MZA.addOnLoad(userAdd.init);
+//MZA.addOnLoad(userAdd.init);
