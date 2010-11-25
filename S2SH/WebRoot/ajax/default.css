@@ -3,7 +3,7 @@ html, body
 	background-color: transparent;/*表示透明无颜色 */
 	margin: 0;
 	padding: 0;
-	font: 11px Verdana, Arial, sans-serif;
+	font: 1em Verdana, Arial, sans-serif;
 }
 
 body
@@ -18,17 +18,17 @@ body
 	background-color: transparent;
 }
 
-.table{
+.mzaGrid table{
 	border:1px solid;
 	border-collapse:collapse;
 }
-.tr{
+.mzaGrid tr{
 	
 }
-.td{
+.mzaGrid td{
 	border:1px solid #429fff;
 }
-.th{
+.mzaGrid th{
 	border:1px solid #429fff;
 	background-color:#f0f7ff;
 }
@@ -71,7 +71,7 @@ body
 {
 	
 	left: 0;
-	background-position: 0 -60;
+	background-position: 0 -60px;
 }
 #dlgtname
 {
@@ -79,7 +79,7 @@ body
 	left:5px;
 	right:5px;
 	background-repeat: repeat-x;
-	background-position: 0 -30;
+	background-position: 0 -30px;
 }
 #dlgtname span
 {
