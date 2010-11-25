@@ -2,9 +2,8 @@ function Login() {
 	var E = MZA.event;
 	var D = MZA.dom;
 	var A = MZA.ajax;
-	this.yzmcode = "";
+
 	this.submit = function() {
-		
 		//验证表单。
 		//表单序列化
 		if ((!this.checkInput()) || (!this.checkYzm())) {
@@ -62,7 +61,7 @@ function Login() {
 	// 判断验证码输入
 	this.checkYzm = function() {
 		var yzmvalue = $("#yzm").value;
-		if (this.yzmcode == yzmvalue) {
+		if (yzmcode == yzmvalue) {
 			return true;
 		} else {
 			var node = D.create("span");
@@ -106,26 +105,20 @@ function Login() {
 			url : "login_geneImg?test=" + test
 		}
 		var object = A.ajax(data);
-		this.yzmcode = object.yzm;
+		yzmcode = object.yzm;
 		$('#yzmpic').attr('src',
 				'/S2SH/temp/yzm/' + object.yzmjpgName + '.jpg');
 	}
 	// 初始化方法
 	this.init = function() {
 		login.inityzm();
-		var btn_submit = $("#button");
-		var input_username = $("#username");
-		var input_password = $("#password");
-		var input_yzm = $("#yzm");
-		var img_yzm = $("#yzmpic");
-		E.addHandler(btn_submit, "click", login.submit.bind(login));
-		E.addHandler(input_username, "focus", login.onnamefocus);
-		E.addHandler(input_password, "focus", login.onpassfocus);
-		E.addHandler(input_yzm, "focus", login.onyzmfocus);
-		E.addHandler(input_yzm, "keydown", login.enterToSubmit);
-		E.addHandler(img_yzm, "click", login.inityzm);
+		$("#button").bind("click", login.submit.bind(login));
+		$("#username").bind("focus", login.onnamefocus);
+		$("#password").bind("focus", login.onpassfocus);
+		$("#yzm").bind("focus", login.onyzmfocus);
+		$("#yzm").bind("keydown", login.enterToSubmit);
+		$("#yzmpic").bind("click", login.inityzm);
 	}
-
 }
 var login = new Login();
 MZA.ready(login.init);
