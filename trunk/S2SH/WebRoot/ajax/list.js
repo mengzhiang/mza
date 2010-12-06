@@ -78,7 +78,7 @@ function UserList() {
 	// }
 	//
 	this.init = function() {
-		 document.getElementById("add").setAttribute("onClick","userList.add()");
+		 $("#add").bind("click",userList.add);
 		// G.setPageMethod(userList.queryData);
 	}
 	// 修改

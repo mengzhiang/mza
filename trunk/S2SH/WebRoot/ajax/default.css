@@ -1,47 +1,66 @@
-html, body
-{
-	background-color: transparent;/*表示透明无颜色 */
+html,body {
+	background-color: transparent; /*表示透明无颜色 */
 	margin: 0;
 	padding: 0;
 	font: 1em Verdana, Arial, sans-serif;
 }
 
-body
-{
-	overflow: auto;/*表示溢出部分隐藏 
+body {
+	overflow: auto; /*表示溢出部分隐藏 
 	visible	默认值。内容不会被修剪，会呈现在元素框之外。
 	hidden	内容会被修剪，并且其余内容是不可见的。
 	scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
 	auto	如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。*/
-    width: 100%;
+	width: 100%;
 	height: 100%;
 	background-color: transparent;
 }
 
-.mzaGrid table{
-	border:1px solid;
-	border-collapse:collapse;
+.mzaGrid table {
+	border: 1px solid;
+	border-collapse: collapse;
 }
-.mzaGrid tr{
+
+.mzaGrid tr {
 	
 }
-.mzaGrid td{
-	border:1px solid #429fff;
+
+.mzaGrid td {
+	border: 1px solid #429fff;
 }
-.mzaGrid th{
-	border:1px solid #429fff;
-	background-color:#f0f7ff;
+
+.mzaGrid th {
+	border: 1px solid #429fff;
+	background-color: #f0f7ff;
 }
-.altrow{
-	background-color:#c4e4ff;	/* 动态变色 */
+
+.altrow {
+	background-color: #c4e4ff; /* 动态变色 */
 }
-.dlgtitle
-{
-	height:30px;
+
+.mzaWindow .bodyBack {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+	z-index: 98;
+	filter: alpha(opacity = 50);
+	opacity: 0.5;
+	background: #ddf
 }
-.contain
-{
-    position: absolute;
+
+.mzaWindow .bodypop {
+	position: absolute;
+	z-index: 99;
+}
+
+.mzaWindow .dlgtitle {
+	height: 30px;
+}
+
+.mzaWindow .contain {
+	position: absolute;
 	height: 100%;
 	top: 0;
 	right: 0;
@@ -50,52 +69,51 @@ body
 	z-index: 1;
 	overflow: hidden;
 }
-#dlgtr,#dlgtl,#dlgtname
-{
-	float:left;
+
+.mzaWindow .dlgtr,.mzaWindow .dlgtl, .mzaWindow .dlgtname {
+	float: left;
 	background-image: url(../images/d_bg.gif);
-	height:100%;
-	cursor:move;
+	height: 100%;
+	cursor: move;
 }
-#dlgtr,#dlgtl
-{
-	width:5px;
+
+.mzaWindow .dlgtr,.mzaWindow .dlgtl {
+	width: 5px;
 	background-repeat: no-repeat;
 }
-#dlgtl
-{
+
+.mzaWindow .dlgtl {
 	left: 0;
 	background-position: 0 0;
 }
-#dlgtr
-{
-	
+
+.mzaWindow .dlgtr {
 	left: 0;
 	background-position: 0 -60px;
 }
-#dlgtname
-{
+
+.mzaWindow .dlgtname {
 	overflow: hidden;
-	left:5px;
-	right:5px;
+	left: 5px;
+	right: 5px;
 	background-repeat: repeat-x;
 	background-position: 0 -30px;
 }
-#dlgtname span
-{
-    position: absolute;
+
+.mzaWindow .dlgtname span {
+	position: absolute;
 	/*利用!important，我们可以针对IE和非IE浏览器设置不同的样式，只要在非IE浏览器样式的后面加上!important。*/
-    top: 7px !important;
+	top: 7px !important;
 	top: 9px;
-    left: 10px;
+	left: 10px;
 	color: #fff;
 	font-size: 13px;
 	font-weight: bold;
 }
-#dlgtbut
-{
+
+.mzaWindow .dlgtbut {
 	position: absolute;
-	float:left;
+	float: left;
 	top: 0px;
 	right: 15px;
 	width: 43px;
@@ -104,36 +122,45 @@ body
 	background-repeat: no-repeat;
 	background-position: 0 0;
 }
-.dlginner
-{
+.mzaWindow .dlgtbut:hover {
+	background-position: 0 -19px;
+}
+
+.mzaWindow .dlginner {
 	background-color: #eff5fc;
 	border-left: 1px solid #005195;
 	border-right: 1px solid #005195;
 	border-bottom: 1px solid #005195;
 }
-div > a{
-	text-decoration:none;
+
+div>a {
+	text-decoration: none;
 	font-size: 15px;
 	/*font-weight:bold;**/
-	border: 1px solid #429fff; 
-	padding:2px 8px;
+	border: 1px solid #429fff;
+	padding: 2px 8px;
 }
-div > a:hover{
-	background-color:#c4e4ff
+
+div>a:hover {
+	background-color: #c4e4ff
 }
-.curP{
+
+.curP {
 	font-color: black;
-	cursor :default;
-	border: none; 
+	cursor: default;
+	border: none;
 }
-.pagebar{
-	margin-top: 10px; 
-	margin-left: 10px; 
+
+.pagebar {
+	margin-top: 10px;
+	margin-left: 10px;
 }
-#pages > span {
-	padding:2px 8px;
+
+#pages>span {
+	padding: 2px 8px;
 	font-size: 15px;
 }
-.hidden{
-	display:none;
+
+.hidden {
+	display: none;
 }

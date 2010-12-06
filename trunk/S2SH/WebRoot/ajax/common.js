@@ -103,8 +103,11 @@ function isNumber(object) {
 	String.prototype.startWith = function(oString) {
 		return this.indexOf(oString) == 0;
 	}
-
-	var MZA = {};
+	/**
+	 * function本身也是对象，他是function构造函数的一个对象。所以他也有属性和方法。
+	 */
+	var MZA = function(){};
+	MZA.fn = MZA.prototype;
 	window.MZA = MZA;
 	MZA.ajax = {};
 	// 发送ajax请求，返回json数据
@@ -196,15 +199,15 @@ function isNumber(object) {
 		if (window.innerWidth) {
 			winWidth = document.body.clientWidth;// ff下测试不对，所以改成document.body.clientWidth；
 			winHeight = window.innerHeight;// 这个正确
-		} else if (document.body) {
-			// IE下
-			winWidth = document.body.clientWidth;
-			winHeight = document.body.clientHeight;
 		} else if (document.documentElement
 				&& document.documentElement.clientHeight) {
 			// 其他浏览器。
 			winWidth = document.documentElement.clientWidth;
-			winWidth = document.documentElement.clientHeight;
+			winHeight = document.documentElement.clientHeight;
+		} else if (document.body) {
+			// IE下
+			winWidth = document.body.clientWidth;
+			winHeight = document.body.clientHeight;
 		}
 		// 如果有滚动条，则去得滚动后的大小
 		var xScroll, yScroll;
@@ -1096,7 +1099,6 @@ function isNumber(object) {
 						match[3] = test[3] - 0;
 					}
 
-					// TODO: Move to normal caching system
 					match[0] = done++;
 
 					return match;
@@ -1926,7 +1928,10 @@ function isNumber(object) {
 	})();
 
 	/* 继承实现只是拷贝属性 */
-	MZA.extend = function() {
+	/* 如果target是function则继承的属性只能通过函数访问而不能通过函数的对象访问。
+	 * 
+	 * */
+	MZA.fn.extend = MZA.extend = function() {
 		var target = arguments[0];
 		if (target) {
 			for (var i = 1; i < arguments.length; i++) {
@@ -1937,7 +1942,6 @@ function isNumber(object) {
 				}
 			}
 		}
-
 		return target;
 	}
 	/**
@@ -2034,7 +2038,8 @@ function isNumber(object) {
 			if (arguments.length > 1) {
 				var key = arguments[0];
 				var value = arguments[1];
-				this.setAttribute(key, value);
+				// 最后一个0表示区分大小写
+				this.setAttribute(key, value, 0);
 			} else {
 				var key = arguments[0];
 				this.getAttribute(key);
@@ -2047,7 +2052,7 @@ function isNumber(object) {
 		bind : function(type, handler) {
 			if (this.addEventListener) {
 				this.addEventListener(type, handler, false);
-			} else if (element.attachEvent) {
+			} else if (this.attachEvent) {
 				this.attachEvent("on" + type, handler);
 			} else {
 				this["on" + type] = handler;
@@ -2097,6 +2102,9 @@ function isNumber(object) {
 				arr.push(el);
 			}
 			element = arr;
+			if(arr.length==1){
+				element= arr[0];
+			}
 		} else {
 			element = MZA.extend(value, MZA.element);
 		}
@@ -2352,6 +2360,7 @@ function isNumber(object) {
 	MZA.GRID = MZA.Grid = MZA.grid;
 
 	MZA.window = function(data) {
+		var D = MZA.DOM;
 		// 初始化
 		var popwidth = 300;
 		var popheight = 200;
@@ -2368,25 +2377,19 @@ function isNumber(object) {
 		var pageHeight = arrWinSize[1];
 		var winWidth = arrWinSize[2];
 		var winHeight = arrWinSize[3];
+		var mzawin = D.create("div");
+		mzawin.addClass("mzaWindow");
+		mzawin.hide();
 		(function() {
-			var bodyBack = document.createElement("div");
-			bodyBack.setAttribute("id", "bodybg");
-			bodyBack.style.position = "absolute";
+			// 创建背景模态层
+			var bodyBack = D.create("div");
+			bodyBack.addClass("bodyBack");
 			bodyBack.style.width = pageWidth;
 			bodyBack.style.height = pageHeight;
-			bodyBack.style.bottom = "0px";
-			bodyBack.style.right = "0px";
-			bodyBack.style.top = "0px";
-			bodyBack.style.left = "0px";
-			bodyBack.style.zIndex = 98;// 不用写成z-index
-			bodyBack.style.filter = "alpha(opacity=50)";// IE的透明
-			bodyBack.style.opacity = 0.5;// css标准透明
-			bodyBack.style.background = "#ddf";// 颜色不错,也不用写成background-color
 
-			var popObj = document.createElement("div");
-			popObj.setAttribute("id", "bodypop");
-			popObj.style.position = "absolute";
-			popObj.style.zIndex = 99;
+			// 创建弹出层
+			var popObj = D.create("div");
+			popObj.addClass("bodypop");
 			popwidth = data.width;
 			popheight = data.height;
 			popObj.style.width = popwidth + "px";
@@ -2405,62 +2408,70 @@ function isNumber(object) {
 			}
 			popObj.style.top = top;
 			popObj.style.left = left;
-			// 创建弹出页面
-			var contentNode = document.createElement("div");
-			contentNode.setAttribute("id", "contain");
+			// 创建弹出内容页面
+			var contentNode = D.create("div");
+			contentNode.addClass("contain");
 			contentNode.style.width = popwidth + "px";
-			contentNode.setAttribute("class", "contain");
-			var titleNode = document.createElement("div");
-			titleNode.setAttribute("class", "dlgtitle");
-			titleNode.setAttribute("id", "dlgtitle");
+
+			var titleNode = D.create("div");
+			titleNode.addClass("dlgtitle");
+			titleNode.style.width = popwidth + "px";
 			// titleNode.setAttribute("onMousedown",
 			// "MZA.startDrag(event,this)");
 			// titleNode.setAttribute("onMouseup", "MZA.stopDrag(this)");
 			// titleNode.setAttribute("onMousemove", "MZA.Drag(event,this)");
-			titleNode.style.width = popwidth + "px";
-			var tlNode = document.createElement("div");
-			tlNode.setAttribute("id", "dlgtl");
-			var trNode = document.createElement("div");
-			trNode.setAttribute("id", "dlgtr");
-			var tnameNode = document.createElement("div");
-			tnameNode.setAttribute("id", "dlgtname");
+
+			var tlNode = D.create("div");
+			tlNode.addClass("dlgtl");
+			var trNode = D.create("div");
+			trNode.addClass("dlgtr");
+			var tnameNode = D.create("div");
+			tnameNode.addClass("dlgtname");
 			tnameNode.style.width = popwidth - 10 + "px";
-			var tnameSpanNode = document.createElement("span");
-			tnameSpanNode.setAttribute("id", "tnamespan")
+			var tnameSpanNode = D.create("span");
+			tnameSpanNode.addClass("tnamespan")
 			tnameSpanNode.innerHTML = title;
 			tnameNode.appendChild(tnameSpanNode);
-			var tbutNode = document.createElement("div");
-			tbutNode.setAttribute("id", "dlgtbut");
-			tbutNode.setAttribute("onMouseover",
-					"this.style.backgroundPosition = '0 -19px';");
-			tbutNode.setAttribute("onMouseout",
-					"this.style.backgroundPosition = '0 0px';");
-			tbutNode.setAttribute("onClick", "MZA.closeDialog();");
+			var tbutNode = D.create("div");
+			tbutNode.addClass("dlgtbut");
+			tbutNode.bind("click", hideWindow);
 			titleNode.appendChild(tlNode);
 			titleNode.appendChild(tnameNode);
 			titleNode.appendChild(trNode);
 			titleNode.appendChild(tbutNode);
-			var innerNode = document.createElement("div");
-			innerNode.setAttribute("class", "dlginner");
-			innerNode.setAttribute("id", "dlginner");
-			var iframeNode = document.createElement("iframe");
-			iframeNode.setAttribute("src", url);
-			iframeNode.setAttribute("frameborder", "0");
+			var innerNode = D.create("div");
+			innerNode.addClass("dlginner");
+			var iframeNode = D.create("iframe");
+			iframeNode.attr("src", url);
+			iframeNode.attr("frameborder", "no");
+			iframeNode.attr("border", 19);
+			iframeNode.attr("marginwidth", 0);
+			iframeNode.attr("marginheight", 0);
+			iframeNode.attr("scrolling", "no");
+			iframeNode.attr("allowtransparency", "yes");
+
 			innerNode.appendChild(iframeNode);
 			innerNode.style.height = popheight - 31 + "px";
 			contentNode.appendChild(titleNode);
 			contentNode.appendChild(innerNode);
 			popObj.appendChild(contentNode);
-			
+
+			mzawin.appendChild(bodyBack);
+			mzawin.appendChild(popObj);
 			var bodyNode = document.getElementsByTagName("body");
-			bodyNode[0].appendChild(bodyBack);
-			
-			bodyNode[0].appendChild(popObj);
+			bodyNode[0].appendChild(mzawin);
+
 		})();
+
+		function showWindow() {
+			mzawin.show();
+		}
+		function hideWindow() {
+			mzawin.hide();
+		}
 		return {
-			show : function() {
-				
-			}
+			show : showWindow,
+			hide : hideWindow
 		}
 	};
 	MZA.dialog = {};
