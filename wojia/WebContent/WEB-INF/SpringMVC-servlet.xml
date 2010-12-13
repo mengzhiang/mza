@@ -13,4 +13,6 @@
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+          p:prefix="" p:suffix=".jsp"/>
 </beans>
