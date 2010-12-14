@@ -1,4 +1,4 @@
-package com.wojia.login;
+package com.wojia.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-public class LoginController{
+public class UserController{
 	
 	@RequestMapping
 	public String test1(){

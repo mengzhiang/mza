@@ -26,10 +26,12 @@
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-fr.jar"/>
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.core-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.beans-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.asm-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.expression-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

@@ -8,6 +8,6 @@ public class RegisteController {
 	
 	@RequestMapping
 	public String test1(){
-		return "registe_success";
+		return "registe/registe_success";
 	}
 }
