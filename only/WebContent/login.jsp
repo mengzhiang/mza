@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="list.jsp" >
+<form action="validate.jsp" >
 用户名：<input type="text" name="name">
-密码：<input type="password" name="password">
+密码：<input type="password" name="pwd">
 <input type="submit" value="提交">
 <input type="reset" value="重置">
 </form>

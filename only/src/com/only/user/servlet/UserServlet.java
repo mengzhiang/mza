@@ -37,7 +37,4 @@ public class UserServlet extends HttpServlet{
 		String name = req.getParameter("name");
 		System.out.println(name);
 	}
-
-	
-
 }
