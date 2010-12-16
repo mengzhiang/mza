@@ -1,0 +1,68 @@
+
+
+/*让容器居中 :div水平居中 设置margin上下为0 左右自动
+ 宽度920适合1024×768屏幕*/
+.wrapper{
+	width:920px;
+	margin:10px auto;/*水平居中*/
+	border:1px solid black;
+	text-align:left;
+}
+/*IE6正常。IE5.5不能居中，可以用text-align来解决，IE认为text-align是所有元素都居中,不止是文本，
+然后再把容器里的元素都左对齐即可*/
+body{
+	text-align:center;
+	background-color:#A9B5BD;
+}
+.header{
+	background-color:#16364C;
+	height:100px;
+	text-align:center;
+}
+.header .inner{
+	color:#ffffff;	
+	padding-top:15px;
+}
+.header .inner h1{
+	display:inline;	
+	margin-right:50px;
+}
+.header .inner h3{
+	display:inline;	
+}
+.content{
+	border:1px solid yellow;
+	overflow:hidden;
+	width:100%;
+}
+.footer{
+	height:65px;
+	border:1px solid green;
+}
+
+.content .primary{
+	float:right;
+	width:650px;
+	padding-right:20px;
+	border:1px solid black;
+	display:inline;/*把块级元素改为行内元素*/
+}
+ .content .secondary{
+	float:left;
+	width:230px;
+	border:1px solid black;
+	display:inline;/*吧块级元素改为行内元素*/
+}
+.content .primary .primary{
+	float:left;
+	width:400px;
+	padding-right:20px;
+	border:1px solid black;
+	display:inline;/*把块级元素改为行内元素*/
+}
+ .content .primary .secondary{
+	float:right;
+	width:220px;
+	border:1px solid black;
+	display:inline;/*吧块级元素改为行内元素*/
+}
