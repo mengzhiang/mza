@@ -1,4 +1,4 @@
-package com.wojia.login.model;
+package com.wojia.user.model;
 
 
 public class User {
