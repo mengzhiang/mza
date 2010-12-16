@@ -15,7 +15,8 @@ import java.sql.Statement;
 public class HelloDerby {
 	public static void main(String args[]){
 		try {
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
+			//JDBC4不需要显示声明加载驱动
+//			Class.forName("org.apache.derby.jdbc.ClientDriver");
 
 
 			String url = "jdbc:derby://localhost:1527/bbs";

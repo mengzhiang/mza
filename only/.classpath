@@ -24,7 +24,7 @@
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-es.jar"/>
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-fr.jar"/>
 	<classpathentry kind="lib" path="D:/WORK/apache-tomcat-6.0.26/lib/tomcat-i18n-ja.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derby.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derby.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

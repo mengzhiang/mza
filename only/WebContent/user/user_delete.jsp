@@ -9,7 +9,6 @@
 <title>用户管理</title>
 </head>
 <body>
-<a href="user_add_input.jsp">新增用户</a>
 <%
 /**
 显示所有用户信息，没有数据模型的概念，完全过程化。没有javabean
@@ -20,22 +19,15 @@
 	d：循环resultset输出内容
 	e：关闭statement和conn
 */
+String user_id =request.getParameter("id");
 Connection conn = DBUtil.getConnection();
 Statement stmt = conn.createStatement();
-String sql = "select * from t_user order by id";
-ResultSet rs = stmt.executeQuery(sql);
-String str = "<table border='1'><tr><td>编号</td><td>用户名</td><td>密码</td><td>修改</td><td>删除</td></tr>";
-while(rs.next()){
-	str +="<tr>";
-	str += "<td>"+rs.getString(1)+"</td>";
-	str += "<td>"+rs.getString(2)+"</td>";
-	str += "<td>"+rs.getString(3)+"</td>";
-	str += "<td><a href='user_update_input.jsp?id="+rs.getString(1)+"'>修改</a></td>";
-	str += "<td><a href='user_delete.jsp?id="+rs.getString(1)+"'>删除</a></td>";
-	str +="</tr>";
+String sql = "delete from  t_user where id = "+user_id;
+int i  = stmt.executeUpdate(sql);
+if(i==1){
+	out.println("删除成功！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='user_list.jsp'>返回主页面</a>");
 }
-out.println(str);
-rs.close();
+
 stmt.close();
 conn.close();
 
