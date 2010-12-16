@@ -2,7 +2,6 @@ package com.only.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DBUtil {
 	/**
@@ -12,11 +11,13 @@ public class DBUtil {
 	 * @return
 	 */
 	public static Connection getConnection(){
-		String url = "jdbc:derby://localhost:1527/bbs";
+		
+		String url = "jdbc:mysql://localhost:3306/bbs?user=root&password=123456";
 		Connection conn = null;
 		try {
+			Class.forName("com.mysql.jdbc.Driver");	
 			conn = DriverManager.getConnection(url);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return conn;

@@ -17,6 +17,7 @@ Connection conn = DBUtil.getConnection();
 Statement stmt = conn.createStatement();
 
 String sql = "select * from t_user where name='"+name+"' and pwd = '"+pwd+"'";
+System.out.println(sql);
 ResultSet rs = stmt.executeQuery(sql);
 if(rs.next()){
 	String currentUserName = rs.getString(1);
