@@ -15,9 +15,18 @@ import com.neusoft.base.perm.resmodel.service.PermResModelTreeService;
 import com.neusoft.base.utils.JsonUtil;
 import com.opensymphony.xwork2.ModelDriven;
 
-//更改XXXX为模块名称
 
 
+
+/**
+ * Created on 2010-12-21
+ * <p>名称: S2SH工程-用户模块</p>
+ * <p>描述: [资源管理 树]</p>
+ * <p>版本: Copyright (c) 2010</p>
+ * @author: 孟志昂
+ * @email:  mengzhiang@gmail.com
+ * @version:$Revision$
+*/
 @Controller
 @Scope("prototype")
 public class PermResModelTreeAction extends BaseAction implements ModelDriven<PermResModelTreeEntity> {
@@ -60,7 +69,7 @@ public class PermResModelTreeAction extends BaseAction implements ModelDriven<Pe
 	 * @return
 	 */
 	public String queryMuTree() {
-		mutree = service.getMuTree();
+		mutree = service.getMuTree(sid);
 		return SUCCESS;
 	}
 	

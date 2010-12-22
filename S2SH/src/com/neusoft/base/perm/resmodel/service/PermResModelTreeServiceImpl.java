@@ -60,7 +60,7 @@ public class PermResModelTreeServiceImpl implements PermResModelTreeService{
 		return treelist;
 	}
 
-	public List<PermResMultiModelTreeModel> getMuTree() {
+	public List<PermResMultiModelTreeModel> getMuTree(long sid) {
 		List<PermResMultiModelTreeModel> tmlist = geneMuTree(0,0);
 		return tmlist;
 	}
@@ -73,7 +73,7 @@ public class PermResModelTreeServiceImpl implements PermResModelTreeService{
 			tm.setId(tree.getId());
 			tm.setText(tree.getName());
 			tm.setUrl(tree.getCode());
-			tm.setChecked(true);
+			tm.setChecked(false);
 			//0非叶子节点1是叶子节点
 			if(tree.getLeaf()==0){
 				tm.setLeaf(false);
