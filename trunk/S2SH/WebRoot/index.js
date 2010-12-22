@@ -9,7 +9,7 @@ function Login() {
 		if ((!this.checkInput()) || (!this.checkYzm())) {
 			return;
 		};
-		var paras = D.formSerialize($(".login_form")[0]);
+		var paras = D.formSerialize($(".login_form"));
 		var data = {
 			sync : false,
 			url : "login_login?" + paras
