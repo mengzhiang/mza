@@ -15,5 +15,5 @@ public interface PermResModelTreeService {
 	public PermResModelTreeEntity getById(long id);
 	public String delAll(List<PermResModelTreeEntity> list);
 	public List<PermResModelTreeModel> getTree();
-	public List<PermResMultiModelTreeModel> getMuTree();
+	public List<PermResMultiModelTreeModel> getMuTree(long sid);
 }
