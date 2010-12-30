@@ -32,7 +32,9 @@ Ext.onReady(function() {
 	/** ********************************第二个树资源树************************************************ */
 	var res_loader = new Ext.tree.TreeLoader({
 				dataUrl : 'permResModelTree_queryMuTree',
-				baseParams :{sid:1} 
+				baseParams : {
+					sid : 0
+				}
 			});
 	res_loader.processResponse = function(response, node, callback) {
 		var json = response.responseText;
@@ -347,29 +349,58 @@ Ext.onReady(function() {
 	tree.on("click", function(node) {
 				if (node.leaf) {
 					var modelid = node.attributes.id;
-					var filterArr = new Array;
-					if (id != "") {
-						var idfilter = {
-							name : 'modelid',
-							type : 'long',
-							property : 'id',
-							condition : '=',
-							value : modelid
-						}
-						filterArr.push(idfilter);
-					}
-					var data = {
-						filters : filterArr
-					}
-					store.baseParams.strFilter = Ext.encode(data);
-					store.load({
-								params : {
-									start : 0,
-									limit : 15
+					var loader = new Ext.tree.TreeLoader({
+								dataUrl : 'permResModelTree_queryMuTree',
+								baseParams : {
+									sid : modelid
 								}
 							});
-					grid.show();
-					form_query.getForm().reset();
+					loader.processResponse = function(response, node, callback) {
+						var json = response.responseText;
+						try {
+							var json = eval("(" + json + ")");
+							node.beginUpdate();
+							var o = json["mutree"];
+							for (var i = 0, len = o.length; i < len; i++) {
+								var n = this.createNode(o[i]);
+								if (n) {
+									node.appendChild(n);
+								}
+							}
+							node.endUpdate();
+							if (typeof callback == "function") {
+								callback(this, node);
+							}
+						} catch (e) {
+							this.handleFailure(response);
+						}
+					};
+					res_tree.loader = loader;
+					res_root.reload();
+					res_root.expand(true, true);
+					// var filterArr = new Array;
+					// if (id != "") {
+					// var idfilter = {
+					// name : 'modelid',
+					// type : 'long',
+					// property : 'id',
+					// condition : '=',
+					// value : modelid
+					// }
+					// filterArr.push(idfilter);
+					// }
+					// var data = {
+					// filters : filterArr
+					// }
+					// store.baseParams.strFilter = Ext.encode(data);
+					// store.load({
+					// params : {
+					// start : 0,
+					// limit : 15
+					// }
+					// });
+					// grid.show();
+					// form_query.getForm().reset();
 				}
 			});
 	// 创建跟节点

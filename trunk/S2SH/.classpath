@@ -66,5 +66,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit-4.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-test.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dwr.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/c3p0-0.9.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
