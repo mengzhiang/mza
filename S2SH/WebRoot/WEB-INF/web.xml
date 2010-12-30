@@ -18,7 +18,7 @@
 			org.springframework.web.util.Log4jConfigListener
 		</listener-class>
 	</listener>
-	<!--权限过滤filter-->
+	<!--权限过滤filter
 	<filter>
 		<filter-name>PermSessionUserFilter</filter-name>
 		<filter-class>com.neusoft.base.filter.PermSessionUserFilter</filter-class>
@@ -26,7 +26,7 @@
 	<filter-mapping>     
 		<filter-name>PermSessionUserFilter</filter-name>     
 		<url-pattern>*.jsp</url-pattern>     
-	</filter-mapping>
+	</filter-mapping>-->
 	
 	<!--解决hibernate懒加载问题-->
 	<filter>     
