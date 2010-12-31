@@ -29,6 +29,7 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property>
 	</bean>
+
 	-->
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -38,15 +39,12 @@
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/bbs"></property>
 		<property name="user" value="root"></property>
 		<property name="password" value="123456"></property>
-		<!-- 指定连接数据库连接池的最大连接数 -->  
-        <property name="maxPoolSize" value="20"/>  
-        <!-- 指定连接数据库连接池的最小连接数 -->  
-        <property name="minPoolSize" value="1"/>  
-        <!-- 指定连接数据库连接池的初始化连接数 -->  
-        <property name="initialPoolSize" value="1"/>  
-        <!-- 指定连接数据库连接池的连接的最大空闲时间 -->  
+        <property name="maxPoolSize" value="200"/>  
+        <property name="minPoolSize" value="100"/>  
+        <property name="initialPoolSize" value="50"/>   
         <property name="maxIdleTime" value="20"/>  
 	</bean>
+
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
