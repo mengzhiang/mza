@@ -40,9 +40,9 @@
 		<property name="user" value="root"></property>
 		<property name="password" value="123456"></property>
         <property name="maxPoolSize" value="200"/>  
-        <property name="minPoolSize" value="100"/>  
-        <property name="initialPoolSize" value="50"/>   
-        <property name="maxIdleTime" value="20"/>  
+        <property name="minPoolSize" value="1"/>  
+        <property name="initialPoolSize" value="1"/>   
+        <property name="maxIdleTime" value="1"/>  
 	</bean>
 
 
