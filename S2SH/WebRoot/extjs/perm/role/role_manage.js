@@ -57,9 +57,30 @@ Ext.onReady(function() {
 		}
 	};
 	// 创建树panel
+	var ttb = new Ext.Toolbar()
+	ttb.add(new Ext.Button({
+				text : '保存',
+				handler : function() {
+					// 获取树的信息
+					console.log(res_tree.getChecked());
+					Ext.Ajax.request({
+								url : 'foo.php',
+								success : someFn,
+								failure : otherFn,
+								headers : {
+									'my-header' : 'foo'
+								},
+								params : {
+									foo : 'bar'
+								}
+							});
+
+				}
+			}));
 	var res_tree = new Ext.tree.TreePanel({
+				tbar : ttb,
 				loader : res_loader,
-				width : 200
+				width : 400
 			});
 	var res_root = new Ext.tree.AsyncTreeNode({
 				text : '基础信息'
@@ -378,29 +399,29 @@ Ext.onReady(function() {
 					res_tree.loader = loader;
 					res_root.reload();
 					res_root.expand(true, true);
-					// var filterArr = new Array;
-					// if (id != "") {
-					// var idfilter = {
-					// name : 'modelid',
-					// type : 'long',
-					// property : 'id',
-					// condition : '=',
-					// value : modelid
-					// }
-					// filterArr.push(idfilter);
-					// }
-					// var data = {
-					// filters : filterArr
-					// }
-					// store.baseParams.strFilter = Ext.encode(data);
-					// store.load({
-					// params : {
-					// start : 0,
-					// limit : 15
-					// }
-					// });
-					// grid.show();
-					// form_query.getForm().reset();
+					var filterArr = new Array;
+					if (id != "") {
+						var idfilter = {
+							name : 'modelid',
+							type : 'long',
+							property : 'id',
+							condition : '=',
+							value : modelid
+						}
+						filterArr.push(idfilter);
+					}
+					var data = {
+						filters : filterArr
+					}
+					store.baseParams.strFilter = Ext.encode(data);
+					store.load({
+								params : {
+									start : 0,
+									limit : 15
+								}
+							});
+					grid.show();
+					form_query.getForm().reset();
 				}
 			});
 	// 创建跟节点
@@ -419,34 +440,16 @@ Ext.onReady(function() {
 	 */
 	var columns = [sm, {
 				header : '编号',
-				dataIndex : 'id',
-				width : 50
+				dataIndex : 'id'
 			}, {
-				header : '资源名称',
-				dataIndex : 'name'
+				header : '姓名',
+				dataIndex : 'username'
 			}, {
-				header : '资源编码',
-				dataIndex : 'code'
+				header : '密码',
+				dataIndex : 'password'
 			}, {
-				header : '资源类型',
-				dataIndex : 'reslx',
-				width : 70
-			}, {
-				header : 'URL地址',
-				dataIndex : 'url',
-				width : 70
-			}, {
-				header : '类名',
-				dataIndex : 'classtype_name',
-				width : 250
-			}, {
-				header : '方法名',
-				dataIndex : 'method_name',
-				width : 70
-			}, {
-				header : '参数',
-				dataIndex : 'parametertype_names',
-				width : 90
+				header : '详细',
+				dataIndex : 'detail'
 			}];
 	/**
 	 * 3：定义从后来取数据的
@@ -455,21 +458,11 @@ Ext.onReady(function() {
 	var fields = [{
 				name : 'id'
 			}, {
-				name : 'modelid'
+				name : 'username'
 			}, {
-				name : 'name'
+				name : 'password'
 			}, {
-				name : 'code'
-			}, {
-				name : 'reslx'
-			}, {
-				name : 'url'
-			}, {
-				name : 'classtype_name'
-			}, {
-				name : 'method_name'
-			}, {
-				name : 'parametertype_names'
+				name : 'detail'
 			}];
 	/**
 	 * 4：更改“xxxx”为模块的小写名称。因为后台匹配好了。
@@ -488,42 +481,10 @@ Ext.onReady(function() {
 				hidden : true,
 				hideLabel : true
 			}, {
-				fieldLabel : '资源名称',
+				fieldLabel : '用户名',
 				name : 'name',
 				width : 340
-			}, {
-				fieldLabel : '资源编码',
-				name : 'code',
-				width : 340
-			}, {
-				fieldLabel : '资源类型',
-				name : 'reslx',
-				width : 340,
-				xtype : "combo",
-				store : new Ext.data.SimpleStore({
-							fields : ['value', 'text'],
-							data : [['0', 'URL'], ['1', '方法']]
-						}),
-				displayField : 'text',
-				valueField : 'value',
-				mode : 'local'
-			}, {
-				fieldLabel : 'URL地址',
-				name : 'url',
-				width : 340
-			}, {
-				fieldLabel : '类名',
-				name : 'classtype_name',
-				width : 340
-			}, {
-				fieldLabel : '方法名',
-				name : 'method_name',
-				width : 340
-			}, {
-				fieldLabel : '参数',
-				name : 'parametertype_names',
-				width : 340
-			}];
+			}, user_grid];
 	var edititems = [{
 				fieldLabel : 'id',
 				name : 'id',
@@ -757,14 +718,14 @@ Ext.onReady(function() {
 	Ext.QuickTips.init();
 	var cm = new Ext.grid.ColumnModel(columns);
 	var store = new Ext.data.Store({
-				proxy : new Ext.data.HttpProxy({
-							url : 'permRole_listpage'
-						}),
-				reader : new Ext.data.JsonReader({
-							totalProperty : "paginationSupport.items.permUser.length",
-							root : "paginationSupport.items.permUser"
-						}, fields)
-			});
+		proxy : new Ext.data.HttpProxy({
+					url : 'permRole_listpage'
+				}),
+		reader : new Ext.data.JsonReader({
+					totalProperty : "paginationSupport.items[0].permUser.length",
+					root : "paginationSupport.items[0].permUser"
+				}, fields)
+	});
 	// 创建翻页对象
 	var pagtolbar = new Ext.PagingToolbar({
 				pageSize : 15,
@@ -835,17 +796,16 @@ Ext.onReady(function() {
 				}
 			});
 	// 新增form
-	var form_add = new Ext.form.FormPanel({
-				labelAlign : 'right',
-				labelWidth : 80,
-				height : win_height - 33,
-				frame : true,
-				border : 0,
-				defaultType : 'textfield',
-				buttonAlign : 'center',
-				items : additems,
-				buttons : [btn_add_submit, btn_add_back]
-			});
+	// var form_add = new Ext.form.FormPanel({
+	// labelAlign : 'right',
+	// labelWidth : 80,
+	// height : win_height - 33,
+	// frame : true,
+	// defaultType : 'textfield',
+	// buttonAlign : 'center',
+	// items : additems,
+	// buttons : [btn_add_submit, btn_add_back]
+	// });
 	// 修改form
 	var form_edit = new Ext.form.FormPanel({
 				labelAlign : 'right',
@@ -866,7 +826,7 @@ Ext.onReady(function() {
 				closeAction : 'hide',
 				draggable : true,
 				modal : true,// 模态窗口，后面不能操作
-				items : [form_add]
+				items : []
 			});
 	// 修改窗口
 	var win_edit = new Ext.Window({
@@ -880,7 +840,7 @@ Ext.onReady(function() {
 			});
 	// 新增按钮
 	var btn_add = new Ext.Button({
-				text : '新增',
+				text : '新增用户',
 				handler : function() {
 					form_add.getForm().reset();
 					var selNode = tree.getSelectionModel().selNode;
@@ -892,23 +852,9 @@ Ext.onReady(function() {
 					win.show();
 				}
 			});
-	// 修改按钮
-	var btn_edit = new Ext.Button({
-				text : '修改',
-				handler : function() {
-					if (sm.getCount() != 1) {
-						Ext.MessageBox.alert("提示", "请选择一条数据！");
-						return;
-					};
-					form_edit.getForm().reset();
-					win_edit.show();
-					var record = sm.getSelected();
-					form_edit.getForm().loadRecord(record);
-				}
-			});
 	// 删除按钮
 	var btn_del = new Ext.Button({
-				text : '删除',
+				text : '删除用户',
 				handler : function() {
 					if (sm.getCount() < 1) {
 						Ext.MessageBox.alert("提示", "请选择要删除的数据！");
@@ -951,8 +897,33 @@ Ext.onReady(function() {
 			});
 
 	tb.add(btn_add);
-	tb.add(btn_edit);
 	tb.add(btn_del);
+
+	var user_sm = new Ext.grid.CheckboxSelectionModel();
+	// 创建用户grid
+	var user_grid = new Ext.grid.GridPanel({
+				title : '用户列表',
+				region : 'center',
+				autoHeight : true,
+				store : store,
+				cm : new Ext.grid.ColumnModel([user_sm, {
+							header : '编号',
+							dataIndex : 'id'
+						}, {
+							header : '姓名',
+							dataIndex : 'username'
+						}, {
+							header : '密码',
+							dataIndex : 'password'
+						}, {
+							header : '详细',
+							dataIndex : 'detail'
+						}]),
+				closable : true,// tab 可关闭
+				tbar : tb,
+				bbar : pagtolbar,
+				sm : user_sm
+			});
 	// 创建grid
 	var grid = new Ext.grid.GridPanel({
 				title : '权限系统用户列表',
