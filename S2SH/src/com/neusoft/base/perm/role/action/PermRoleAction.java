@@ -27,6 +27,8 @@ public class PermRoleAction extends BaseAction implements ModelDriven<PermRole> 
 	private List<PermRole> list;
 	private long sid;
 	
+	private String resModelIds;
+	
 	private List<PermRoleTreeModel> tree;
 	
 	@Resource
@@ -75,6 +77,18 @@ public class PermRoleAction extends BaseAction implements ModelDriven<PermRole> 
 		return SUCCESS;
 	}
 
+	/**
+	 *  Created on 2011-1-18 
+	 * <p>Description:[保存角色相关的资源模块信息]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String saveRoleWithResModel(){
+		String ret = service.saveRoleWithResModel(sid,resModelIds);
+		return SUCCESS;
+	}
+	
 	public long getSid() {
 		return sid;
 	}
@@ -89,6 +103,15 @@ public class PermRoleAction extends BaseAction implements ModelDriven<PermRole> 
 
 	public void setList(List<PermRole> list) {
 		this.list = list;
+	}
+
+	
+	public String getResModelIds() {
+		return resModelIds;
+	}
+
+	public void setResModelIds(String resModelIds) {
+		this.resModelIds = resModelIds;
 	}
 
 	public PermRole getModel() {
