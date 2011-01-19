@@ -62,16 +62,30 @@ Ext.onReady(function() {
 				text : '保存',
 				handler : function() {
 					// 获取树的信息
-					console.log(res_tree.getChecked());
+					var nodes = res_tree.getChecked();
+					var idarr = [];
+					for(var i=0;i<nodes.length;i++){
+						idarr.push(nodes[i].id);
+					}
+					console.log(idarr.join(","));
 					Ext.Ajax.request({
-								url : 'foo.php',
-								success : someFn,
-								failure : otherFn,
-								headers : {
-									'my-header' : 'foo'
+								url : 'permRole_saveRoleWithResModel',
+								success : function(action) {
+									Ext.Msg.alert("提示", "保存成功!");
+									res_root.reload();
+									res_root.expand(true, true);
+								},
+								failure : function(action) {
+									alert(123);
+									if (action.result.errors) {
+										alert(123);
+									} else {
+										Ext.Msg.alert("提示", "保存失败");
+									}
 								},
 								params : {
-									foo : 'bar'
+									sid : modelid,
+									resModelIds : idarr.join(",")
 								}
 							});
 
@@ -367,9 +381,10 @@ Ext.onReady(function() {
 				contextmenu_fold.showAt(e.getXY());
 			});
 	// 给树添加事件
+	var modelid = "";
 	tree.on("click", function(node) {
 				if (node.leaf) {
-					var modelid = node.attributes.id;
+					modelid = node.attributes.id;
 					var loader = new Ext.tree.TreeLoader({
 								dataUrl : 'permResModelTree_queryMuTree',
 								baseParams : {
