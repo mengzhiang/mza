@@ -100,6 +100,18 @@ public class PermRoleAction extends BaseAction implements ModelDriven<PermRole> 
 		return SUCCESS;
 	}
 	
+	/**
+	 *  Created on 2011-1-20 
+	 * <p>Description:[删除角色包含的用户信息]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名
+	 * @return
+	 */
+	public String deleteRoleWithUser(){
+		String ret = service.deleteRoleWithUser(sid,resModelIds);
+		return SUCCESS;
+	}
+	
 	public long getSid() {
 		return sid;
 	}

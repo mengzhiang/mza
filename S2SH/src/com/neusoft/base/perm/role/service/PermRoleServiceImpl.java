@@ -7,7 +7,9 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.neusoft.base.dao.PaginationSupport;
 import com.neusoft.base.perm.resmodel.dao.PermResModelTreeDao;
@@ -113,8 +115,11 @@ public class PermRoleServiceImpl implements PermRoleService{
 		String[] arr = resModelIds.split(",");
 		Set<PermResModelTreeEntity> newset = new HashSet<PermResModelTreeEntity>();
 		for(int i =0;i<arr.length;i++){
-			PermResModelTreeEntity model = resdao.get(Long.parseLong(arr[i]));
-			newset.add(model);
+			if(StringUtils.hasLength(arr[i])){
+				PermResModelTreeEntity model = resdao.get(Long.parseLong(arr[i]));
+				newset.add(model);
+			}
+			
 		}
 		//如果修改了，则重新保存信息
 		if(!resset.equals(newset)){
@@ -151,5 +156,27 @@ public class PermRoleServiceImpl implements PermRoleService{
 			dao.save(role);
 			return "success";
 
+	}
+
+	/**
+	 *  Created on 2011-1-20
+	 * <p>Description:[删除角色包含的用户信息]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public String deleteRoleWithUser(long sid, String resModelIds) {
+		PermRole role = dao.get(sid);
+		Set<PermUser> userset =  role.getPermUser();
+		String[] arr = resModelIds.split(",");
+
+		for(int i =0;i<arr.length;i++){
+			PermUser model = userdao.get(Long.parseLong(arr[i]));
+			userset.remove(model);
+		}
+		//如果修改了，则重新保存信息
+			role.setPermUser(userset);
+			dao.save(role);
+			return "success";
 	}
 }
