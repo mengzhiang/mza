@@ -195,6 +195,41 @@ Ext.onReady(function() {
 	tb.add(new Ext.Button({
 				text : '删除用户',
 				handler : function() {
+					var record = sm.getSelections();
+					if (sm.getCount() < 1) {
+						Ext.MessageBox.alert("提示", "请选择要删除的用户！");
+						return;
+					};
+					Ext.MessageBox.confirm('请确认', '确定删除该用户？', function(btn) {
+								if (btn == 'yes') {
+									var idarr = [];
+									for (var i = 0; i < record.length; i++) {
+										idarr.push(record[i].id);
+									}
+									Ext.Ajax.request({
+												url : 'permRole_deleteRoleWithUser',
+												success : function(action) {
+													Ext.Msg
+															.alert("提示",
+																	"删除成功!");
+													grid.store.reload();
+												},
+												failure : function(action) {
+													if (action.result.errors) {
+													} else {
+														Ext.Msg.alert("提示",
+																"删除失败");
+													}
+												},
+												params : {
+													sid : modelid,
+													resModelIds : idarr
+															.join(",")
+												}
+											});
+								}
+							});
+
 				}
 			}));
 	tb.add(new Ext.Button({
@@ -218,7 +253,7 @@ Ext.onReady(function() {
 								for (var i = 0; i < record.length; i++) {
 									idarr.push(record[i].id);
 								}
-								console.log(idarr.join(","));
+
 								Ext.Ajax.request({
 											url : 'permRole_saveRoleWithUser',
 											success : function(action) {
