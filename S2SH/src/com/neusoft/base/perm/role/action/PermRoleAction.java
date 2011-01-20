@@ -88,6 +88,17 @@ public class PermRoleAction extends BaseAction implements ModelDriven<PermRole> 
 		String ret = service.saveRoleWithResModel(sid,resModelIds);
 		return SUCCESS;
 	}
+	/**
+	 *  Created on 2011-1-18 
+	 * <p>Description:[保存角色包含的用户信息]</p>
+	 * @author 孟志昂 mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 * @return
+	 */
+	public String saveRoleWithUser(){
+		String ret = service.saveRoleWithUser(sid,resModelIds);
+		return SUCCESS;
+	}
 	
 	public long getSid() {
 		return sid;

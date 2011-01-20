@@ -15,6 +15,8 @@ import com.neusoft.base.perm.resmodel.model.PermResModelTreeEntity;
 import com.neusoft.base.perm.role.dao.PermRoleDao;
 import com.neusoft.base.perm.role.model.PermRole;
 import com.neusoft.base.perm.role.model.PermRoleTreeModel;
+import com.neusoft.base.perm.user.dao.PermUserDao;
+import com.neusoft.base.perm.user.model.PermUser;
 
 //  更改“XXXX”为您的模块名成
 @Service
@@ -34,6 +36,15 @@ public class PermRoleServiceImpl implements PermRoleService{
 
 	public void setResdao(PermResModelTreeDao resdao) {
 		this.resdao = resdao;
+	}
+	/**
+	 * 用户dao
+	 */
+	@Resource
+	private PermUserDao userdao;
+	
+	public void setUserdao(PermUserDao userdao) {
+		this.userdao = userdao;
 	}
 	
 	public PaginationSupport listpage(int startIndex,int pageSize) {
@@ -113,6 +124,32 @@ public class PermRoleServiceImpl implements PermRoleService{
 		}else{
 			return "nomodify";
 		}
+
+	}
+
+	/**
+	 *  Created on 2011-1-19
+	 * <p>Description:[保存角色包含的用户信息]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public String saveRoleWithUser(long sid, String resModelIds) {
+		//对比角色所属资源信息的id和传过来的id有没有区别，如果有新增或者删除则保存，否则提示没有修改。
+		//1:取得当前角色包含的资源信息
+		PermRole role = dao.get(sid);
+		Set<PermUser> userset =  role.getPermUser();
+		//2：取得前台传过来的资源信息。
+		String[] arr = resModelIds.split(",");
+
+		for(int i =0;i<arr.length;i++){
+			PermUser model = userdao.get(Long.parseLong(arr[i]));
+			userset.add(model);
+		}
+		//如果修改了，则重新保存信息
+			role.setPermUser(userset);
+			dao.save(role);
+			return "success";
 
 	}
 }
