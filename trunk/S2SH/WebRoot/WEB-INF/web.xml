@@ -21,7 +21,7 @@
 	<!--权限过滤filter
 	<filter>
 		<filter-name>PermSessionUserFilter</filter-name>
-		<filter-class>com.neusoft.base.filter.PermSessionUserFilter</filter-class>
+		<filter-class>com.mengzhiang.base.filter.PermSessionUserFilter</filter-class>
 	</filter>
 	<filter-mapping>     
 		<filter-name>PermSessionUserFilter</filter-name>     

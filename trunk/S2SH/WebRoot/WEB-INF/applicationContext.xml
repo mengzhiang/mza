@@ -12,7 +12,7 @@
 	
 
 	<!-- 自动扫描 -->
-	<context:component-scan base-package="com.neusoft.*" />
+	<context:component-scan base-package="com.mengzhiang.*" />
 	<!-- 
 			<bean id="hello" class="com.neusoft.struts2.user.action.UserAction"/>  
 		-->
@@ -62,7 +62,7 @@
 			</props>
 		</property>
 		
-		<property name="packagesToScan" value="com.neusoft.*.*.model,com.neusoft.*.*.*.model"/>
+		<property name="packagesToScan" value="com.mengzhiang.*.*.model,com.mengzhiang.*.*.*.model"/>
 		<!--
 			 value只能中间写*最后不能写.*
 			 <property name="packagesToScan" value="com.neusoft.struts2.*.model"/>
@@ -99,9 +99,9 @@
 	</bean>  
 	<!--如果采用XML配置则用下面的配置-->
 	<aop:config proxy-target-class="true">
-		<aop:advisor pointcut="execution(* com.neusoft.*.*.service.*Impl.*(..))"
+		<aop:advisor pointcut="execution(* com.mengzhiang.*.*.service.*Impl.*(..))"
 			advice-ref="txAdvice"/>
-		<aop:advisor pointcut="execution(* com.neusoft.*.*.*.service.*Impl.*(..))"
+		<aop:advisor pointcut="execution(* com.mengzhiang.*.*.*.service.*Impl.*(..))"
 			advice-ref="txAdvice"/>
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
