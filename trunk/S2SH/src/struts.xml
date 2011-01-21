@@ -16,7 +16,7 @@
       
 	<package name="default" extends="json-default">
 		<interceptors>  
-			<interceptor name="jsoninterceptor" class="com.neusoft.base.action.JsonIntercepter">  
+			<interceptor name="jsoninterceptor" class="com.mengzhiang.base.action.JsonIntercepter">  
 			</interceptor>  
 		</interceptors> 
 		<action name="*_*" class="{1}Action" method="{2}">
@@ -30,7 +30,7 @@
 	</package>
 
 	<package name="jfc" namespace="/jfc" extends="jfreechart-default">
-		<action name="select" class="com.neusoft.tools.jfreechart.SelectAction">
+		<action name="select" class="com.mengzhiang.tools.jfreechart.SelectAction">
 			<!--
 				  <result name="success" type="chart">
 						   <param name="height">400</param>
@@ -44,7 +44,7 @@
 	</package>
 	
 	<package name="jap" namespace="/jap" extends="jfreechart-default">
-		<action name="select" class="com.neusoft.tools.jasper.JsperAction" >
+		<action name="select" class="com.mengzhiang.tools.jasper.JsperAction" >
 			<result name="success">
 	          	   /jfreechart/jsper.jsp
 			</result>
