@@ -8,7 +8,7 @@
       <param name="class" value="java.util.Date"/>
     </create>
     <create creator="new" javascript="JTest">
-      <param name="class" value="com.neusoft.dwr.Test"/>
+      <param name="class" value="com.mengzhiang.dwr.Test"/>
     </create>
   </allow>
 </dwr>
