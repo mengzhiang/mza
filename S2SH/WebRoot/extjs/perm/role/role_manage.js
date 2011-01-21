@@ -274,6 +274,25 @@ Ext.onReady(function() {
 							}
 						}]
 			});
+			var filterArr = [];
+			var detailfilter = {
+				name : 'detail',
+				type : 'String',
+				property : 'id',
+				condition : 'in',
+				value : "9"
+			}
+			filterArr.push(detailfilter);
+			var data = {
+				filters : filterArr
+			}
+			user_store.baseParams.strFilter = Ext.encode(data);
+			user_store.load({
+						params : {
+							start : 0,
+							limit : 15
+						}
+					});
 			win.show();
 		}
 	}));
@@ -320,12 +339,7 @@ Ext.onReady(function() {
 									name : 'detail'
 								}])
 			});
-	user_store.load({
-				params : {
-					start : 0,
-					limit : 15
-				}
-			});
+
 	var user_grid = new Ext.grid.GridPanel({
 				region : 'center',
 				autoHeight : true,
