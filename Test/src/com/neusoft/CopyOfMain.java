@@ -19,7 +19,7 @@ public class CopyOfMain
 {
     public final static String SRC_PATH = "c:\\text\\src";
     public final static String SEARCH_PATH = "c:\\text\\search.txt";
-    public final static String RESULT_PATH = "c:\\text\\result.txt";
+    public final static String RESULT_PATH = "c:\\text\\result.txt"; 
     
     public static void main(String[] args){
         List<String> searchlist = Tools.readFile(SEARCH_PATH);
