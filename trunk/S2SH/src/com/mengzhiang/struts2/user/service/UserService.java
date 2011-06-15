@@ -73,4 +73,12 @@ public interface UserService {
 	 * @return
 	 */
 	public PaginationSupport queryByFilter(List<Parameter> list,int startIndex,int pageSize);
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[测试hibernate事务管理]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public void saveAll(List<User> userlist);
 }

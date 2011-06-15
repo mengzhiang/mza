@@ -40,7 +40,37 @@ public class UserServiceImpl implements UserService {
 	 * @update:[日期YYYY-MM-DD] [更改人姓名]
 	 */
 	public void save(User user){
-		userDao.saveOrUpdate(user);
+		//userDao.saveOrUpdate(user);
+		List<User> uselist = new ArrayList<User>();
+		User user1 = new User();
+		user1.setName("testuser1");
+		user1.setPwd("123");
+		User user2 = new User();
+		user2.setName("testuser2EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+		user2.setPwd("123");
+		uselist.add(user1);
+		uselist.add(user2);
+		userDao.saveOrUpdateAll(uselist);
+	}
+	
+	/**
+	 *  Created on 2010-8-6
+	 * <p>Description:[测试hibernate事务管理]</p>
+	 * @author:孟志昂
+	 * @email: mengzhiang@gmail.com
+	 * @update:[日期YYYY-MM-DD] [更改人姓名]
+	 */
+	public void saveAll(List<User> userlist){
+		List<User> uselist = new ArrayList<User>();
+		User user1 = new User();
+		user1.setName("testuser1");
+		user1.setPwd("123");
+		User user2 = new User();
+		user2.setName("testuser2EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+		user2.setPwd("123");
+		uselist.add(user1);
+		uselist.add(user2);
+		userDao.saveOrUpdateAll(uselist);
 	}
 	
 	/**
