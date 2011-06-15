@@ -39,8 +39,7 @@ public class SelectAction extends ActionSupport {
 	private List<String> interest;// 这是接收用户选择的项目
 
 	public JFreeChart getChart() {// 需要自己产生JFreeChart对象
-		JFreeChart chart = ChartFactory.createBarChart3D("爱好兴趣调查", "项目", "比例",
-				createDataset(), PlotOrientation.VERTICAL, true, true, true);
+		JFreeChart chart = ChartFactory.createBarChart3D("爱好兴趣调查", "项目", "比例",createDataset(), PlotOrientation.VERTICAL, true, true, true);
 
 		TextTitle tt = chart.getTitle();
 		tt.setFont(new Font("黑体", Font.BOLD, 20));
