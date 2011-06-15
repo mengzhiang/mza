@@ -91,7 +91,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entity
 	 */
 	public void save(final T entity) {
-		hibernateTemplate.save(entity);
+		try {
+			hibernateTemplate.save(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -105,7 +109,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entity
 	 */
 	public void update(T entity) {
-		hibernateTemplate.update(entity);
+		try {
+			hibernateTemplate.update(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -119,7 +127,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entity
 	 */
 	public void saveOrUpdate(T entity) {
-		hibernateTemplate.saveOrUpdate(entity);
+		try {
+			hibernateTemplate.saveOrUpdate(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -133,7 +145,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entities
 	 */
 	public void saveOrUpdateAll(Collection<T> entities) {
-		hibernateTemplate.saveOrUpdateAll(entities);
+		try {
+			hibernateTemplate.saveOrUpdateAll(entities);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -164,7 +180,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entity
 	 */
 	public void delete(T entity) {
-		hibernateTemplate.delete(entity);
+		try {
+			hibernateTemplate.delete(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -178,7 +198,11 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param entities
 	 */
 	public void deleteAll(Collection<T> entities) {
-		hibernateTemplate.deleteAll(entities);
+		try {
+			hibernateTemplate.deleteAll(entities);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -327,11 +351,13 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 		DetachedCriteria dc = this.buildFilterCriterion(list);
 		return findPageByCriteria(dc, pageSize, startIndex);
 	}
-	
-    /** *//**  
-     * 根据hql加载分页，指定页大小和起始位置  
-     */  
-    public PaginationSupport findPageByQuery(final String hql, final int pageSize, final int startIndex, final Object...values){   
+
+	/** */
+	/**
+	 * 根据hql加载分页，指定页大小和起始位置
+	 */
+	public PaginationSupport findPageByQuery(final String hql,
+			final int pageSize, final int startIndex, final Object... values) {
 		return (PaginationSupport) hibernateTemplate
 				.executeWithNativeSession(new HibernateCallback() {
 					@SuppressWarnings("unchecked")
@@ -348,8 +374,8 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 						return ps;
 					}
 				});
-    }   
-       
+	}
+
 	/**
 	 * Created on 2010-8-19
 	 * <p>
