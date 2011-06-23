@@ -67,7 +67,22 @@ http://tech.ddvip.com/2009-01/1232558101106757.html
   登陆完成了，
   等处需要做。
   
-  
+  1：添加jbpm.jar
+  2: 添加jbpm.cfg.xml到src目录下。
+  3：在applicationContext.xml添加东西。
+    <bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper" />
+
+  <bean id="processEngine" factory-bean="springHelper" factory-method="createProcessEngine" />
+   和hibernate 映射
+   		<property name="mappingResources">
+				<list>
+					<value>jbpm.repository.hbm.xml</value>                   
+                	<value>jbpm.execution.hbm.xml</value>  
+                	<value>jbpm.history.hbm.xml</value>  
+                	<value>jbpm.task.hbm.xml</value>  
+                	<value>jbpm.identity.hbm.xml</value> 
+				</list>
+		</property>
   
     
 
