@@ -23,10 +23,6 @@ import com.mengzhiang.base.perm.user.service.PermUserService;
      private PermService permService;  
      
    
-     @Override  
-     String[] getOtherConfigs() {  
-         return new String[] { applicationContextFile };  
-     }  
     
    
      @Test  
@@ -35,6 +31,11 @@ import com.mengzhiang.base.perm.user.service.PermUserService;
      public void testWriteSysparameterSysparamconf() {  
     	 //级联保存没有问题，是使用spring测试框架无法级联保存。
     	 permService.saveRoleAndUser();
-     }  
+     }
+
+	@Override
+	String[] getOtherConfigs() {
+		return null;
+	}  
    
  }  

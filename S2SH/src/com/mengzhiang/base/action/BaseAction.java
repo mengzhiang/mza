@@ -7,7 +7,7 @@ import com.mengzhiang.base.dao.PaginationSupport;
 import com.mengzhiang.base.dao.QueryFilter;
 import com.opensymphony.xwork2.ActionSupport;
 @Controller
-@Scope("prototype") 
+@Scope("prototype") //每个请求对应一个实例，防止出现线程不安全问题
 public class BaseAction extends ActionSupport {
 	
 	/**

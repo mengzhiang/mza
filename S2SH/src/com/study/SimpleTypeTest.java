@@ -1,5 +1,13 @@
 package com.study;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Vector;
+
 public class SimpleTypeTest {
 
 	/**
@@ -39,7 +47,41 @@ public class SimpleTypeTest {
 		double d;
 		long s = i*l;
 		System.out.println(s);
-
+		System.out.println(Byte.MAX_VALUE);
+		System.out.println(Byte.MIN_VALUE);
+		char c1 = (char) 25105;
+		System.out.println(Character.MAX_CODE_POINT);
+		System.out.println(Character.MIN_CODE_POINT);
+		System.out.println();
+		System.out.println(c1);
+		String str = "123";//String 是final的，是不可变的。
+		StringBuffer sb = new StringBuffer();
+		StringBuilder sbs = new StringBuilder();
+		HashMap map = new HashMap();
+		map.put(null, "123");
+		System.out.println(map.get(null));
+		Hashtable ht = new Hashtable();
+		//ht.put(null, 123);
+		//System.out.println(ht.get(null));
+		Boolean b = new Boolean("1");
+		boolean b2 ;
+		ArrayList al = new ArrayList();
+		Vector ve = new Vector();
+		LinkedList ll = new LinkedList();
+		//接口
+		Collection cl = new ArrayList();
+		//排序
+		//Collections.sort(ll);
+		Object o = new Object();
+		Thread t = new Thread();
+		try {
+			//t.sleep(500);
+			t.wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}	
+		o.notify();
+		System.out.println(t.getName());
 	}
 
 }
