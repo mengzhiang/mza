@@ -2,6 +2,15 @@ package com.study.sells;
 
 import java.math.BigDecimal;
 
+/**
+ * Created on 2011-7-11
+ * <p>名称: S2SH工程-用户模块</p>
+ * <p>描述: [concrete class TobaccoTax ]</p>
+ * <p>版本: Copyright (c) 2010</p>
+ * @author: 孟志昂
+ * @email:  mengzhiang@gmail.com
+ * @version:$Revision$
+*/
 public class TobaccoTax extends TaxDecorator {
 	private Good good;
 	
@@ -16,6 +25,6 @@ public class TobaccoTax extends TaxDecorator {
 	}
 
 	public String getDescription() {
-		return "imported"+ good.getDescription();
+		return "Tobacco"+ good.getDescription();
 	}
 }
