@@ -47,7 +47,7 @@ import org.springframework.test.AbstractTransactionalSpringContextTests;
      protected String[] getConfigLocations() {  
          String[] otherConfigs = getOtherConfigs();  
          // 所有配置文件列表  
-         String[] configFiles = new String[otherConfigs.length + 1];  
+         String[] configFiles = new String[1];  
          configFiles[0] = applicationContextFile;  
    
          /** 
@@ -56,7 +56,7 @@ import org.springframework.test.AbstractTransactionalSpringContextTests;
           * 源数组中位置在 srcPos到srcPos+length-1 之间的组件被分 
           * 别复制到目标数组中的 destPos 到 destPos+length-1 位置。 
           */  
-         System.arraycopy(otherConfigs, 0, configFiles, 1, otherConfigs.length);  
+         //System.arraycopy(otherConfigs, 0, configFiles, 1, otherConfigs.length);  
          return configFiles;  
      }  
  }     
