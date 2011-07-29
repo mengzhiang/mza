@@ -7,10 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 
 @Entity
 @Table(name="t_user")
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY) 
 public class User {
 	private long id;
 	private String name;
