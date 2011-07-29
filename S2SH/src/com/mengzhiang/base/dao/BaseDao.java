@@ -234,6 +234,7 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	public PaginationSupport findPageByCriteria(
 			final DetachedCriteria detachedCriteria, final int pageSize,
 			final int startIndex) {
+		hibernateTemplate.setCacheQueries(true);
 		return (PaginationSupport) hibernateTemplate
 				.executeWithNativeSession(new HibernateCallback() {
 					@SuppressWarnings("unchecked")
