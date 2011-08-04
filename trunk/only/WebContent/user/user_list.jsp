@@ -10,6 +10,7 @@
 </head>
 <body>
 <a href="user_add_input.jsp">新增用户</a>
+<a href="../logout.jsp">退出系统</a>
 <%
 /**
 显示所有用户信息，没有数据模型的概念，完全过程化。没有javabean
