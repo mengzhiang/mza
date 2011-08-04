@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author: 孟志昂
 */
 public class UserServlet extends HttpServlet{
-	
 	private static final long serialVersionUID = -8429211622330631808L;
 
 	/**
@@ -37,4 +36,5 @@ public class UserServlet extends HttpServlet{
 		String name = req.getParameter("name");
 		System.out.println(name);
 	}
+	
 }
