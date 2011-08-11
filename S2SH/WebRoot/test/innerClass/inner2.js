@@ -3,7 +3,7 @@ var Parcel =function(){
 	var Content= function(){
 		var value = 11;
 		this.value = function(){
-			return value;
+			return arguments;
 		};
 		this.name = function(){
 			return name;
@@ -30,7 +30,7 @@ c.value();
  */
 
 var p = new Parcel();
-p.ship();
+//p.ship();
 var content = p.getContent();
 alert(content.value());
 alert(content.name());
