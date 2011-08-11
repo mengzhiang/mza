@@ -8,7 +8,14 @@ public class Parcel2 {
 		private int i =11;
 		public int value(){return i;}
 		public String name(){
+			//如何在内部类中访问外部类中同名的方法 用.this
+			Parcel2.this.contents();
+			this.contents();
 			return name;
+		}
+		public Contents contents(){
+			System.out.println("内部");
+			return new Contents();
 		}
 	}
 	//目的地
@@ -20,6 +27,7 @@ public class Parcel2 {
 		String readLabel(){return label;};
 	}
 	public Contents contents(){
+		System.out.println("外部");
 		return new Contents();
 	}
 	
