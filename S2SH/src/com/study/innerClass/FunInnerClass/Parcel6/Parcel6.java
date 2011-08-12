@@ -1,4 +1,4 @@
-package com.study.innerClass.FunInnerClass;
+package com.study.innerClass.FunInnerClass.Parcel6;
 
 public class Parcel6 {
 	public String fun(boolean b){
