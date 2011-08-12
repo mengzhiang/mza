@@ -1,4 +1,4 @@
-package com.study.innerClass.FunInnerClass;
+package com.study.innerClass.FunInnerClass.Parcel6;
 
 import junit.framework.TestCase;
 

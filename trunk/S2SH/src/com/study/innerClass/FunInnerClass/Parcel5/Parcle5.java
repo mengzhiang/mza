@@ -1,4 +1,4 @@
-package com.study.innerClass.FunInnerClass;
+package com.study.innerClass.FunInnerClass.Parcel5;
 
 import com.study.innerClass.Parcel.parcel4.Destination;
 
@@ -10,8 +10,8 @@ public class Parcle5 {
 			public PDestination(String whereTo){
 				this.label = whereTo;
 			}
-			public void readLabel(){
-				System.out.println(label);
+			public String readLabel(){
+				return label;
 			}
 		}
 		return new PDestination(dest);
