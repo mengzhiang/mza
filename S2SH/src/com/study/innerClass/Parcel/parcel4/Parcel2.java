@@ -11,7 +11,7 @@ public class Parcel2 {
 		PDestination(String whereTo){
 			label = whereTo;
 		}
-		String readLabel(){return label;};
+		public String readLabel(){return label;};
 	}
 	
 	public Contents contents(){
