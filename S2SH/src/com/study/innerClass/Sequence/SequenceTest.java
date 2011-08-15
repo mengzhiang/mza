@@ -16,4 +16,15 @@ public class SequenceTest extends TestCase {
 		}
 		assertEquals(sb.toString(),"0123456789");
 	}
+	
+	public void testSequenceReverseSelector(){
+		Sequence s = new Sequence(10);
+		for(int i=0;i<10;i++){
+			s.add(Integer.toString(i));
+		}
+		ReverseSelector rs = s.reverseSelector();
+		while(!rs.begin()){
+			System.out.println(rs.prev());
+		}
+	}
 }
