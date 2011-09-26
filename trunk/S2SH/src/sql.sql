@@ -19,9 +19,9 @@
 -- Current Database: `bbs`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bbs` /*!40100 DEFAULT CHARACTER SET gbk */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `S2SH` /*!40100 DEFAULT CHARACTER SET gbk */;
 
-USE `bbs`;
+USE `S2SH`;
 
 --
 -- Table structure for table `t_perm_res_model_tree`
