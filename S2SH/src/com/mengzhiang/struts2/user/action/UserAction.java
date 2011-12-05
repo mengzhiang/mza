@@ -1,8 +1,13 @@
 package com.mengzhiang.struts2.user.action;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -12,11 +17,15 @@ import com.mengzhiang.base.utils.JsonUtil;
 import com.mengzhiang.struts2.user.model.TreeModel;
 import com.mengzhiang.struts2.user.model.User;
 import com.mengzhiang.struts2.user.service.UserService;
+import com.mengzhiang.tools.cache.CacheUtil;
+import com.mengzhiang.tools.cache.SelfPopulatingCacheUtil;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
 public class UserAction extends BaseAction implements ModelDriven<User> {
+
+
 
 	private static final long serialVersionUID = 5133585599464228486L;
 	private User user = new User();// 这里要手动new一下
@@ -40,8 +49,27 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public String list() {
-		users = userService.list(user);
+//		users = (List<User>)SelfPopulatingCacheUtil.getEcpCache("user1");
+//		if( CacheUtil.isInCache("user1")){
+//			users = (List<User>)CacheUtil.get("user1");
+//
+//		}else{
+			users = userService.list(user);
+//			CacheUtil.put("user1",users);
+//		}
+		//Collections.sort(users);
+//		int page =2;
+//		int pageSize =10;
+//		List<User> pageuser = new ArrayList<User>();
+//		int begin = (page-1)*pageSize;
+//		int end = page*pageSize;
+//		for(int i=begin;i<=end;i++){
+//			pageuser.add(users.get(i));
+//		}
+//		users = pageuser;
+		
 		return SUCCESS;
 	}
 
