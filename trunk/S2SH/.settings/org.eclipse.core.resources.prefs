@@ -1,12 +1,11 @@
-#Tue Apr 24 22:52:00 CST 2012
 eclipse.preferences.version=1
-encoding//WebRoot/decorators/layout.css=UTF-8
-encoding//WebRoot/decorators/order_decorator_left.jsp=UTF-8
-encoding//WebRoot/extjs/list.jsp=UTF-8
-encoding//WebRoot/extjs/template/xxxx_manage.jsp=UTF-8
-encoding//WebRoot/google/1.html=UTF-8
-encoding//WebRoot/google/google.js=GBK
-encoding//WebRoot/google/test2.html=UTF-8
-encoding//WebRoot/jfreechart/jsper.jsp=UTF-8
-encoding//WebRoot/jslib/kissy=UTF-8
+encoding//WebContent/decorators/layout.css=UTF-8
+encoding//WebContent/decorators/order_decorator_left.jsp=UTF-8
+encoding//WebContent/extjs/list.jsp=UTF-8
+encoding//WebContent/extjs/template/xxxx_manage.jsp=UTF-8
+encoding//WebContent/google/1.html=UTF-8
+encoding//WebContent/google/google.js=GBK
+encoding//WebContent/google/test2.html=UTF-8
+encoding//WebContent/jfreechart/jsper.jsp=UTF-8
+encoding//WebContent/jslib/kissy=UTF-8
 encoding/<project>=UTF-8
