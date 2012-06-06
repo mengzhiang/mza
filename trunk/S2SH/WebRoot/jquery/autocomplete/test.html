@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>自定义提示</title>
+<script type="text/javascript" src="jquery-1.4.2.js"></script>
+<script type="text/javascript" src="jquery.autocomplete.min.js"></script>
+<link rel="Stylesheet" href="jquery.autocomplete.css" />
+<script type="text/javascript">
+	var list = [ {
+		"id" : 1,
+		"code" : "001",
+		"name" : "商品1"
+	}, {
+		"id" : 2,
+		"code" : "002",
+		"name" : "商品2"
+	}, {
+		"id" : 3,
+		"code" : "003",
+		"name" : "商品3"
+	} ];
+	$(function() {
+
+		$('#keyword').autocomplete(list, {
+			max : 12, //列表里的条目数 
+			minChars : 0, //自动完成激活之前填入的最小字符 
+			width : 400, //提示的宽度，溢出隐藏 
+			scrollHeight : 300, //提示的高度，溢出显示滚动条 
+			matchContains : true, //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示 
+			autoFill : false, //自动填充 
+			formatItem : function(row, i, max) {
+				return i + '/' + max + ':"' + row.code + '"[' + row.name + ']';
+			},
+			formatMatch : function(row, i, max) {
+				return row.code + row.name;
+			},
+			formatResult : function(row) {
+				return row.name;
+			}
+		}).result(function(event, row, formatted) {
+			alert(row.name);
+		});
+	});
+	$(function() {
+		$.getJSON("user_list", function(data) {
+			var list = data.users;
+			$('#keyword').autocomplete(
+					list,
+					{
+						max : 12, //列表里的条目数 
+						minChars : 0, //自动完成激活之前填入的最小字符 
+						width : 400, //提示的宽度，溢出隐藏 
+						scrollHeight : 300, //提示的高度，溢出显示滚动条 
+						matchContains : true, //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示 
+						autoFill : false, //自动填充 
+						formatItem : function(row, i, max) {
+							return i + '/' + max + ':"' + row.name + '"['
+									+ row.pwd + ']';
+						},//对匹配的每一行数据使用此函数格式化, 返回值是显示给用户的数据内容.
+						formatMatch : function(row, i, max) {
+							return row.name + row.to;
+						},//对每一行数据使用此函数格式化需要查询的数据格式.
+						formatResult : function(row) {
+							return row.to;
+						}//此函数是用户选中后返回的数据格式. 
+					}).result(function(event, row, formatted) {
+				alert(row.to);
+			});// 为控件添加Result事件函数
+		});
+	});
+</script>
+</head>
+<body>
+<h2>JQuery自动补全插件</h2>
+<h3>请在输入框中输入“商品”或者“001”测试。</h3>
+<input id="keyword" /> 
+</body>
+</html>

@@ -12,14 +12,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>onSelected and onDeselected</title>
     <style type="text/css">
-        @import "/dojoroot/dijit/themes/tundra/tundra.css";
-        @import "/dojoroot/dojox/grid/_grid/tundraGrid.css";
+        @import "/S2SH/jslib/dojo1.5/dijit/themes/tundra/tundra.css";
+        @import "/S2SH/jslib/dojo1.5/dojox/grid/resources/tundraGrid.css";
     </style>
-    <script type="text/javascript" src="/dojoroot/dojo/dojo.js"  
+    <script type="text/javascript" src="/S2SH/jslib/dojo1.5/dojo/dojo.js"  
             djConfig="parseOnLoad: true"></script>
     <script type="text/javascript">
-       dojo.registerModulePath("dojobook","../../dojobook");
-       dojo.require("dojox.grid.Grid");
+       dojo.registerModulePath("dojobook","../../../dojo/code");
+       dojo.require("dojox.grid.DataGrid");
        dojo.require("dojobook.grid.grid_definitions.actions");
        dojo.require("dojo.data.ItemFileReadStore");
        icGrid=null;
@@ -31,7 +31,7 @@
     </span>
 
     
-    <div id="grid" dojoType="dojox.grid.Grid" 
+    <div id="grid" dojoType="dojox.grid.DataGrid" 
         jsId="icGrid"
         store="icStore"
         clientSort="false"
