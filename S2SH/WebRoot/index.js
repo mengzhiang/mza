@@ -8,6 +8,7 @@ function Login() {
 		//表单序列化
 		if ((!this.checkInput()) || (!this.checkYzm())) {
 			return;
+			
 		};
 		var paras = D.formSerialize($(".login_form"));
 		var data = {
@@ -108,6 +109,7 @@ function Login() {
 		yzmcode = object.yzm;
 		$('#yzmpic').attr('src',
 				'/S2SH/temp/yzm/' + object.yzmjpgName + '.jpg');
+		
 	}
 	// 初始化方法
 	this.init = function() {

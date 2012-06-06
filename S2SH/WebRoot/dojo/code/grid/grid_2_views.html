@@ -12,12 +12,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Two Views</title>
     <style type="text/css">
-        @import "/dojoroot/dijit/themes/tundra/tundra.css";
-        @import "/dojoroot/dojox/grid/_grid/tundraGrid.css";
+        @import "/S2SH/jslib/dojo1.5/dijit/themes/tundra/tundra.css";
+        @import "/S2SH/jslib/dojo1.5/dojox/grid/resources/tundraGrid.css";
     </style>
-    <script type="text/javascript" src="/dojoroot/dojo/dojo.js"  djConfig="parseOnLoad: true"></script>
+    <script type="text/javascript" src="/S2SH/jslib/dojo1.5/dojo/dojo.js"  djConfig="parseOnLoad: true"></script>
     <script type="text/javascript">
-       dojo.require("dojox.grid.Grid");
+       dojo.require("dojox.grid.DataGrid");
        dojo.require("dojo.data.ItemFileReadStore");
     </script>
 </head>
@@ -27,7 +27,7 @@
         jsId="icStore" url="datastores/ice_cream.json">
     </span>
 
-    <table id="grid" dojoType="dojox.grid.Grid" 
+    <table id="grid" dojoType="dojox.grid.DataGrid" 
 		store="icStore"
 		clientSort="true"
 		style="width: 35em; height: 15em;">

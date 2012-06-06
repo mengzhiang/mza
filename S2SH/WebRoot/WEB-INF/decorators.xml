@@ -4,13 +4,43 @@
     <excludes>
     	  <pattern>/index*.jsp*</pattern>
           <pattern>/login/*</pattern>
-          <pattern>/ajax/*</pattern>
+
           <pattern>/jslib/*</pattern>
-          <pattern>/ajax/*</pattern>
+
           <pattern>/extjs/*</pattern>
           <pattern>/dojo/*</pattern>
+           <pattern>/jquery/*</pattern>
+           <pattern>/b2b/*</pattern>
     </excludes>
     <decorator name="main" page="main.jsp">
         <pattern>/*</pattern>
     </decorator>
+    
+    <decorator name="index_decorator" page="index_decorator.jsp">
+        <pattern>/b2b/pages/index/*</pattern>
+    </decorator>
+    
+     <decorator name="order_decorator" page="order_decorator.jsp">
+        <pattern>/b2b/pages/order/*</pattern>
+    </decorator>
+    
+    <decorator name="asn_decorator" page="asn_decorator.jsp">
+        <pattern>/b2b/pages/asn/*</pattern>
+    </decorator>
+    
+   <decorator name="notice_decorator" page="bulltelin_decorator.jsp">
+        <pattern>/b2b/pages/notice/*</pattern>
+    </decorator>
+
+    <decorator name="account_decorator" page="account_decorator.jsp">
+        <pattern>/b2b/pages/account/*</pattern>
+    </decorator>
+    <decorator name="help_decorator" page="help_decorator.jsp">
+        <pattern>/b2b/pages/help/*</pattern>
+    </decorator>
+    <decorator name="index_left" page="index_decorator_left.jsp"></decorator>
+    <decorator name="order_left" page="order_decorator_left.jsp"></decorator>
+    <decorator name="asn_left" page="asn_decorator_left.jsp"></decorator>
+    <decorator name="bulltelin_left" page="bulltelin_decorator_left.jsp"></decorator>
+    <decorator name="account_left" page="account_decorator_left.jsp"></decorator>
 </decorators>
