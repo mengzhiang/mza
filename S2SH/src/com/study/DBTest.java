@@ -22,11 +22,11 @@ public class DBTest {
 			e.printStackTrace();
 		}
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bbs?user=root&password=123456");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/s2sh?user=root&password=123456");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from t_user");
 			while(rs.next()){
-				//System.out.println(rs.getString(1)+rs.getString(2)+rs.getString(3));
+				System.out.println(rs.getString(1)+rs.getString(2)+rs.getString(3));
 			}
 			stmt.close();
 			return;
