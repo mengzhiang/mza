@@ -3,8 +3,7 @@ package com.test.exception.business;
 import com.test.message.ExceptionMessage;
 
 /**
- * 通用业务异常
- * 
+
  * @author mza
  *
  */

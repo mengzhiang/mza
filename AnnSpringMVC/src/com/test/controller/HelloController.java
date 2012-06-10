@@ -1,17 +1,20 @@
 package com.test.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.exception.business.EcpAjaxBusinessException;
 import com.test.exception.business.EcpPageBusinessException;
+import com.test.exception.system.EcpAjaxSystemException;
+import com.test.exception.system.EcpPageSystemException;
+import com.test.exception.system.EcpSystemException;
 
 /**
- * ²âÊÔSpringMVC simple controller
+ * SpringMVC simple controller
  * 
  * @author mza
  * 
@@ -22,25 +25,83 @@ public class HelloController {
 
 	@RequestMapping("/normal")
 	public String normal(ModelMap modelmap, HttpServletRequest request) {
-		return "ajax";
+		return "normal";
 	}
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/pageBusi")
 	public String pageBusi(ModelMap modelmap, HttpServletRequest request) {
-		throw new EcpPageBusinessException("Ò³Ãæµ÷×ª:¿Í»§¿É¼ûÒì³£","¿ª·¢¿É¼ûÒì³£");
+		throw new EcpPageBusinessException("æ‚¨æ²¡æœ‰æƒé™ä¸‹å•ï¼Œè¯·è”ç³»ç®¡ç†å‘˜","æ²¡æœ‰æ‰¾åˆ°è¯¥å®¢æˆ·å¯¹åº”çš„é”€å”®ç»„ç»‡");
 	}
-	//@RequestMapping("/test")
-	//ModelAndView handleRequest(HttpServletRequest arg0, HttpServletResponse arg1)
-	//		throws Exception {
+	
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 * @throws EcpSystemException 
+	 * @throws EcpPageSystemException 
+	 */
+	@RequestMapping("/pageSys")
+	public String pageSys(ModelMap modelmap, HttpServletRequest request) throws EcpSystemException{
+		try {
+			testException();
+			return null;
+		} catch (ClassNotFoundException e) {
+			throw new EcpPageSystemException(e);
+		}
+		
+	}
 
-		// ModelAndView mav = new ModelAndView("hello.jsp");
-		// mav.addObject("message", "Hello World!");
-		// return mav;
 
-		// µ÷×ªÒµÎñÒì³£,¸ø³öÒµÎñÌáÊ¾ĞÅÏ¢ºÍµ÷ÊÔÓÃÌáÊ¾ĞÅÏ¢
-		// throw new EcpPageBusinessException(new ExceptionMessage("¿Í»§¿É¼ûÒì³£ÌáÊ¾ĞÅÏ¢",
-		// "¿ª·¢µ÷ÊÔÓÃÌáÊ¾ĞÅÏ¢"));
-		// µ÷×ªÏµÍ³Òì³£
-		//throw new EcpPageSystemException(new NullPointerException("s"));
-	//}
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/ajaxNormal")
+	@ResponseBody
+	public String ajaxNormal(ModelMap modelmap, HttpServletRequest request){
+		return "ajaxNormal";
+	}
+	
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/ajaxBusi")
+	@ResponseBody
+	public String ajaxBusi(ModelMap modelmap, HttpServletRequest request){	
+		throw new EcpAjaxBusinessException("åˆ›å»ºè®¢å•å¤±è´¥ï¼","ç¨é¢ï¼Œå«ç¨å•ä»·ï¼Œå«ç¨å‡€ä»·ä¸èƒ½ä¸ºç©ºæˆ–0");	
+	}
+	
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 * @throws EcpAjaxSystemException 
+	 */
+	@RequestMapping("/ajaxSys")
+	@ResponseBody
+	public String ajaxSys(ModelMap modelmap, HttpServletRequest request) throws EcpAjaxSystemException{	
+		try {
+			testException();
+			return null;
+		} catch (ClassNotFoundException e) {
+			throw new EcpAjaxSystemException(e);
+		}
+	}
+
+	
+	/**
+	 * @throws ClassNotFoundException
+	 */
+	private void testException() throws ClassNotFoundException{
+		StackTest stack = new StackTest();
+		stack.testStrack();
+	}
 
 }

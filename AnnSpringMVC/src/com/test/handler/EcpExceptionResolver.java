@@ -1,8 +1,17 @@
 package com.test.handler;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
@@ -13,6 +22,7 @@ import com.test.exception.business.EcpPageBusinessException;
 import com.test.exception.system.EcpAjaxSystemException;
 import com.test.exception.system.EcpPageSystemException;
 import com.test.exception.system.EcpSystemException;
+import com.test.message.ExceptionMessage;
 
 public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 
@@ -20,11 +30,8 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 	protected ModelAndView doResolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		try {
-			//业务异常
 			if (ex instanceof EcpBusinessException) {
 				if (ex instanceof EcpAjaxBusinessException) {
-					// 把返回结果写入response流中。返回原界面
-					// 业务信息 按UE提示，详细的在div块中
 					return handleEcpAjaxBusinessException((EcpAjaxBusinessException) ex, request,
 							response, handler);
 				}else if(ex instanceof EcpPageBusinessException){
@@ -34,7 +41,7 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 					return handleEcpBusinessException((EcpBusinessException) ex, request,
 							response, handler);
 				}
-				//系统异常
+
 			} else if (ex instanceof EcpSystemException) {
 				if (ex instanceof EcpAjaxSystemException) {
 					return handleEcpAjaxSystemException((EcpAjaxSystemException) ex, request,
@@ -61,18 +68,28 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 			MissingServletRequestParameterException ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) {
-		// TODO Auto-generated method stub
-		return null;
+		 ModelAndView model = new ModelAndView("error");
+		 model.addObject("exceptionMessage", ex.getMessage());
+		return model;
 	}
 
 	private ModelAndView handleEcpSystemException(
 			EcpSystemException ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) {
-		// TODO Auto-generated method stub
-		return null;
+		 ModelAndView model = new ModelAndView("error");
+		 model.addObject("exceptionMessage", ex.getExceptionMessage());
+		return model;
 	}
 
+	/**
+	 * 系统锟斤拷转锟届常
+	 * @param ex
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 */
 	private ModelAndView handleEcpPageSystemException(
 			EcpPageSystemException ex,
 			HttpServletRequest request, HttpServletResponse response,
@@ -85,29 +102,40 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 	private ModelAndView handleEcpAjaxSystemException(
 			EcpAjaxSystemException ex,
 			HttpServletRequest request, HttpServletResponse response,
-			Object handler) {
-		// TODO Auto-generated method stub
-		return null;
+			Object handler) throws HttpMessageNotWritableException, IOException {
+		//response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		HttpInputMessage inputMessage = new ServletServerHttpRequest(request);
+		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
+		MediaType contentType = inputMessage.getHeaders().getContentType();
+		ExceptionMessage returnValue = ex.getExceptionMessage();
+		MappingJacksonHttpMessageConverter messageConverter = new MappingJacksonHttpMessageConverter();
+		messageConverter.write(returnValue, contentType, outputMessage);
+		return new ModelAndView();
 	}
 
 	private ModelAndView handleEcpBusinessException(
 			EcpBusinessException ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) {
-		// TODO Auto-generated method stub
-		return null;
+		 ModelAndView model = new ModelAndView("error");
+		 model.addObject("exceptionMessage", ex.getExceptionMessage());
+		return model;
 	}
 
 	private ModelAndView handleEcpAjaxBusinessException(
 			EcpAjaxBusinessException ex,
 			HttpServletRequest request, HttpServletResponse response,
-			Object handler) {
-		// TODO Auto-generated method stub
-		return null;
+			Object handler) throws HttpMessageNotWritableException, IOException {
+		HttpInputMessage inputMessage = new ServletServerHttpRequest(request);
+		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
+		MediaType contentType = inputMessage.getHeaders().getContentType();
+		ExceptionMessage returnValue = ex.getExceptionMessage();
+		MappingJacksonHttpMessageConverter messageConverter = new MappingJacksonHttpMessageConverter();
+		messageConverter.write(returnValue, contentType, outputMessage);
+		return new ModelAndView();
 	}
 
 	/**
-	 * 处理业务调转异常
 	 * @param ex
 	 * @param request
 	 * @param response

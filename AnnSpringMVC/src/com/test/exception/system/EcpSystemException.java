@@ -5,15 +5,12 @@ import java.io.PrintStream;
 
 import com.test.message.ExceptionMessage;
 
-/**
- * Ecpϵͳ�쳣
- * @author mza
- *
- */
+
 public class EcpSystemException extends Exception{
 	
 	public EcpSystemException(Exception exception) {
 		super();
+		String messge ="系统正在维护，请稍候！";
 		String s = "";
 		try {
 			PrintStream stream ;
@@ -22,7 +19,7 @@ public class EcpSystemException extends Exception{
 		} catch (FileNotFoundException e) {
 			//file not found
 		}
-		this.exceptionMessage = new ExceptionMessage(exception.getMessage(),s);
+		this.exceptionMessage = new ExceptionMessage(messge,exception.toString()+s);
 	}
 	
 	protected ExceptionMessage exceptionMessage;
