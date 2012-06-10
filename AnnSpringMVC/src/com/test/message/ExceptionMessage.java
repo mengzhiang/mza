@@ -1,7 +1,7 @@
 package com.test.message;
 
 /**
- * 错误提示信息
+ * Exception message Object
  * @author mza
  *
  */
@@ -12,9 +12,7 @@ public class ExceptionMessage {
 		this.message = message;
 		this.detail = detail;
 	}
-	//给用户看的提示信息
 	private String message;
-	//给开发人员看的详细错误信息（默认隐藏）
 	private String detail;
 	public String getMessage() {
 		return message;

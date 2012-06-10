@@ -12,7 +12,6 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
@@ -24,12 +23,18 @@ import com.test.exception.system.EcpPageSystemException;
 import com.test.exception.system.EcpSystemException;
 import com.test.message.ExceptionMessage;
 
+/**
+ * 
+ * @author mza
+ *
+ */
 public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 
 	@Override
 	protected ModelAndView doResolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		try {
+			//handler business exception
 			if (ex instanceof EcpBusinessException) {
 				if (ex instanceof EcpAjaxBusinessException) {
 					return handleEcpAjaxBusinessException((EcpAjaxBusinessException) ex, request,
@@ -41,8 +46,9 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 					return handleEcpBusinessException((EcpBusinessException) ex, request,
 							response, handler);
 				}
-
-			} else if (ex instanceof EcpSystemException) {
+			} 
+			//handler system exception
+			else if (ex instanceof EcpSystemException) {
 				if (ex instanceof EcpAjaxSystemException) {
 					return handleEcpAjaxSystemException((EcpAjaxSystemException) ex, request,
 							response, handler);
@@ -54,7 +60,7 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 							response, handler);
 				}
 			} else {
-				return handleEcpException((MissingServletRequestParameterException) ex, request,
+				return handleEcpException((Exception) ex, request,
 						response, handler);
 			}
 		} catch (Exception handlerException) {
@@ -63,27 +69,54 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 		}
 		return null;
 	}
-
-	private ModelAndView handleEcpException(
-			MissingServletRequestParameterException ex,
+	
+	/**
+	 * handler ajax business exception
+	 * @param ex
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 * @throws HttpMessageNotWritableException
+	 * @throws IOException
+	 */
+	private ModelAndView handleEcpAjaxBusinessException(
+			EcpAjaxBusinessException ex,
 			HttpServletRequest request, HttpServletResponse response,
-			Object handler) {
-		 ModelAndView model = new ModelAndView("error");
-		 model.addObject("exceptionMessage", ex.getMessage());
-		return model;
+			Object handler) throws HttpMessageNotWritableException, IOException {
+		//get input and output message 
+		HttpInputMessage inputMessage = new ServletServerHttpRequest(request);
+		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
+		//get contentType
+		MediaType contentType = inputMessage.getHeaders().getContentType();
+		ExceptionMessage returnValue = ex.getExceptionMessage();
+		//convert java object to json
+		MappingJacksonHttpMessageConverter messageConverter = new MappingJacksonHttpMessageConverter();
+		//write to responseMessage
+		messageConverter.write(returnValue, contentType, outputMessage);
+		return new ModelAndView();
 	}
-
-	private ModelAndView handleEcpSystemException(
-			EcpSystemException ex,
+	
+	/**
+	 * handler page business exception
+	 * @param ex
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 */
+	private ModelAndView handleEcpPageBusinessException(
+			EcpPageBusinessException ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) {
+		 //forward to error.jsp
 		 ModelAndView model = new ModelAndView("error");
+		 //put errorMessage to modelmap
 		 model.addObject("exceptionMessage", ex.getExceptionMessage());
 		return model;
 	}
-
 	/**
-	 * ϵͳ��ת�쳣
+	 * handler page system exception
 	 * @param ex
 	 * @param request
 	 * @param response
@@ -98,20 +131,44 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 		 model.addObject("exceptionMessage", ex.getExceptionMessage());
 		return model;
 	}
-
+	
+	/**
+	 * handler ajax System Exception
+	 * @param ex
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 * @throws HttpMessageNotWritableException
+	 * @throws IOException
+	 */
 	private ModelAndView handleEcpAjaxSystemException(
 			EcpAjaxSystemException ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) throws HttpMessageNotWritableException, IOException {
-		//response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		//get input and output message 
 		HttpInputMessage inputMessage = new ServletServerHttpRequest(request);
 		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
+		//get contentType
 		MediaType contentType = inputMessage.getHeaders().getContentType();
 		ExceptionMessage returnValue = ex.getExceptionMessage();
+		//convert java object to json
 		MappingJacksonHttpMessageConverter messageConverter = new MappingJacksonHttpMessageConverter();
+		//write to responseMessage
 		messageConverter.write(returnValue, contentType, outputMessage);
 		return new ModelAndView();
 	}
+
+
+	private ModelAndView handleEcpSystemException(
+			EcpSystemException ex,
+			HttpServletRequest request, HttpServletResponse response,
+			Object handler) {
+		 ModelAndView model = new ModelAndView("error");
+		 model.addObject("exceptionMessage", ex.getExceptionMessage());
+		return model;
+	}
+
 
 	private ModelAndView handleEcpBusinessException(
 			EcpBusinessException ex,
@@ -122,32 +179,13 @@ public class EcpExceptionResolver extends AbstractHandlerExceptionResolver {
 		return model;
 	}
 
-	private ModelAndView handleEcpAjaxBusinessException(
-			EcpAjaxBusinessException ex,
-			HttpServletRequest request, HttpServletResponse response,
-			Object handler) throws HttpMessageNotWritableException, IOException {
-		HttpInputMessage inputMessage = new ServletServerHttpRequest(request);
-		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
-		MediaType contentType = inputMessage.getHeaders().getContentType();
-		ExceptionMessage returnValue = ex.getExceptionMessage();
-		MappingJacksonHttpMessageConverter messageConverter = new MappingJacksonHttpMessageConverter();
-		messageConverter.write(returnValue, contentType, outputMessage);
-		return new ModelAndView();
-	}
-
-	/**
-	 * @param ex
-	 * @param request
-	 * @param response
-	 * @param handler
-	 * @return
-	 */
-	private ModelAndView handleEcpPageBusinessException(
-			EcpPageBusinessException ex,
+	private ModelAndView handleEcpException(
+			Exception ex,
 			HttpServletRequest request, HttpServletResponse response,
 			Object handler) {
 		 ModelAndView model = new ModelAndView("error");
-		 model.addObject("exceptionMessage", ex.getExceptionMessage());
+		 model.addObject("exceptionMessage", ex.getMessage());
 		return model;
 	}
+
 }

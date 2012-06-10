@@ -3,12 +3,14 @@ package com.test.exception.business;
 import com.test.message.ExceptionMessage;
 
 /**
-
+* common business exception
  * @author mza
  *
  */
 public class EcpBusinessException extends RuntimeException{
 	
+	private static final long serialVersionUID = -2044343593998763991L;
+
 	public EcpBusinessException(){
 
 	}

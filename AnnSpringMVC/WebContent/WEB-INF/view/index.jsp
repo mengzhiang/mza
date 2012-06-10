@@ -22,7 +22,7 @@ $(function(){
 				$("#ajaxNormal").after(json);
 			},
 			error:function(json){
-				alert(json.detail);
+				alert("error");
 			}
 		});
 	});
@@ -34,7 +34,7 @@ $(function(){
 				$("#ajaxBusi").after(json.message);
 			},
 			error:function(json){
-				alert("服务器未响应！");
+				alert("error");
 			}
 		});
 	});
@@ -43,10 +43,11 @@ $(function(){
 			url:"<%=PATH%>/hello/ajaxSys",
 			dateType:"json",
 			success:function(json){
+				//先判断业务异常，最后系统异常
 				$.syse(json);
 			},
 			error:function(json){
-				alert(json.detail);
+				alert("error");
 			}
 		});
 	});
