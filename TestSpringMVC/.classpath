@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.5.RELEASE.jar" sourcepath="D:/学习资料/JAVA/J2EE/SSH框架学习/Spring/类库/spring-framework-3.0.5.RELEASE/src/org.springframework.web.servlet-sources-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.beans-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.core-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web-3.0.5.RELEASE.jar" sourcepath="D:/学习/spring-framework-3.0.5.RELEASE/src/org.springframework.web-sources-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context-3.0.5.RELEASE.jar" sourcepath="D:/学习/spring-framework-3.0.5.RELEASE/src/org.springframework.context-sources-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.asm-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.expression-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/ecj-3.7.2.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.1.jar" sourcepath="D:/学习/javax.servlet.jsp.jstl-1.2.1-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar" sourcepath="D:/学习/javax.servlet.jsp.jstl-api-1.2.1-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-asl-1.9.7.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.7.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
