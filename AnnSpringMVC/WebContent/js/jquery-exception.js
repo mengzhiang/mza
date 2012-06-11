@@ -28,7 +28,7 @@ $(function() {
 	document.onkeyup = function(e) {
 		var theEvent = window.event || e;
 		var code = theEvent.keyCode || theEvent.which;
-		if (theEvent.ctrlKey && theEvent.shiftKey && code == 84) {
+		if (theEvent.altKey && code == 84) {
 			if ($(".syse_message").is(":hidden")) {
 				$(".syse_message").show();
 			} else {

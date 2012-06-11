@@ -1,5 +1,9 @@
 .syse_message {
 	display: none;
-	border: 1px;
-	color: red
+	border: 1px solid black;
+	color: white;
+	background: black;
+	position: absolute;
+	width: 800px;
+	overflow: scroll;
 }

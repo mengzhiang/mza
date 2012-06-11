@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/servlet-api.jar" sourcepath="D:/学习/servlet-api-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-api.jar"/>
-	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-coyote.jar" sourcepath="C:/Program Files/Java/jdk1.7.0_04/src.zip"/>
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-dbcp.jar"/>
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-i18n-es.jar"/>
 	<classpathentry kind="lib" path="D:/学习/apache-tomcat-7.0.27/lib/tomcat-i18n-fr.jar"/>

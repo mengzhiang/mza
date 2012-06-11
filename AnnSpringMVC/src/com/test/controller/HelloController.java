@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.exception.business.EcpAjaxBusinessException;
 import com.test.exception.business.EcpPageBusinessException;
-import com.test.exception.system.EcpAjaxSystemException;
-import com.test.exception.system.EcpPageSystemException;
 import com.test.exception.system.EcpSystemException;
 
 /**
@@ -36,35 +34,14 @@ public class HelloController {
 	public String pageBusi(ModelMap modelmap, HttpServletRequest request) {
 		throw new EcpPageBusinessException("您没有权限下单，请联系管理员","没有找到该客户对应的销售组织");
 	}
-	
 	/**
 	 * @param modelmap
 	 * @param request
 	 * @return
-	 * @throws EcpSystemException 
-	 * @throws EcpPageSystemException 
 	 */
 	@RequestMapping("/pageSys")
-	public String pageSys(ModelMap modelmap, HttpServletRequest request) throws EcpSystemException{
-		try {
-			testException();
-			return null;
-		} catch (ClassNotFoundException e) {
-			throw new EcpPageSystemException(e);
-		}
-		
-	}
-
-
-	/**
-	 * @param modelmap
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/ajaxNormal")
-	@ResponseBody
-	public String ajaxNormal(ModelMap modelmap, HttpServletRequest request){
-		return "ajaxNormal";
+	public String pageSys(ModelMap modelmap, HttpServletRequest request){	
+		throw new EcpSystemException(new NullPointerException());	
 	}
 	
 	/**
@@ -77,31 +54,26 @@ public class HelloController {
 	public String ajaxBusi(ModelMap modelmap, HttpServletRequest request){	
 		throw new EcpAjaxBusinessException("创建订单失败！","税额，含税单价，含税净价不能为空或0");	
 	}
+
+	/**
+	 * @param modelmap
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/ajaxSys")
+	@ResponseBody
+	public String ajaxSys(ModelMap modelmap, HttpServletRequest request){	
+		throw new EcpSystemException(new NullPointerException());	
+	}
 	
 	/**
 	 * @param modelmap
 	 * @param request
 	 * @return
-	 * @throws EcpAjaxSystemException 
 	 */
-	@RequestMapping("/ajaxSys")
+	@RequestMapping("/ajaxNormal")
 	@ResponseBody
-	public String ajaxSys(ModelMap modelmap, HttpServletRequest request) throws EcpAjaxSystemException{	
-		try {
-			testException();
-			return null;
-		} catch (ClassNotFoundException e) {
-			throw new EcpAjaxSystemException(e);
-		}
+	public String ajaxNormal(ModelMap modelmap, HttpServletRequest request){
+		return "ajaxNormal";
 	}
-
-	
-	/**
-	 * @throws ClassNotFoundException
-	 */
-	private void testException() throws ClassNotFoundException{
-		StackTest stack = new StackTest();
-		stack.testStrack();
-	}
-
 }

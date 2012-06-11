@@ -43,8 +43,9 @@ $(function(){
 			url:"<%=PATH%>/hello/ajaxSys",
 			dateType:"json",
 			success:function(json){
+					$("#ajaxSys").after(json.message);
 				//先判断业务异常，最后系统异常
-				$.syse(json);
+				$.syse(json.detail);
 			},
 			error:function(json){
 				alert("error");
